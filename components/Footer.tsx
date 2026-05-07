@@ -2,8 +2,7 @@
 
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Facebook, Instagram, Linkedin, Download, ArrowUp } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Facebook, Instagram, Linkedin, ArrowUp } from "lucide-react"
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -21,18 +20,18 @@ const Footer = () => {
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-200/20 blur-[120px] rounded-full" />
 
       <div className="container max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_280px] gap-12 lg:gap-16">
           {/* Brand Info */}
           <div className="space-y-8">
             <Link href="/" className="inline-block transform transition-transform hover:scale-105">
               <img
                 src="./assets/logo blue.png"
-                alt="TheBrokr Logo"
+                alt="The Brokrs Logo"
                 className="h-10 w-auto"
               />
             </Link>
             <p className="text-brand-600 text-sm leading-relaxed max-w-xs">
-              TheBrokrs — A Platform Where Skills, Business & Opportunity Meet. Empowerment through community and strategic investments.
+              The Brokrss — A Platform Where Skills, Business & Opportunity Meet. Empowerment through community and strategic investments.
             </p>
             <div className="flex items-center space-x-4">
               {[
@@ -55,7 +54,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="lg:justify-self-start">
             <h3 className="text-brand-950 font-display font-bold text-lg mb-8 relative inline-block">
               Quick Navigation
               <span className="absolute -bottom-2 left-0 w-8 h-1 bg-indigo-600 rounded-full" />
@@ -80,32 +79,12 @@ const Footer = () => {
             </ul>
           </div>
 
-
-          {/* Call to Action */}
-          <div>
-            <h3 className="text-brand-950 font-display font-bold text-lg mb-8 relative inline-block">
-              Stay Updated
-              <span className="absolute -bottom-2 left-0 w-8 h-1 bg-indigo-600 rounded-full" />
-            </h3>
-            <p className="text-brand-600 text-sm mb-6 italic">
-              Download our corporate brochure to learn about our community-driven growth model.
-            </p>
-            <Button
-              className="w-full bg-white text-brand-950 border border-brand-100 hover:bg-brand-50 rounded-xl h-14 shadow-lg transition-all duration-300 group font-bold"
-              asChild
-            >
-              <a href="https://thebrokrs.co.in/wp-content/uploads/2025/06/Untitled-design-38-1.png" download>
-                <Download className="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-1" />
-                Download Brochure
-              </a>
-            </Button>
-          </div>
         </div>
 
         {/* Bottom Banner */}
         <div className="mt-20 pt-8 border-t border-brand-100 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-brand-400 text-xs">
-            &copy; {currentYear} TheBrokr. All rights reserved.
+            &copy; {currentYear} The Brokrs. All rights reserved.
           </p>
           <div className="flex items-center space-x-8 text-xs text-brand-400">
             <Link href="#" className="hover:text-brand-900 transition-colors">Privacy Policy</Link>

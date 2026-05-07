@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { UserPlus, ShieldCheck, Gift, ArrowRight } from "lucide-react"
+import { UserPlus, ShieldCheck, Gift, ArrowRight, FileCheck2, Share2, WalletCards } from "lucide-react"
 
 const steps = [
   {
@@ -10,8 +10,8 @@ const steps = [
     title: "Register",
     description: "Begin your journey by signing up. Access strategic investment clusters and tailored business services.",
     highlight: "Quick & Secure",
-    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800",
-    accent: "bg-indigo-600"
+    accent: "bg-indigo-600",
+    visual: "register"
   },
   {
     step: "02",
@@ -19,8 +19,8 @@ const steps = [
     title: "Complete KYC",
     description: "Verify your identity through our transparent process to ensure legal compliance and ownership confidence.",
     highlight: "Safe & Documented",
-    image: "https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?auto=format&fit=crop&q=80&w=800",
-    accent: "bg-emerald-600"
+    accent: "bg-emerald-600",
+    visual: "kyc"
   },
   {
     step: "03",
@@ -28,24 +28,96 @@ const steps = [
     title: "Refer & Earn",
     description: "Share the vision with your network. Grow your community and earn rewards as you help others build their legacy.",
     highlight: "Collective Growth",
-    image: "https://images.unsplash.com/photo-1579621970588-a35d0e7ab9b6?auto=format&fit=crop&q=80&w=800",
-    accent: "bg-rose-600"
+    accent: "bg-rose-600",
+    visual: "refer"
   }
 ]
 
+const ProcessVisual = ({ type }: { type: string }) => {
+  if (type === "kyc") {
+    return (
+      <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-emerald-100 via-white to-cyan-100">
+        <div className="absolute inset-x-8 top-8 rounded-3xl bg-white/80 p-5 shadow-2xl shadow-emerald-900/10 border border-white">
+          <div className="flex items-center justify-between border-b border-emerald-100 pb-3">
+            <div className="space-y-2">
+              <span className="block h-2 w-20 rounded-full bg-emerald-200" />
+              <span className="block h-2 w-28 rounded-full bg-slate-200" />
+            </div>
+            <FileCheck2 className="h-8 w-8 text-emerald-600" />
+          </div>
+          <div className="mt-5 grid grid-cols-[56px_1fr] gap-4">
+            <div className="h-14 w-14 rounded-2xl bg-emerald-50 border border-emerald-100" />
+            <div className="space-y-3">
+              <span className="block h-2 rounded-full bg-slate-200" />
+              <span className="block h-2 w-4/5 rounded-full bg-slate-200" />
+              <span className="block h-2 w-2/3 rounded-full bg-emerald-200" />
+            </div>
+          </div>
+        </div>
+        <div className="absolute top-6 right-8 rounded-2xl bg-emerald-600 px-4 py-3 text-white shadow-xl">
+          <ShieldCheck className="h-6 w-6" />
+        </div>
+      </div>
+    )
+  }
+
+  if (type === "refer") {
+    return (
+      <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-rose-100 via-white to-amber-100">
+        <div className="absolute left-1/2 top-12 h-20 w-20 -translate-x-1/2 rounded-full bg-white shadow-2xl shadow-rose-900/10 border border-rose-100 flex items-center justify-center">
+          <Gift className="h-10 w-10 text-rose-600" />
+        </div>
+        <div className="absolute left-10 bottom-8 h-14 w-14 rounded-2xl bg-white border border-rose-100 shadow-lg flex items-center justify-center">
+          <Share2 className="h-7 w-7 text-rose-500" />
+        </div>
+        <div className="absolute right-10 bottom-8 h-14 w-14 rounded-2xl bg-white border border-amber-100 shadow-lg flex items-center justify-center">
+          <WalletCards className="h-7 w-7 text-amber-500" />
+        </div>
+        <div className="absolute left-[27%] top-[57%] h-1 w-24 -rotate-12 rounded-full bg-rose-200" />
+        <div className="absolute right-[27%] top-[57%] h-1 w-24 rotate-12 rounded-full bg-amber-200" />
+      </div>
+    )
+  }
+
+  return (
+    <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-indigo-100 via-white to-sky-100">
+      <div className="absolute left-8 top-8 rounded-[28px] bg-white/85 p-5 shadow-2xl shadow-indigo-900/10 border border-white">
+        <div className="flex items-center gap-3">
+          <div className="h-12 w-12 rounded-2xl bg-indigo-50 flex items-center justify-center">
+            <UserPlus className="h-7 w-7 text-indigo-600" />
+          </div>
+          <div className="space-y-2">
+            <span className="block h-2 w-24 rounded-full bg-indigo-200" />
+            <span className="block h-2 w-32 rounded-full bg-slate-200" />
+          </div>
+        </div>
+        <div className="mt-5 grid grid-cols-3 gap-2">
+          <span className="h-12 rounded-xl bg-indigo-50" />
+          <span className="h-12 rounded-xl bg-sky-50" />
+          <span className="h-12 rounded-xl bg-emerald-50" />
+        </div>
+      </div>
+      <div className="absolute -bottom-8 right-8 h-28 w-28 rounded-full bg-indigo-500/15" />
+      <div className="absolute top-6 right-10 rounded-2xl bg-indigo-600 px-4 py-3 text-white shadow-xl">
+        <ArrowRight className="h-6 w-6" />
+      </div>
+    </div>
+  )
+}
+
 const Process = () => {
   return (
-    <section id="process" className="pt-10 pb-16 bg-white relative overflow-hidden">
+    <section id="process" className="pt-16 pb-24 md:pt-20 md:pb-28 lg:pt-24 lg:pb-32 bg-white relative overflow-hidden">
       <div className="container max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-20 space-y-4">
+        <div className="text-center mb-14 lg:mb-16 space-y-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold uppercase tracking-widest mb-4"
           >
-            <span className="w-2 h-2 rounded-full bg-indigo-600" />
-            <span>The Journey</span>
+            {/* <span className="w-2 h-2 rounded-full bg-indigo-600" /> */}
+            {/* <span>The Journey</span> */}
           </motion.div>
           <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-950">How It Works</h2>
           <p className="text-brand-600 text-lg max-w-2xl mx-auto leading-relaxed">
@@ -79,11 +151,7 @@ const Process = () => {
                   >
                     {/* Image Area (Overflow hidden here) */}
                     <div className="relative h-48 overflow-hidden rounded-t-[40px]">
-                      <img 
-                        src={item.image} 
-                        alt={item.title} 
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
+                      <ProcessVisual type={item.visual} />
                       <div className="absolute inset-0 bg-brand-950/20 group-hover:bg-transparent transition-colors duration-500" />
                       
                       {/* Floating Step Badge */}

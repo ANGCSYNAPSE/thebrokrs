@@ -78,7 +78,7 @@ export default function ContactPage() {
               <span className="text-indigo-600 font-light italic">Conversation.</span>
             </h1>
             <p className="text-brand-600 text-lg max-w-2xl mx-auto">
-              Ready to explore strategic land clusters or join our community? Our team is available to assist you with every detail.
+Ready to discover smart solutions and personalized support? Our team is available to assist you via WhatsApp, Phone, or Email.
             </p>
           </motion.div>
         </div>

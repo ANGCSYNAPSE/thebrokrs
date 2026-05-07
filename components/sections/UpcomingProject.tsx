@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button"
 
 const UpcomingProject = () => {
   return (
-    <section id="upcoming" className="pt-12 pb-20 bg-white relative">
+    <section id="upcoming" className="py-28 md:py-32 lg:py-40 bg-white relative">
       <div className="container max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24 items-center">
 
           {/* Content */}
           <motion.div

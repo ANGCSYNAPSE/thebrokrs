@@ -9,19 +9,19 @@ const Testimonials = () => {
     {
       name: "Mr Niklesh Rastogi",
       role: "Property Investor",
-      text: "TheBrokr team turned our vision into a tangible reality. They listened to our specific land requirements and offered suggestions that took our investment to the next level. Their professionalism is unmatched.",
+      text: "The Brokrs team turned our vision into a tangible reality. They listened to our specific land requirements and offered suggestions that took our investment to the next level. Their professionalism is unmatched.",
       image: "https://thebrokrs.co.in/wp-content/uploads/2024/09/Mr-Niklesh-rastogi.jpg"
     },
     {
       name: "Dr. Lakshay",
       role: "Clinic Owner",
-      text: "Choosing the strategic land clusters provided by TheBrokr was the best decision for our commercial expansion. The design is both elegant and practical. They were a pleasure to work with throughout the lifecycle.",
+      text: "Choosing the strategic land clusters provided by The Brokrs was the best decision for our commercial expansion. The design is both elegant and practical. They were a pleasure to work with throughout the lifecycle.",
       image: "https://thebrokrs.co.in/wp-content/uploads/2024/09/Dr-lakshay.jpg"
     },
     {
       name: "Mr Vijay Shukla",
       role: "Corporate Client",
-      text: "TheBrokr platform is where skills, business, and opportunity truly meet. Their high-growth mushroom farming project has delivered exceptional returns already. A community you can trust.",
+      text: "The Brokrs platform is where skills, business, and opportunity truly meet. Their high-growth mushroom farming project has delivered exceptional returns already. A community you can trust.",
       image: "https://thebrokrs.co.in/wp-content/uploads/2024/09/Screenshot_2024-09-04-14-39-47-580_com.whatsapp.w4b-edit.jpg"
     }
   ]

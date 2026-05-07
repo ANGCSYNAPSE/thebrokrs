@@ -174,7 +174,7 @@ const Hero = () => {
               </Link>
             </Button>
 
-            <Button
+            {/* <Button
               variant="outline"
               size="lg"
               onClick={() => setShowOverview(true)}
@@ -182,7 +182,7 @@ const Hero = () => {
             >
               <Play className="mr-2 h-5 w-5 fill-white group-hover:scale-110 transition-transform" />
               Watch Overview
-            </Button>
+            </Button> */}
           </motion.div>
         </div>
       </div>
@@ -239,7 +239,7 @@ const Hero = () => {
                 <div className="text-center space-y-4 max-w-2xl mx-auto">
                   <h3 className="text-indigo-600 font-bold uppercase tracking-widest text-sm">Business Ecosystem</h3>
                   <h2 className="text-3xl md:text-4xl font-display font-bold text-brand-950">Architecting Infinite Growth.</h2>
-                  <p className="text-brand-600">Discover how TheBrokr combines skill-based entry with strategic asset management to deliver unmatched returns.</p>
+                  <p className="text-brand-600">Discover how The Brokrs combines skill-based entry with strategic asset management to deliver unmatched returns.</p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

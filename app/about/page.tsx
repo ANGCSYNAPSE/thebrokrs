@@ -62,12 +62,12 @@ export default function AboutPage() {
                 </h3>
                 <h2 className="text-4xl font-display font-bold text-brand-950 leading-tight">
                   The Foundation of <br />
-                  <span className="text-indigo-600">TheBrokr Ecosystem.</span>
+                  <span className="text-indigo-600">The Brokrs Ecosystem.</span>
                 </h2>
               </div>
               <div className="space-y-6 text-brand-700 leading-relaxed text-lg">
                 <p>
-                  TheBrokr was founded with a singular vision: to democratize access to high-growth business opportunities. We observed that many individuals have the skills but lack the capital, while investors have the capital but lack the ground-level synergy. 
+                  The Brokrs was founded with a singular vision: to democratize access to high-growth business opportunities. We observed that many individuals have the skills but lack the capital, while investors have the capital but lack the ground-level synergy. 
                 </p>
                 <p>
                   By creating a community-centric platform, we've successfully bridged this gap. Our flagship project in sustainable mushroom farming has already shown how collective land ownership can yield consistent, long-term returns (18% NRI) while building a robust local economy.

@@ -5,7 +5,7 @@ import { MessageCircle } from "lucide-react"
 
 const WhatsAppButton = () => {
   const whatsappNumber = "917800178002"
-  const message = "Hello TheBrokr team, I'm interested in learning more about your business clusters and investment opportunities."
+  const message = "Hello The Brokrs team, I'm interested in learning more about your business clusters and investment opportunities."
 
   return (
     <motion.a

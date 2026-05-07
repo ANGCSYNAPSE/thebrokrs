@@ -23,16 +23,16 @@ export const viewport = {
 }
 
 export const metadata: Metadata = {
-  title: "TheBrokr - Where Skills, Business & Opportunity Meet",
-  description: "TheBrokr: A premier community-driven platform for strategic land ownership, investment clusters, and business verticals with 18% lifetime returns.",
-  keywords: "TheBrokr, land ownership, mushroom farming investment, investment clusters, business opportunity, high ROI investment India, collaborative growth",
-  authors: [{ name: "TheBrokr" }],
-  creator: "TheBrokr",
+  title: "The Brokrs - Where Skills, Business & Opportunity Meet",
+  description: "The Brokrs: A premier community-driven platform for strategic land ownership, investment clusters, and business verticals with 18% lifetime returns.",
+  keywords: "The Brokrs, land ownership, mushroom farming investment, investment clusters, business opportunity, high ROI investment India, collaborative growth",
+  authors: [{ name: "The Brokrs" }],
+  creator: "The Brokrs",
   openGraph: {
-    title: "TheBrokr - Empowering Your Business Vision",
+    title: "The Brokrs - Empowering Your Business Vision",
     description: "Join a revolutionary platform where skills are the currency and collective growth is the goal. Explore 18% lifetime returns.",
     url: "https://thebrokrs.co.in",
-    siteName: "TheBrokr",
+    siteName: "The Brokrs",
     images: [
       {
         url: "https://thebrokrs.co.in/wp-content/uploads/2024/08/Final-brokrs-grand-sapphire-2-1024x422.png",

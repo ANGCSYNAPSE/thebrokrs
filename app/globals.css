@@ -125,7 +125,7 @@
 
   /* ── Section & Spacing ── */
   .section-padding {
-    @apply py-24 lg:py-36 px-6 lg:px-12;
+    @apply py-28 md:py-32 lg:py-40 px-6 lg:px-12;
   }
 
   .section-divider {

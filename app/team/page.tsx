@@ -14,7 +14,7 @@ export default function TeamPage() {
     {
       name: "Akshay",
       role: "Chief Executive Officer",
-      bio: "Driving the operational excellence and community-centric business model of TheBrokr.",
+      bio: "Driving the operational excellence and community-centric business model of The Brokrs.",
       image: "https://thebrokrs.co.in/wp-content/uploads/2025/07/2.png"
     }
   ]

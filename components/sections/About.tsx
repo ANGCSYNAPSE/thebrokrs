@@ -7,26 +7,26 @@ const About = () => {
   const highlights = [
     {
       icon: Target,
-      title: "Strategic Land Ownership",
-      desc: "Invest in high-growth mushroom farming projects with 18% lifetime returns.",
+      title: "Growth Marketing Strategy",
+      desc: "We craft sharp campaigns that turn attention into trust, leads, and measurable business growth.",
       color: "bg-indigo-500/10 text-indigo-400"
     },
     {
       icon: Users2,
-      title: "Community Driven",
-      desc: "A platform where your skills are your currency. No upfront entry costs.",
+      title: "Brand-Led Community",
+      desc: "We help brands build loyal audiences through consistent storytelling and high-intent engagement.",
       color: "bg-gold-500/10 text-gold-500"
     },
     {
       icon: Building2,
-      title: "Portfolio Diversification",
-      desc: "Access diverse business verticals from Real Estate to E-commerce.",
+      title: "Multi-Industry Reach",
+      desc: "From real estate to e-commerce, we position businesses with clear messaging and scalable visibility.",
       color: "bg-brand-500/10 text-brand-400"
     }
   ]
 
   return (
-    <section id="about" className="py-24 bg-white overflow-hidden relative">
+    <section id="about" className="py-28 md:py-32 lg:py-40 bg-white overflow-hidden relative">
       {/* Subtle bg decoration */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-50/40 rounded-full blur-[120px] -mr-64 -mt-32 pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-50/30 rounded-full blur-[100px] -ml-48 -mb-32 pointer-events-none" />
@@ -34,7 +34,7 @@ const About = () => {
       <div className="container max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Top: Feature Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-28 lg:mb-32">
           {highlights.map((item, i) => (
             <motion.div
               key={i}
@@ -67,22 +67,22 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center max-w-3xl mx-auto space-y-8 mb-20"
+          className="text-center max-w-3xl mx-auto space-y-8 mb-24 lg:mb-28"
         >
           <div className="space-y-4">
             <h3 className="text-indigo-600 font-bold uppercase tracking-widest text-sm flex items-center justify-center">
               <span className="w-8 h-px bg-indigo-600 mr-4" />
-              Our Vision & Mission
+              About The Brokrs
               <span className="w-8 h-px bg-indigo-600 ml-4" />
             </h3>
             <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-950 leading-tight">
-              Redefining Collaborative <br />
-              <span className="text-indigo-600">Wealth Creation.</span>
+              Redefining Collaborative
+              <span className="block mt-3 text-indigo-600">Brand Growth.</span>
             </h2>
           </div>
 
           <p className="text-lg text-brand-700 leading-relaxed">
-            TheBrokr is not just a company; it's a movement. We bridge the gap between aspirational entrepreneurs and strategic investors by fostering a community built on trust, transparency, and shared growth.
+            The Brokrs is a marketing-first growth company built to make ambitious brands impossible to ignore. We connect strategy, creative storytelling, digital reach, and trusted community influence to help businesses attract the right audience and convert attention into action.
           </p>
         </motion.div>
 
@@ -100,11 +100,11 @@ const About = () => {
             
             <div className="relative z-10 flex flex-col items-center text-center space-y-10">
               <p className="text-brand-950 font-display font-medium italic text-xl md:text-1xl leading-relaxed max-w-2xl mx-auto">
-                "Our goal is to build a community where every individual has the opportunity to thrive through collective investment and strategic synergy."
+                "Our goal is to give every brand a sharper voice, a stronger market presence, and a growth engine that keeps working long after the first impression."
               </p>
               
               <div className="flex flex-col items-center space-y-4">
-                <div className="w-24 h-24 rounded-full border-4 border-white shadow-2xl overflow-hidden group-hover:scale-110 transition-transform duration-500">
+                <div className="w-32 h-32 md:w-36 md:h-36 rounded-full border-4 border-white shadow-2xl overflow-hidden group-hover:scale-110 transition-transform duration-500">
                   <img 
                     src="https://thebrokrs.co.in/wp-content/uploads/2025/07/1.png" 
                     alt="CMD Puneet Aggarwal" 
@@ -126,10 +126,10 @@ const About = () => {
         {/* Optional Bullet Points (Simplified & Centered) */}
         <div className="flex flex-wrap justify-center gap-4 mt-4">
           {[
-            "Skill-based Entry",
-            "Lifetime Returns",
-            "Transparent KYC",
-            "8+ Verticals"
+            "Brand Strategy",
+            "Lead Generation",
+            "Digital Campaigns",
+            "Multi-Industry Reach"
           ].map((item, i) => (
             <div key={i} className="flex items-center space-x-3 bg-brand-50/50 py-3 px-5 rounded-2xl border border-brand-100/50">
               <CheckCircle2 className="w-4 h-4 text-indigo-600" />

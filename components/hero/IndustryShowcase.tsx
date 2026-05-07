@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import gsap from 'gsap';
 import {
   Building2,
@@ -17,6 +18,8 @@ import {
   Layers
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+
+const MotionImage = motion(Image);
 
 const industries = [
   {
@@ -154,9 +157,12 @@ const IndustryShowcase: React.FC = () => {
           transition={{ duration: 0.8, ease: 'easeInOut' }}
           className="scene active"
         >
-          <motion.img
+          <MotionImage
             src={industries[currentScene].image}
             alt={industries[currentScene].title}
+            fill
+            priority={currentScene === 0}
+            sizes="100vw"
             className="scene-image"
             initial={{ scale: 1.1, opacity: 0 }}
             animate={{

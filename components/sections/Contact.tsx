@@ -47,13 +47,13 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="pt-12 pb-16 bg-white relative overflow-hidden">
+    <section id="contact" className="py-28 md:py-32 lg:py-40 bg-white relative overflow-hidden">
       {/* Header Decoration */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-100 to-transparent" />
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-indigo-50/30 rounded-full blur-[120px] -mr-48 -mt-32 pointer-events-none" />
       
       <div className="container max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 xl:gap-24">
           {/* Contact Information */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -71,7 +71,7 @@ const Contact = () => {
                 Contact Headquarter<br />
               </h2>
               <p className="text-brand-600 text-lg leading-relaxed max-w-md">
-                Ready to explore strategic land clusters or join our community? Our team is available to assist you via WhatsApp, Phone, or Email.
+                Ready to discover smart solutions and personalized support? Our team is available to assist you via WhatsApp, Phone, or Email.
               </p>
             </div>
 
@@ -115,7 +115,7 @@ const Contact = () => {
           >
             <div className="space-y-10 relative z-10">
               <div className="space-y-4">
-                <h3 className="text-3xl font-display font-bold text-brand-950">Send a Message</h3>
+                <h3 className="text-3xl font-display font-bold text-brand-950">Join Us Now</h3>
                 <p className="text-brand-500 text-sm">Fill out the form below and an expert will get back to you shortly.</p>
               </div>
 
