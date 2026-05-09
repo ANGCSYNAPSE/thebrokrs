@@ -18,70 +18,70 @@ import {
 const categories = [
   {
     title: "Real Estate",
-    description: "Community-first property opportunities, verified listings, and guided support for families and investors looking for trusted spaces.",
+    description: "Brand visibility, launch campaigns, and enquiry-focused communication for property opportunities.",
     icon: Building2,
     color: "text-cyan-700",
     bg: "bg-cyan-50"
   },
   {
     title: "IT & Software",
-    description: "Digital tools, automation, and software support that help partner businesses serve their communities with better speed and clarity.",
+    description: "Positioning, product messaging, and demand campaigns for software and digital service brands.",
     icon: Code2,
     color: "text-indigo-600",
     bg: "bg-indigo-50"
   },
   {
     title: "Loan",
-    description: "Accessible financial connections designed to help members discover lending options with guidance, transparency, and confidence.",
+    description: "Trust-first campaigns that explain lending offers clearly and drive qualified financial enquiries.",
     icon: Landmark,
     color: "text-emerald-600",
     bg: "bg-emerald-50"
   },
   {
     title: "Insurance",
-    description: "Protection-focused partner services that make important insurance choices easier to understand, compare, and act on.",
+    description: "Awareness and conversion journeys that make protection-focused offers easier to understand and act on.",
     icon: ShieldCheck,
     color: "text-rose-600",
     bg: "bg-rose-50"
   },
   {
     title: "Investment",
-    description: "Simple investment pathways and education-led partner access for members planning long-term financial growth.",
+    description: "Education-led marketing flows that present investment opportunities with clarity and confidence.",
     icon: PieChart,
     color: "text-amber-600",
     bg: "bg-amber-50"
   },
   {
     title: "Travel",
-    description: "Curated travel benefits, group experiences, and partner deals shaped around community convenience and shared savings.",
+    description: "Promotional campaigns for travel offers, packages, and partner experiences built for discovery.",
     icon: Plane,
     color: "text-sky-600",
     bg: "bg-sky-50"
   },
   {
     title: "Grocery",
-    description: "Everyday essentials, local vendor access, and useful grocery benefits built to support households and neighborhood businesses.",
+    description: "Local demand campaigns for everyday essentials, partner stores, and recurring household needs.",
     icon: ShoppingBag,
     color: "text-green-600",
     bg: "bg-green-50"
   },
   {
     title: "HealthCare",
-    description: "Reliable healthcare connections, wellness benefits, and support services that bring practical care closer to every member.",
+    description: "Trust-led visibility for healthcare partners, wellness services, and support-driven offers.",
     icon: Stethoscope,
     color: "text-teal-600",
     bg: "bg-teal-50"
   },
   {
     title: "Manpower",
-    description: "Talent, staffing, and opportunity networks that connect skilled people with growing businesses inside the community.",
+    description: "Recruitment and staffing campaign support that connects talent demand with credible outreach.",
     icon: Users,
     color: "text-blue-600",
     bg: "bg-blue-50"
   },
   {
     title: "E-Commerce",
-    description: "A partner commerce ecosystem for sellers, buyers, and local brands to grow with simpler discovery and smoother digital reach.",
+    description: "Seller-focused visibility and campaign support for commerce brands ready to scale online.",
     icon: Store,
     color: "text-violet-600",
     bg: "bg-violet-50"
@@ -90,7 +90,7 @@ const categories = [
 
 const LaunchingSoon = () => {
   return (
-    <section className="py-28 md:py-32 lg:py-40 bg-white relative overflow-hidden">
+    <section className="pt-14 pb-24 md:pt-16 md:pb-28 lg:pt-20 lg:pb-32 bg-white relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-50/30 rounded-full blur-[100px] -mr-64 -mt-64" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-50/30 rounded-full blur-[100px] -ml-64 -mb-64" />
 
@@ -106,7 +106,7 @@ const LaunchingSoon = () => {
           </motion.div>
           <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-950">Launching Soon.</h2>
           <p className="text-brand-600 text-lg max-w-2xl mx-auto leading-relaxed">
-            We are expanding our community benefits ecosystem with useful partner services for everyday growth, savings, and support.
+            We are preparing marketing verticals across high-demand sectors, each shaped with clear messaging, partner visibility, and campaign-ready positioning.
           </p>
         </div>
 

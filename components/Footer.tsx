@@ -31,7 +31,7 @@ const Footer = () => {
               />
             </Link>
             <p className="text-brand-600 text-sm leading-relaxed max-w-xs">
-              The Brokrss — A Platform Where Skills, Business & Opportunity Meet. Empowerment through community and strategic investments.
+              The Brokrs is a marketing-first growth company helping brands build sharper positioning, stronger visibility, and campaign-ready demand.
             </p>
             <div className="flex items-center space-x-4">
               {[
@@ -62,9 +62,9 @@ const Footer = () => {
             <ul className="grid grid-cols-1 gap-4">
               {[
                 { name: "About Company", href: "#about" },
+                { name: "Active Project", href: "#upcoming" },
                 { name: "Our Services", href: "#services" },
                 { name: "Latest Projects", href: "#projects" },
-                { name: "Contact Hub", href: "#contact" },
               ].map((link) => (
                 <li key={link.name}>
                   <Link

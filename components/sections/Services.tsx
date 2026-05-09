@@ -17,17 +17,17 @@ const serviceSteps = [
   {
     icon: Megaphone,
     title: "Campaign",
-    description: "Turn partner offers into clear benefit-led promotions."
+    description: "Turn business offers into clear, benefit-led campaigns."
   },
   {
     icon: UsersRound,
     title: "Community",
-    description: "Share campaigns through members, referrals, and local touchpoints."
+    description: "Build reach through digital channels, referrals, and local touchpoints."
   },
   {
     icon: BadgePercent,
     title: "Benefits",
-    description: "Showcase savings, access, and trusted partner value."
+    description: "Convert attention into enquiries, leads, and measurable business actions."
   }
 ]
 
@@ -35,9 +35,9 @@ const mediaItems = [
   {
     id: 1,
     type: "video",
-    title: "Community Benefits Intro",
+    title: "Campaign Overview",
     category: "Videos",
-    description: "A short video space for explaining how members discover offers, partners, and benefits.",
+    description: "A short video space for explaining campaign goals, partner offers, and market positioning.",
     src: "/assets/v1.mp4",
     poster: "/assets/design.png"
   },
@@ -46,7 +46,7 @@ const mediaItems = [
     type: "image",
     title: "Partner Launch Moment",
     category: "Partners",
-    description: "Use this gallery card for partner launches, announcements, and association highlights.",
+    description: "Use this gallery card for partner launches, brand announcements, and association highlights.",
     src: "/assets/project.jpeg"
   },
   {
@@ -54,7 +54,7 @@ const mediaItems = [
     type: "image",
     title: "Real Estate Benefit",
     category: "Offers",
-    description: "A visual slot for property benefits, member deals, and verified opportunity campaigns.",
+    description: "A visual slot for property campaigns, project visibility, and verified opportunity communication.",
     src: "/assets/estate.jpeg"
   },
   {
@@ -62,15 +62,15 @@ const mediaItems = [
     type: "image",
     title: "Member Registration",
     category: "Stories",
-    description: "A story card for registration drives, onboarding, and community activation.",
+    description: "A story card for lead capture, onboarding drives, and audience activation.",
     src: "/assets/register.png"
   },
   {
     id: 5,
     type: "image",
-    title: "KYC Support",
+    title: "Trust & Verification",
     category: "Stories",
-    description: "A support-focused gallery item for trust, verification, and member assistance.",
+    description: "A support-focused gallery item for trust building, verification, and customer assistance.",
     src: "/assets/kyc.jpg"
   }
 ]
@@ -113,11 +113,11 @@ const Services = () => {
                 Our Services
               </h3>
               <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-950 leading-tight">
-                Connecting Communities <br />
-                <span className="text-indigo-600">With Better Benefits.</span>
+                Campaign Systems <br />
+                <span className="text-indigo-600">Built For Visibility.</span>
               </h2>
               <p className="text-brand-600 text-lg leading-relaxed max-w-xl">
-                We connect people, partners, and benefit-led campaigns so every offer feels useful, visible, and easy to act on.
+                We connect strategy, creative assets, media, and partner communication so every offer becomes easier to understand, promote, and act on.
               </p>
             </div>
 
@@ -228,7 +228,7 @@ const Services = () => {
           </motion.div>
         </div>
 
-        <div className="relative left-1/2 mt-16 w-screen -translate-x-1/2 overflow-hidden border-y border-brand-100 bg-white/75 py-8 shadow-xl shadow-brand-500/5">
+        <div className="relative left-1/2 mt-32 w-screen -translate-x-1/2 overflow-hidden border-y border-brand-100 bg-white/75 py-8 shadow-xl shadow-brand-500/5">
           <div className="mb-7 flex items-center justify-center gap-3 text-indigo-600 text-xs font-black uppercase tracking-widest">
             <Handshake className="h-4 w-4" />
             <span>Association With</span>

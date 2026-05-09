@@ -27,28 +27,28 @@ const Hero = () => {
   const overviewSlides = [
     {
       title: "Strategic Vision",
-      desc: "Democratizing high-growth investment through community synergy and strategic land clusters. We bridge human potential and capital.",
+      desc: "Building clear market positions, sharper campaigns, and growth systems for brands across multiple business verticals.",
       icon: Target,
       color: "bg-indigo-500",
       stats: "10k+ Members"
     },
     {
       title: "Business Verticals",
-      desc: "From sustainable mushroom farming to real estate & E-commerce, we manage 8+ recession-proof, high-yield business units.",
+      desc: "From active growth projects to real estate, software, and commerce, we shape vertical-specific marketing journeys.",
       icon: Building2,
       color: "bg-gold-500",
       stats: "8+ Verticals"
     },
     {
-      title: "Lifetime Returns",
-      desc: "Our unique 18% lifetime ROI model ensures long-term wealth creation backed by tangible, professionally managed assets.",
+      title: "Campaign Performance",
+      desc: "Every campaign is designed around visibility, qualified demand, and a clearer conversion path for the audience.",
       icon: TrendingUp,
       color: "bg-emerald-500",
       stats: "18% ROI"
     },
     {
-      title: "Skill + Capital",
-      desc: "A revolutionary portal where your skills are your currency. No upfront entry costs for talent-driven participation.",
+      title: "Creative + Strategy",
+      desc: "We combine brand storytelling, local reach, and digital execution so businesses can scale with confidence.",
       icon: Gem,
       color: "bg-purple-500",
       stats: "Zero Entry Cost"
@@ -79,6 +79,8 @@ const Hero = () => {
     "Scale."
   ]
   const [wordIndex, setWordIndex] = useState(0)
+  const [typedWord, setTypedWord] = useState("")
+  const [typedSynonym, setTypedSynonym] = useState("")
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -87,11 +89,43 @@ const Hero = () => {
     return () => clearInterval(interval)
   }, [])
 
+  useEffect(() => {
+    const word = rotatingWords[wordIndex]
+    const synonym = rotatingSynonyms[wordIndex]
+    const totalCharacters = word.length + synonym.length + 1
+    const typingDuration = 3600
+    const stepDuration = typingDuration / totalCharacters
+    let currentCharacter = 0
+
+    setTypedWord("")
+    setTypedSynonym("")
+
+    const interval = setInterval(() => {
+      currentCharacter += 1
+
+      if (currentCharacter <= word.length) {
+        setTypedWord(word.slice(0, currentCharacter))
+        setTypedSynonym("")
+        return
+      }
+
+      const synonymCharacters = currentCharacter - word.length - 1
+      setTypedWord(word)
+      setTypedSynonym(synonym.slice(0, Math.max(0, synonymCharacters)))
+
+      if (currentCharacter >= totalCharacters) {
+        clearInterval(interval)
+      }
+    }, stepDuration)
+
+    return () => clearInterval(interval)
+  }, [wordIndex])
+
   return (
     <section id="home" className="relative h-screen min-h-[850px] w-full flex items-center justify-center overflow-hidden font-display">
       {/* Video Background Replacement */}
       <div className="absolute inset-0 z-0">
-        <IndustryShowcase />
+        <IndustryShowcase currentScene={wordIndex} />
         {/* Gradient only on bottom-left where text sits */}
         <div className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/40 to-transparent pointer-events-none" />
         {/* Additional subtle animated gradient overlay */}
@@ -108,7 +142,7 @@ const Hero = () => {
           >
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 shadow-lg">
               <Rocket className="w-4 h-4 text-indigo-300" />
-              <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-white/90">Launching Soon — Multi-Industry Platform</span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-white/90">Growth Marketing For Multi-Industry Brands</span>
               <span className="glow-dot" />
             </div>
           </motion.div>
@@ -123,37 +157,19 @@ const Hero = () => {
               Where Business <span className="text-indigo-400">&amp;</span>
               <span className="block mt-2">
                 <span className="inline-flex items-center justify-start whitespace-nowrap">
-                  <AnimatePresence mode="wait">
-                    <motion.span
-                      key={rotatingWords[wordIndex]}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.5 }}
-                      className="inline-block pb-3 text-3xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-indigo-300 to-white"
-                    >
-                      {rotatingWords[wordIndex]}
-                    </motion.span>
-                  </AnimatePresence>
-                  <AnimatePresence mode="wait">
-                    <motion.span
-                      key={rotatingSynonyms[wordIndex]}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.5 }}
-                      className="inline-block pb-3 text-3xl md:text-5xl lg:text-6xl font-bold ml-3 text-transparent bg-clip-text bg-gradient-to-r from-white to-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]"
-                    >
-                      {rotatingSynonyms[wordIndex]}
-                    </motion.span>
-                  </AnimatePresence>
+                  <span className="inline-block pb-3 text-3xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-indigo-300 to-white">
+                    {typedWord || "\u00A0"}
+                  </span>
+                  <span className="inline-block pb-3 text-3xl md:text-5xl lg:text-6xl font-bold ml-3 text-transparent bg-clip-text bg-gradient-to-r from-white to-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]">
+                    {typedSynonym}
+                  </span>
                 </span>
               </span>
             </h1>
 
             <p className="text-xl md:text-1xl text-white/80 font-light leading-relaxed max-w-3xl" style={{ textShadow: '0 2px 15px rgba(0,0,0,0.5)' }}>
               Join the future of collaborative wealth. <br className="hidden md:block" />
-              We bridge the gap between human potential and high-growth investment clusters.
+              We connect human potential with high-growth business opportunities built for long-term value.
             </p>
           </motion.div>
 
@@ -169,7 +185,7 @@ const Hero = () => {
               asChild
             >
               <Link href="#contact">
-                Start Your Journey
+                Start Growing
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-2" />
               </Link>
             </Button>
@@ -238,8 +254,8 @@ const Hero = () => {
               <div className="space-y-12">
                 <div className="text-center space-y-4 max-w-2xl mx-auto">
                   <h3 className="text-indigo-600 font-bold uppercase tracking-widest text-sm">Business Ecosystem</h3>
-                  <h2 className="text-3xl md:text-4xl font-display font-bold text-brand-950">Architecting Infinite Growth.</h2>
-                  <p className="text-brand-600">Discover how The Brokrs combines skill-based entry with strategic asset management to deliver unmatched returns.</p>
+                  <h2 className="text-3xl md:text-4xl font-display font-bold text-brand-950">Architecting Practical Growth.</h2>
+                  <p className="text-brand-600">See how The Brokrs connects positioning, creative direction, and campaign systems into one marketing engine.</p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -287,7 +303,7 @@ const Hero = () => {
                     className="rounded-2xl px-12 h-16 border-2 border-indigo-100 text-indigo-600 font-bold hover:bg-indigo-50 transition-colors w-full md:w-auto"
                   >
                     <Link href="#contact" onClick={() => setShowOverview(false)}>
-                      Join Our Community
+                      Talk Growth
                     </Link>
                   </Button>
                 </div>

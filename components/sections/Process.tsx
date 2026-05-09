@@ -7,27 +7,27 @@ const steps = [
   {
     step: "01",
     icon: UserPlus,
-    title: "Register",
-    description: "Begin your journey by signing up. Access strategic investment clusters and tailored business services.",
-    highlight: "Quick & Secure",
+    title: "Share Your Goal",
+    description: "Tell us your business vertical, audience, and growth target so we can understand the right campaign direction.",
+    highlight: "Discovery",
     accent: "bg-indigo-600",
     visual: "register"
   },
   {
     step: "02",
     icon: ShieldCheck,
-    title: "Complete KYC",
-    description: "Verify your identity through our transparent process to ensure legal compliance and ownership confidence.",
-    highlight: "Safe & Documented",
+    title: "Shape The Campaign",
+    description: "We refine positioning, campaign messaging, and the trust points your audience needs before taking action.",
+    highlight: "Strategy",
     accent: "bg-emerald-600",
     visual: "kyc"
   },
   {
     step: "03",
     icon: Gift,
-    title: "Refer & Earn",
-    description: "Share the vision with your network. Grow your community and earn rewards as you help others build their legacy.",
-    highlight: "Collective Growth",
+    title: "Launch & Grow",
+    description: "Your campaign moves into visibility, lead capture, and follow-up so attention becomes measurable business growth.",
+    highlight: "Execution",
     accent: "bg-rose-600",
     visual: "refer"
   }
@@ -107,21 +107,12 @@ const ProcessVisual = ({ type }: { type: string }) => {
 
 const Process = () => {
   return (
-    <section id="process" className="pt-16 pb-24 md:pt-20 md:pb-28 lg:pt-24 lg:pb-32 bg-white relative overflow-hidden">
+    <section id="process" className="pt-12 pb-24 md:pt-16 md:pb-28 lg:pt-20 lg:pb-32 bg-white relative overflow-hidden">
       <div className="container max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center mb-14 lg:mb-16 space-y-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold uppercase tracking-widest mb-4"
-          >
-            {/* <span className="w-2 h-2 rounded-full bg-indigo-600" /> */}
-            {/* <span>The Journey</span> */}
-          </motion.div>
           <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-950">How It Works</h2>
           <p className="text-brand-600 text-lg max-w-2xl mx-auto leading-relaxed">
-            A streamlined, three-step path designed to help you build, verify, and grow your wealth within our community.
+            A simple three-step marketing path that moves from business clarity to campaign launch and measurable growth.
           </p>
         </div>
 

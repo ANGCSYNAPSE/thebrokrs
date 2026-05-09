@@ -40,7 +40,7 @@ const Projects = () => {
   ]
 
   return (
-    <section id="projects" className="py-28 md:py-32 lg:py-40 bg-brand-50/30">
+    <section id="projects" className="pt-10 pb-24 md:pt-12 md:pb-28 lg:pt-14 lg:pb-32 bg-brand-50/30">
       <div className="container max-w-7xl mx-auto px-6">
         {/* Centered Layout Header */}
         <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-16 lg:mb-20 space-y-6">
@@ -54,7 +54,7 @@ const Projects = () => {
             <span className="text-indigo-600">Every Business Vertical.</span>
           </h2>
           <p className="text-brand-600 text-lg leading-relaxed pt-2">
-            Clear strategy, strong visibility, and campaigns that help every business vertical grow with confidence.
+            We build focused marketing systems for each vertical, from audience positioning to campaign visibility and lead flow.
           </p>
         </div>
         
@@ -62,7 +62,7 @@ const Projects = () => {
         <div>
           <div className="text-center mb-14 space-y-3">
             <h3 className="text-3xl font-display font-bold text-brand-950">Explore Our Business Verticals</h3>
-            <p className="text-brand-600 max-w-lg mx-auto italic">Choose a vertical and tell us where you want to grow. Our team will help shape the right marketing direction.</p>
+            <p className="text-brand-600 max-w-lg mx-auto italic">Choose a vertical and share your growth goal. Our team will map the right campaign direction.</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

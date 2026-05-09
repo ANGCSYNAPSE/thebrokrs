@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 
 const UpcomingProject = () => {
   return (
-    <section id="upcoming" className="py-28 md:py-32 lg:py-40 bg-white relative">
+    <section id="upcoming" className="pt-12 pb-16 md:pt-16 md:pb-20 lg:pt-20 lg:pb-20 bg-white relative">
       <div className="container max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24 items-center">
 
@@ -22,7 +22,7 @@ const UpcomingProject = () => {
             <div className="space-y-4">
               <h3 className="text-indigo-600 font-bold uppercase tracking-widest text-sm flex items-center">
                 <span className="w-8 h-px bg-indigo-600 mr-4" />
-                Active project
+                Active Growth Project
               </h3>
               <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-950 leading-tight">
                 Sustainable <br />
@@ -31,31 +31,31 @@ const UpcomingProject = () => {
             </div>
 
             <p className="text-brand-600 text-lg leading-relaxed">
-              Welcome to a unique project where we’re developing large-scale mushroom farming land. You can now own a piece of this land and enjoy stable, long-term returns — without needing to farm it yourself.
+              A live growth vertical promoted and managed through The Brokrs marketing ecosystem. We handle positioning, visibility, investor communication, and campaign support for sustainable mushroom farming so the opportunity is clear, trusted, and ready to scale.
             </p>
 
             <div className="bg-brand-50 rounded-2xl p-8 space-y-4">
-              <h4 className="text-xl font-bold text-brand-950">What You Get:</h4>
+              <h4 className="text-xl font-bold text-brand-950">What We Build Around It:</h4>
               <ul className="space-y-4">
                 <li className="flex items-start">
                   <CheckCircle2 className="w-6 h-6 text-indigo-600 mr-3 shrink-0" />
-                  <span className="text-brand-800 font-medium">Registered ownership in your name</span>
+                  <span className="text-brand-800 font-medium">Clear project positioning backed by structured campaign visibility</span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle2 className="w-6 h-6 text-indigo-600 mr-3 shrink-0" />
-                  <span className="text-brand-800 font-medium">Earn 18% lifetime returns with yearly growth</span>
+                  <span className="text-brand-800 font-medium">Professionally presented growth opportunity with long-term return focus</span>
                 </li>
               </ul>
             </div>
 
             <p className="text-brand-600 leading-relaxed italic">
-              We’re not just offering land — we’re creating a platform for people to fulfill dreams, grow wealth, and be part of a like-minded investor community. Whether you buy one unit or more, this is your chance to invest small and earn for life. Because the best investment on Earth — is still Earth.
+              This is more than a project listing. It is a brand-backed growth campaign built to connect sustainable business, community confidence, and long-term value through sharper communication and consistent market presence.
             </p>
 
             <div className="pt-4">
               <Button asChild size="lg" className="rounded-full px-10 h-14 bg-brand-950 text-white font-bold hover:bg-indigo-600 transition-colors shadow-xl group">
                 <Link href="#contact">
-                  Invest in Your Future
+                  Discuss This Project
                   <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>

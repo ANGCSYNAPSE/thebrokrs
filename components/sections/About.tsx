@@ -40,7 +40,7 @@ const chartMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
 
 const About = () => {
   return (
-    <section id="about" className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-white py-24 md:py-28 lg:py-32">
+    <section id="about" className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-white pt-24 pb-14 md:pt-28 md:pb-16 lg:pt-32 lg:pb-20">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-indigo-200 to-transparent" />
 
       <div className="container relative z-10 max-w-7xl mx-auto px-6">
@@ -211,31 +211,33 @@ const About = () => {
           </div>
 
           <div className="mx-6 mb-6 md:mx-8 lg:mx-10 rounded-[30px] border border-slate-200 bg-white px-6 py-10 shadow-xl shadow-brand-500/5 md:px-10 lg:px-14">
-            <div className="mx-auto grid max-w-4xl grid-cols-1 items-center gap-10 md:grid-cols-[260px_1fr]">
-              <div className="text-center">
+            <div className="mx-auto grid max-w-4xl grid-cols-1 items-center gap-8 md:grid-cols-[180px_1fr]">
+              <div className="flex -translate-x-4 translate-y-6 flex-col items-center justify-center text-center">
                 <motion.div
                   whileHover={{ scale: 1.035 }}
-                  className="mx-auto h-48 w-48 overflow-hidden rounded-full border-[5px] border-teal-700/80 p-1 shadow-xl shadow-teal-900/10"
+                  className="mx-auto h-32 w-32 overflow-hidden rounded-full shadow-xl shadow-teal-900/10"
                 >
                   <img
                     src="https://thebrokrs.co.in/wp-content/uploads/2025/07/1.png"
-                    alt="CMD Puneet Aggarwal"
+                    alt="DR Puneet Aggarwaal"
                     className="h-full w-full rounded-full object-cover"
                     onError={(e) => {
                       e.currentTarget.src = "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200"
                     }}
                   />
                 </motion.div>
-                <p className="mt-5 text-sm font-black uppercase tracking-widest text-brand-800">CMD Puneet Aggarwal</p>
+                <p className="mt-5 whitespace-nowrap text-sm font-black uppercase tracking-widest text-brand-800">DR Puneet Aggarwaal</p>
                 <p className="mt-1 text-sm font-semibold text-brand-500">Founder & CEO</p>
               </div>
 
-              <div className="relative text-center md:text-left">
+              <div className="relative flex min-h-40 items-center text-center md:text-left">
+                <div>
                 <Quote className="mb-3 inline-block h-8 w-8 rotate-180 text-teal-700/80 md:mb-0 md:mr-2" />
                 <p className="inline text-xl font-medium leading-relaxed text-brand-600 md:text-2xl">
                   We give every brand a sharper voice, a stronger market presence, and a growth engine built to keep performing.
                 </p>
                 <Quote className="ml-2 inline-block h-8 w-8 text-teal-700/80" />
+                </div>
               </div>
             </div>
           </div>

@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Phone, Send, MessageSquare, CheckCircle2 } from "lucide-react"
+import { Phone, Send, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -17,6 +17,17 @@ const contactSchema = z.object({
   subject: z.string().optional(),
   message: z.string().min(10, "Message must be at least 10 characters"),
 })
+
+const WhatsAppIcon = ({ className = "" }: { className?: string }) => (
+  <svg
+    viewBox="0 0 32 32"
+    fill="currentColor"
+    className={className}
+    aria-hidden="true"
+  >
+    <path d="M16.03 3.2A12.76 12.76 0 0 0 5.1 22.55L3.5 28.8l6.4-1.55A12.73 12.73 0 1 0 16.03 3.2Zm0 2.36a10.37 10.37 0 0 1 8.78 15.9 10.38 10.38 0 0 1-13.95 3.42l-.45-.26-3.52.85.88-3.43-.3-.48A10.37 10.37 0 0 1 16.03 5.56Zm-4.05 5.33c-.24 0-.62.09-.94.43-.32.35-1.23 1.2-1.23 2.93s1.26 3.4 1.44 3.64c.18.24 2.43 3.88 6.01 5.28 2.98 1.17 3.59.94 4.24.88.65-.06 2.1-.86 2.4-1.69.3-.83.3-1.54.21-1.69-.09-.15-.33-.24-.7-.42-.36-.18-2.1-1.04-2.43-1.16-.33-.12-.57-.18-.81.18-.24.36-.93 1.16-1.14 1.4-.21.24-.42.27-.78.09-.36-.18-1.53-.56-2.91-1.79-1.08-.96-1.8-2.15-2.01-2.51-.21-.36-.02-.56.16-.74.16-.16.36-.42.54-.63.18-.21.24-.36.36-.6.12-.24.06-.45-.03-.63-.09-.18-.81-1.95-1.11-2.67-.29-.7-.59-.6-.81-.61h-.48Z" />
+  </svg>
+)
 
 const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -84,7 +95,7 @@ const Contact = () => {
                 className="p-8 rounded-[40px] bg-white/80 backdrop-blur-sm border border-brand-100/60 group hover:bg-white hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-500/5 hover:-translate-y-1 transition-all duration-500"
               >
                 <div className="w-14 h-14 rounded-2xl bg-green-500 text-white flex items-center justify-center mb-6 shadow-xl shadow-green-500/20 group-hover:scale-110 transition-transform">
-                  <MessageSquare className="w-6 h-6" />
+                  <WhatsAppIcon className="w-7 h-7" />
                 </div>
                 <h4 className="text-xl font-bold text-brand-950 group-hover:text-indigo-600 transition-colors">WhatsApp</h4>
                 <p className="text-brand-500 text-sm mt-2 transition-colors">Chat with us instantly</p>

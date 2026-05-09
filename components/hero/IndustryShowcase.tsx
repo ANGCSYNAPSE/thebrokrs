@@ -1,9 +1,8 @@
 "use client"
 
-import React, { useEffect, useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import gsap from 'gsap';
 import {
   Building2,
   Cpu,
@@ -15,9 +14,7 @@ import {
   HeartPulse,
   Users,
   ShoppingBag,
-  Layers
 } from 'lucide-react';
-import confetti from 'canvas-confetti';
 
 const MotionImage = motion(Image);
 
@@ -104,85 +101,47 @@ const industries = [
   }
 ];
 
-const IndustryShowcase: React.FC = () => {
-  const [currentScene, setCurrentScene] = useState(0);
-  const [complete, setComplete] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+type IndustryShowcaseProps = {
+  currentScene: number;
+}
+
+const IndustryShowcase: React.FC<IndustryShowcaseProps> = ({ currentScene }) => {
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentScene((prev) => (prev + 1) % industries.length);
-    }, 6000);
-
-    return () => clearInterval(timer);
+    industries.forEach((industry) => {
+      const img = new window.Image();
+      img.src = industry.image;
+    });
   }, []);
 
   return (
-    <div className="showcase-container" ref={containerRef}>
-      <motion.div
-        className="custom-cursor"
-        animate={{ x: mousePos.x, y: mousePos.y }}
-        transition={{ type: 'spring', damping: 20, stiffness: 300, mass: 0.5 }}
-        style={{ borderColor: industries[currentScene].color }}
-      />
-      <div className="scanlines"></div>
-      <div className="noise"></div>
-
-      {/* Dynamic Background Glow removed to avoid blooming effect */}
-      {/* <motion.div
-        className="glow-orb"
-        animate={{
-          x: [0, 50, -50, 0],
-          y: [0, -50, 50, 0],
-        }}
-        transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
-        style={{ top: '20%', left: '20%', background: industries[currentScene].color + '33' }}
-      /> */}
-
-      <AnimatePresence>
+    <div className="showcase-container">
+      {industries.map((industry, index) => (
         <motion.div
-          key={currentScene}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}
+          key={industry.id}
+          animate={{ opacity: currentScene === index ? 1 : 0 }}
+          transition={{ duration: 1.1, ease: 'easeInOut' }}
           className="scene active"
+          aria-hidden={currentScene !== index}
         >
           <MotionImage
-            src={industries[currentScene].image}
-            alt={industries[currentScene].title}
+            src={industry.image}
+            alt={industry.title}
             fill
-            priority={currentScene === 0}
+            priority={index === 0}
+            loading={index === 0 ? undefined : index <= 2 ? 'eager' : 'lazy'}
+            unoptimized
             sizes="100vw"
             className="scene-image"
-            initial={{ scale: 1.1, opacity: 0 }}
-            animate={{
-              scale: 1.25,
-              opacity: 1,
-              x: (mousePos.x - (typeof window !== 'undefined' ? window.innerWidth : 1920) / 2) / 40,
-              y: (mousePos.y - (typeof window !== 'undefined' ? window.innerHeight : 1080) / 2) / 40
-            }}
-            transition={{
-              scale: { duration: 8, ease: 'linear' },
-              opacity: { duration: 1.5 },
-              x: { type: 'spring', damping: 20 },
-              y: { type: 'spring', damping: 20 }
-            }}
+            quality={85}
+            animate={{ scale: currentScene === index ? 1.12 : 1.04 }}
+            transition={{ scale: { duration: 6, ease: 'linear' } }}
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = 'none';
             }}
           />
         </motion.div>
-      </AnimatePresence>
+      ))}
 
       <div style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', height: '5px', background: 'rgba(255,255,255,0.05)' }}>
         <motion.div
