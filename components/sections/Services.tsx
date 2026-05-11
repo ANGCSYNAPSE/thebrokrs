@@ -103,11 +103,11 @@ const Services = () => {
   const featuredMedia = visibleMedia[0] ?? mediaItems[0]
 
   return (
-    <section id="services" className="py-24 md:py-28 lg:py-32 bg-section-alt relative overflow-hidden">
+    <section id="services" className="pt-12 pb-24 md:pt-16 md:pb-28 lg:pt-20 lg:pb-32 bg-section-alt relative overflow-hidden">
       <div className="container max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-[0.88fr_1.12fr] gap-12 lg:gap-16 items-center mb-12 lg:mb-16">
           <div className="space-y-7">
-            <div className="space-y-5">
+            <div className="space-y-4">
               <h3 className="text-indigo-600 font-bold uppercase tracking-widest text-sm flex items-center">
                 <span className="w-8 h-px bg-indigo-600 mr-4" />
                 Our Services

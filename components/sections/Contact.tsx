@@ -58,7 +58,7 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="py-28 md:py-32 lg:py-40 bg-white relative overflow-hidden">
+    <section id="contact" className="pt-12 pb-28 md:pt-16 md:pb-32 lg:pt-20 lg:pb-40 bg-white relative overflow-hidden">
       {/* Header Decoration */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-100 to-transparent" />
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-indigo-50/30 rounded-full blur-[120px] -mr-48 -mt-32 pointer-events-none" />
@@ -73,7 +73,7 @@ const Contact = () => {
             viewport={{ once: true }}
             className="space-y-12"
           >
-            <div className="space-y-6">
+            <div className="space-y-4">
               <h3 className="text-indigo-600 font-bold uppercase tracking-widest text-sm flex items-center">
                 <span className="w-8 h-px bg-indigo-600 mr-4" />
                 Connect With Us

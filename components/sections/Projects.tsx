@@ -43,7 +43,7 @@ const Projects = () => {
     <section id="projects" className="pt-10 pb-24 md:pt-12 md:pb-28 lg:pt-14 lg:pb-32 bg-brand-50/30">
       <div className="container max-w-7xl mx-auto px-6">
         {/* Centered Layout Header */}
-        <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-16 lg:mb-20 space-y-6">
+        <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-16 lg:mb-20 space-y-4">
           <h3 className="text-indigo-600 font-bold uppercase tracking-widest text-sm flex items-center justify-center">
             <span className="w-8 h-px bg-indigo-600 mr-4" />
             Strategic Portfolios

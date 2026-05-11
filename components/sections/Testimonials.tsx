@@ -43,7 +43,7 @@ const Testimonials = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           {/* Left: Heading & Controls */}
           <div className="space-y-12">
-            <div className="space-y-6">
+            <div className="space-y-4">
               <h3 className="text-indigo-600 font-bold uppercase tracking-[0.3em] text-xs">
                 Client Voices
               </h3>
