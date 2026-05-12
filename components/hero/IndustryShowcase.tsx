@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import {
@@ -23,7 +23,7 @@ const industries = [
     id: 1,
     title: 'Real Estate',
     desc: 'Luxury Skyscrapers. Golden Skies.',
-    image: '/assets/industry/real_estate.png',
+    image: '/assets/industry/real_estate.webp',
     icon: <Building2 className="w-12 h-12" />,
     color: '#D4AF37'
   },
@@ -31,7 +31,7 @@ const industries = [
     id: 2,
     title: 'IT & Software',
     desc: 'Futuristic Holograms. Digital Evolution.',
-    image: '/assets/industry/it_software.png',
+    image: '/assets/industry/it_software.webp',
     icon: <Cpu className="w-12 h-12" />,
     color: '#00F3FF'
   },
@@ -39,7 +39,7 @@ const industries = [
     id: 3,
     title: 'Loan',
     desc: 'Wealth Growth. Corporate Excellence.',
-    image: '/assets/industry/Loan.png',
+    image: '/assets/industry/Loan.webp',
     icon: <PieChart className="w-12 h-12" />,
     color: '#D4AF37'
   },
@@ -47,7 +47,7 @@ const industries = [
     id: 4,
     title: 'Insurance',
     desc: 'Unwavering Protection. Total Security.',
-    image: '/assets/industry/insurence.png',
+    image: '/assets/industry/insurence.webp',
     icon: <ShieldCheck className="w-12 h-12" />,
     color: '#FFA500'
   },
@@ -55,7 +55,7 @@ const industries = [
     id: 5,
     title: 'Investment',
     desc: 'Strategic Growth. Premium Returns.',
-    image: '/assets/industry/investment.png',
+    image: '/assets/industry/investment.webp',
     icon: <Coins className="w-12 h-12" />,
     color: '#FFD700'
   },
@@ -63,7 +63,7 @@ const industries = [
     id: 6,
     title: 'Travel',
     desc: 'Dreamy Vistas. Cinematic Horizons.',
-    image: '/assets/industry/travel.png',
+    image: '/assets/industry/travel.webp',
     icon: <Plane className="w-12 h-12" />,
     color: '#87CEEB'
   },
@@ -71,7 +71,7 @@ const industries = [
     id: 7,
     title: 'Grocery',
     desc: 'Unparalleled Freshness. Premium Quality.',
-    image: '/assets/industry/grocery.png',
+    image: '/assets/industry/grocery.webp',
     icon: <Apple className="w-12 h-12" />,
     color: '#32CD32'
   },
@@ -79,7 +79,7 @@ const industries = [
     id: 8,
     title: 'Medicine',
     desc: 'Sentient Wellness. Precise Care.',
-    image: '/assets/industry/medicine.png',
+    image: '/assets/industry/medicine.webp',
     icon: <HeartPulse className="w-12 h-12" />,
     color: '#FF1493'
   },
@@ -87,7 +87,7 @@ const industries = [
     id: 9,
     title: 'Manpower',
     desc: 'Global Teams. Elite Talent.',
-    image: '/assets/industry/man_power.png',
+    image: '/assets/industry/man_power.webp',
     icon: <Users className="w-12 h-12" />,
     color: '#4169E1'
   },
@@ -95,7 +95,7 @@ const industries = [
     id: 10,
     title: 'E-Commerce',
     desc: 'Direct Delivery. Luxury Logistics.',
-    image: '/assets/industry/e-commerce.png',
+    image: '/assets/industry/e-Commerce.webp',
     icon: <ShoppingBag className="w-12 h-12" />,
     color: '#D4AF37'
   }
@@ -106,42 +106,41 @@ type IndustryShowcaseProps = {
 }
 
 const IndustryShowcase: React.FC<IndustryShowcaseProps> = ({ currentScene }) => {
-
-  useEffect(() => {
-    industries.forEach((industry) => {
-      const img = new window.Image();
-      img.src = industry.image;
-    });
-  }, []);
+  const nextScene = (currentScene + 1) % industries.length;
+  const stagedScenes = [currentScene, nextScene];
 
   return (
     <div className="showcase-container">
-      {industries.map((industry, index) => (
+      {stagedScenes.map((sceneIndex) => {
+        const industry = industries[sceneIndex];
+        const isActive = currentScene === sceneIndex;
+
+        return (
         <motion.div
           key={industry.id}
-          animate={{ opacity: currentScene === index ? 1 : 0 }}
+          animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 1.1, ease: 'easeInOut' }}
           className="scene active"
-          aria-hidden={currentScene !== index}
+          aria-hidden={!isActive}
         >
           <MotionImage
             src={industry.image}
             alt={industry.title}
             fill
-            priority={index === 0}
-            loading={index === 0 ? undefined : index <= 2 ? 'eager' : 'lazy'}
-            unoptimized
+            priority={sceneIndex === 0}
+            loading={sceneIndex === 0 ? undefined : 'lazy'}
             sizes="100vw"
             className="scene-image"
-            quality={85}
-            animate={{ scale: currentScene === index ? 1.12 : 1.04 }}
+            quality={78}
+            animate={{ scale: isActive ? 1.12 : 1.04 }}
             transition={{ scale: { duration: 6, ease: 'linear' } }}
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = 'none';
             }}
           />
         </motion.div>
-      ))}
+        );
+      })}
 
       <div style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', height: '5px', background: 'rgba(255,255,255,0.05)' }}>
         <motion.div

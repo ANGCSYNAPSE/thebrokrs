@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Quote, ChevronLeft, ChevronRight, Star } from "lucide-react"
@@ -123,9 +124,12 @@ const Testimonials = () => {
 
                   <div className="flex items-center space-x-6 pt-6">
                     <div className="w-20 h-20 rounded-full border-4 border-brand-50 overflow-hidden shadow-xl shadow-brand-500/5">
-                      <img 
+                      <Image
                         src={testimonials[activeIndex].image} 
                         alt={testimonials[activeIndex].name} 
+                        width={160}
+                        height={160}
+                        sizes="80px"
                         className="w-full h-full object-cover"
                         onError={(e) => {
                           e.currentTarget.src = "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200"

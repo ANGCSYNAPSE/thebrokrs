@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { CheckCircle2, ArrowRight } from "lucide-react"
 import Link from "next/link"
@@ -71,7 +72,13 @@ const UpcomingProject = () => {
             className="relative rounded-[40px] overflow-hidden aspect-square lg:aspect-[4/5] shadow-2xl border border-brand-100/50"
           >
             <div className="absolute inset-0 bg-gradient-to-t from-brand-950/20 to-transparent z-10" />
-            <img src="/assets/mushroom.jpg" alt="Mushroom Farming Project" className="w-full h-full object-cover" />
+            <Image
+              src="/assets/mushroom.jpg"
+              alt="Mushroom Farming Project"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
           </motion.div>
 
         </div>

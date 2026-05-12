@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, ArrowRight } from "lucide-react"
@@ -53,7 +54,7 @@ const Navbar = () => {
     <nav
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-in-out",
-        isScrolled
+        isScrolled || mobileMenuOpen
           ? "py-2 md:py-3 bg-white/95 dark:bg-black/90 backdrop-blur-2xl border-b border-brand-100/50 shadow-[0_4px_30px_rgba(0,0,0,0.04)]"
           : "py-4 md:py-6 bg-transparent"
       )}
@@ -66,9 +67,13 @@ const Navbar = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <img
-              src={(isScrolled || mobileMenuOpen) ? "./assets/logo blue.png" : "./assets/logo2-clear.png"}
+            <Image
+              src={(isScrolled || mobileMenuOpen) ? "/assets/logo blue.png" : "/assets/logo2-clear.png"}
               alt="The Brokrs"
+              width={280}
+              height={100}
+              priority
+              sizes="(min-width: 768px) 220px, 160px"
               className={cn(
                 "w-auto object-contain transition-all duration-300",
                 (isScrolled || mobileMenuOpen) ? "h-9 md:h-9" : "h-16 md:h-20"
@@ -150,7 +155,7 @@ const Navbar = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-40 bg-white/95 backdrop-blur-xl lg:hidden flex flex-col items-center justify-center space-y-8"
+            className="fixed left-0 right-0 top-[57px] z-40 min-h-[calc(100dvh-57px)] bg-white shadow-[0_20px_60px_rgba(15,23,42,0.16)] lg:hidden flex flex-col items-center justify-center space-y-8 px-6"
           >
             {navLinks.map((link, i) => (
               <motion.div

@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { Linkedin, Mail, Twitter, Globe, ArrowRight, UserPlus } from "lucide-react"
 
@@ -89,9 +90,12 @@ export default function TeamPage() {
                 className="group p-10 rounded-[60px] bg-brand-50 border border-brand-100 flex flex-col items-center text-center space-y-8 hover:bg-white hover:shadow-2xl transition-all duration-500"
               >
                 <div className="w-56 h-56 rounded-full border-8 border-white overflow-hidden shadow-2xl relative">
-                  <img 
+                  <Image
                     src={member.image} 
                     alt={member.name} 
+                    width={448}
+                    height={448}
+                    sizes="224px"
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                     onError={(e) => {
                       e.currentTarget.src = "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800"
@@ -144,9 +148,12 @@ export default function TeamPage() {
                 className="group p-8 rounded-[40px] bg-white border border-brand-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 flex flex-col items-center text-center space-y-6"
               >
                  <div className="w-32 h-32 rounded-3xl border-4 border-brand-50 overflow-hidden shadow-xl">
-                   <img 
+                   <Image
                     src={member.image} 
                     alt={member.name} 
+                    width={256}
+                    height={256}
+                    sizes="128px"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     onError={(e) => {
                       e.currentTarget.src = "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=400"

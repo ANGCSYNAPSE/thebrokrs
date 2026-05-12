@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useMemo, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
@@ -39,7 +40,7 @@ const mediaItems = [
     category: "Videos",
     description: "A short video space for explaining campaign goals, partner offers, and market positioning.",
     src: "/assets/v1.mp4",
-    poster: "/assets/design.png"
+    poster: "/assets/design.webp"
   },
   {
     id: 2,
@@ -63,7 +64,7 @@ const mediaItems = [
     title: "Member Registration",
     category: "Stories",
     description: "A story card for lead capture, onboarding drives, and audience activation.",
-    src: "/assets/register.png"
+    src: "/assets/register.webp"
   },
   {
     id: 5,
@@ -186,9 +187,11 @@ const Services = () => {
                   className="h-full w-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-105"
                 />
               ) : (
-                <img
+                <Image
                   src={featuredMedia.src}
                   alt={featuredMedia.title}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   className="h-full w-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-105"
                 />
               )}
@@ -208,22 +211,28 @@ const Services = () => {
             </button>
 
             <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {visibleMedia.slice(1, 5).map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => setSelectedMedia(item)}
-                  className="group relative h-24 overflow-hidden rounded-2xl bg-brand-950 text-left"
-                >
-                  <img
-                    src={item.type === "video" ? item.poster : item.src}
-                    alt={item.title}
-                    className="h-full w-full object-cover opacity-75 transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-950/85 to-transparent" />
-                  <span className="absolute bottom-3 left-3 right-3 text-xs font-bold text-white">{item.title}</span>
-                </button>
-              ))}
+              {visibleMedia.slice(1, 5).map((item) => {
+                const thumbnailSrc = item.type === "video" ? item.poster ?? item.src : item.src
+
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setSelectedMedia(item)}
+                    className="group relative h-24 overflow-hidden rounded-2xl bg-brand-950 text-left"
+                  >
+                    <Image
+                      src={thumbnailSrc}
+                      alt={item.title}
+                      fill
+                      sizes="(min-width: 640px) 25vw, 50vw"
+                      className="h-full w-full object-cover opacity-75 transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-950/85 to-transparent" />
+                    <span className="absolute bottom-3 left-3 right-3 text-xs font-bold text-white">{item.title}</span>
+                  </button>
+                )
+              })}
             </div>
           </motion.div>
         </div>
@@ -292,9 +301,12 @@ const Services = () => {
                       className="h-full max-h-[72vh] w-full object-contain"
                     />
                   ) : (
-                    <img
+                    <Image
                       src={selectedMedia.src}
                       alt={selectedMedia.title}
+                      width={1200}
+                      height={800}
+                      sizes="(min-width: 1024px) 60vw, 100vw"
                       className="h-full max-h-[72vh] w-full object-contain"
                     />
                   )}

@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { Facebook, Instagram, Linkedin, ArrowUp } from "lucide-react"
@@ -24,9 +25,12 @@ const Footer = () => {
           {/* Brand Info */}
           <div className="space-y-8">
             <Link href="/" className="inline-block transform transition-transform hover:scale-105">
-              <img
-                src="./assets/logo blue.png"
+              <Image
+                src="/assets/logo blue.png"
                 alt="The Brokrs Logo"
+                width={180}
+                height={48}
+                sizes="180px"
                 className="h-10 w-auto"
               />
             </Link>

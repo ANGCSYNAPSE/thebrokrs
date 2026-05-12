@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { Shield, Users, Lightbulb, Target, TrendingUp, CheckCircle2 } from "lucide-react"
 
@@ -93,10 +94,12 @@ export default function AboutPage() {
               viewport={{ once: true }}
               className="relative rounded-[60px] overflow-hidden shadow-2xl h-[600px] group"
             >
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=1200"
                 alt="Community Collaboration"
-                className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="object-cover transition-transform duration-1000 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-indigo-600/10 group-hover:bg-transparent transition-colors" />
             </motion.div>

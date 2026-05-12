@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { ArrowRight, BarChart3, Building2, CheckCircle2, Globe2, Handshake, Megaphone, RadioTower, Rocket, Target, TrendingUp, Warehouse, Zap } from "lucide-react"
 
@@ -172,7 +173,7 @@ const About = () => {
             ))}
           </div>
 
-          <div className="p-6 md:p-8 lg:p-10">
+          <div className="mt-8 p-6 md:mt-10 md:p-8 lg:mt-12 lg:p-10">
             <div className="mb-8 flex flex-col items-center text-center">
               <span className="mb-3 inline-flex rounded-full bg-indigo-50 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-indigo-600">
                 Growth Framework
@@ -269,9 +270,12 @@ const About = () => {
                 className="relative mx-auto w-full max-w-[440px] lg:max-w-none lg:-translate-y-8"
               >
                 <div className="aspect-[4/5] overflow-hidden rounded-[18px] bg-slate-100">
-                  <img
-                    src="/assets/media1.png"
+                  <Image
+                    src="/assets/img3.webp"
                     alt="Modern brand growth project"
+                    width={880}
+                    height={1100}
+                    sizes="(min-width: 1024px) 32vw, (min-width: 768px) 440px, 100vw"
                     className="h-full w-full object-cover"
                   />
                 </div>
@@ -293,9 +297,12 @@ const About = () => {
                 className="mx-auto mt-12 flex min-h-[340px] w-full max-w-[300px] flex-col justify-center rounded-[18px] bg-red-500 px-7 py-7 text-white shadow-2xl shadow-red-500/15 lg:mt-12"
               >
                 <div className="h-36 w-36 overflow-hidden rounded-full border-4 border-white/80 bg-white/15">
-                  <img
-                    src="/assets/1.png"
+                  <Image
+                    src="/assets/1.webp"
                     alt="DR Puneet Aggarwaal"
+                    width={288}
+                    height={288}
+                    sizes="144px"
                     className="h-full w-full object-cover"
                   />
                 </div>

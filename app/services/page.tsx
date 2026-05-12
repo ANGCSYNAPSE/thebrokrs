@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { Building, Home, GraduationCap, HeartPulse, Factory, Sparkles, Layout, Store, Wrench, CheckCircle2 } from "lucide-react"
 
@@ -128,10 +129,12 @@ export default function ServicesPage() {
                </div>
                
                <div className="relative rounded-[40px] overflow-hidden shadow-2xl h-[400px]">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1518331647614-7a1f04cd34cf?auto=format&fit=crop&q=80&w=800"
                     alt="Vastu Consultation"
-                    className="w-full h-full object-cover"
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-cover"
                   />
                   <div className="absolute inset-0 bg-indigo-900/10" />
                </div>
