@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { CheckCircle2, X, Building, ShoppingCart, Code2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -23,19 +24,19 @@ const Projects = () => {
       title: "Real Estate",
       icon: Building,
       desc: "Commercial & Residential layouts.",
-      color: "bg-blue-50 text-blue-600 border-blue-200"
+      image: "/assets/estate 4.jpg"
     },
     {
       title: "Ecommerce Hubs",
       icon: ShoppingCart,
       desc: "Logistics & warehouse sectors.",
-      color: "bg-emerald-50 text-emerald-600 border-emerald-200"
+      image: "/assets/property.webp"
     },
     {
       title: "IT & Software",
       icon: Code2,
       desc: "Custom tech solutions & digital platforms.",
-      color: "bg-indigo-50 text-indigo-600 border-indigo-200"
+      image: "/assets/industry/it_software.webp"
     }
   ]
 
@@ -44,14 +45,14 @@ const Projects = () => {
       <div className="container max-w-7xl mx-auto px-6">
         {/* Centered Layout Header */}
         <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-16 lg:mb-20 space-y-4">
-          <h3 className="text-indigo-600 font-bold uppercase tracking-widest text-sm flex items-center justify-center">
-            <span className="w-8 h-px bg-indigo-600 mr-4" />
+          <h3 className="text-cyan-700 font-bold uppercase tracking-widest text-sm flex items-center justify-center">
+            <span className="w-8 h-px bg-cyan-600 mr-4" />
             Strategic Portfolios
-            <span className="w-8 h-px bg-indigo-600 ml-4" />
+            <span className="w-8 h-px bg-cyan-600 ml-4" />
           </h3>
           <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-950 leading-tight">
             Marketing Built For <br />
-            <span className="text-indigo-600">Every Business Vertical.</span>
+            <span className="text-cyan-600">Every Business Vertical.</span>
           </h2>
           <p className="text-brand-600 text-lg leading-relaxed pt-2">
             We build focused marketing systems for each vertical, from audience positioning to campaign visibility and lead flow.
@@ -65,21 +66,35 @@ const Projects = () => {
             <p className="text-brand-600 max-w-lg mx-auto italic">Choose a vertical and share your growth goal. Our team will map the right campaign direction.</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6">
             {businessVerticals.map((sector) => (
               <motion.div
                 key={sector.title}
                 whileHover={{ y: -5 }}
                 onClick={() => setSelectedSector(sector.title)}
-                className={`flex flex-col items-center justify-center p-8 rounded-[30px] border-2 border-dashed bg-white cursor-pointer hover:shadow-xl transition-all duration-300 ${sector.color}`}
+                className="group relative min-h-[180px] overflow-hidden rounded-[18px] border border-slate-200 bg-white cursor-pointer shadow-lg shadow-brand-500/5 transition-all duration-300 hover:shadow-xl md:min-h-[260px] md:rounded-[28px]"
               >
-                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 ${sector.color.replace('border-', '')}`}>
-                  <sector.icon className="w-8 h-8" />
+                <div className="relative h-24 w-full overflow-hidden md:h-36">
+                  <Image
+                    src={sector.image}
+                    alt={sector.title}
+                    fill
+                    sizes="(min-width: 768px) 33vw, 50vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/15 to-transparent" />
                 </div>
-                <h4 className="text-xl font-bold mb-2 text-brand-950">{sector.title}</h4>
-                <p className="text-sm font-medium opacity-80 text-center">{sector.desc}</p>
-                <div className="mt-6 text-[10px] font-bold uppercase tracking-widest opacity-60">
+                <div className="absolute right-3 top-[76px] flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-400 text-slate-950 shadow-xl shadow-cyan-500/20 md:right-5 md:top-[118px] md:h-14 md:w-14 md:rounded-2xl">
+                  <sector.icon className="w-5 h-5 md:w-7 md:h-7" />
+                </div>
+                <div className="flex flex-1 flex-col justify-between p-4 md:p-6">
+                  <div>
+                    <h4 className="max-w-[120px] text-sm font-bold text-brand-950 md:max-w-none md:text-xl">{sector.title}</h4>
+                    <p className="mt-2 text-[11px] font-medium leading-4 text-brand-500 md:text-sm md:leading-6">{sector.desc}</p>
+                  </div>
+                  <div className="mt-4 text-[9px] font-bold uppercase tracking-widest text-cyan-700 md:mt-6 md:text-[10px]">
                   Click to Query
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -121,8 +136,8 @@ const Projects = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     className="flex flex-col items-center justify-center py-8 space-y-4 text-center"
                   >
-                    <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center">
-                      <CheckCircle2 className="w-10 h-10 text-green-600" />
+                    <div className="w-20 h-20 rounded-full bg-cyan-100 flex items-center justify-center">
+                      <CheckCircle2 className="w-10 h-10 text-cyan-600" />
                     </div>
                     <h4 className="text-lg font-bold text-brand-950">Query Submitted</h4>
                     <p className="text-brand-600 text-sm">Our team will reach out with tailored marketing details.</p>
@@ -147,7 +162,7 @@ const Projects = () => {
                       </select>
                     </div>
 
-                    <Button type="submit" size="lg" className="w-full h-14 rounded-xl bg-indigo-600 text-white font-bold hover:bg-brand-950 transition-colors shadow-lg mt-2">
+                    <Button type="submit" size="lg" className="w-full h-14 rounded-xl bg-cyan-500 text-slate-950 font-bold hover:bg-brand-950 hover:text-white transition-colors shadow-lg mt-2">
                       Submit Query
                     </Button>
                   </form>

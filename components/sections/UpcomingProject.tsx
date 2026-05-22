@@ -21,13 +21,13 @@ const UpcomingProject = () => {
             className="space-y-8"
           >
             <div className="space-y-4">
-              <h3 className="text-indigo-600 font-bold uppercase tracking-widest text-sm flex items-center">
-                <span className="w-8 h-px bg-indigo-600 mr-4" />
+              <h3 className="text-cyan-700 font-bold uppercase tracking-widest text-sm flex items-center">
+                <span className="w-8 h-px bg-cyan-600 mr-4" />
                 Active Growth Project
               </h3>
               <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-950 leading-tight">
                 Sustainable <br />
-                <span className="text-indigo-600">Mushroom Farming.</span>
+                <span className="text-cyan-600">Mushroom Farming.</span>
               </h2>
             </div>
 
@@ -39,11 +39,11 @@ const UpcomingProject = () => {
               <h4 className="text-xl font-bold text-brand-950">What We Build Around It:</h4>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <CheckCircle2 className="w-6 h-6 text-indigo-600 mr-3 shrink-0" />
+                  <CheckCircle2 className="w-6 h-6 text-cyan-600 mr-3 shrink-0" />
                   <span className="text-brand-800 font-medium">Clear project positioning backed by structured campaign visibility</span>
                 </li>
                 <li className="flex items-start">
-                  <CheckCircle2 className="w-6 h-6 text-indigo-600 mr-3 shrink-0" />
+                  <CheckCircle2 className="w-6 h-6 text-cyan-600 mr-3 shrink-0" />
                   <span className="text-brand-800 font-medium">Professionally presented growth opportunity with long-term return focus</span>
                 </li>
               </ul>
@@ -54,7 +54,7 @@ const UpcomingProject = () => {
             </p>
 
             <div className="pt-4">
-              <Button asChild size="lg" className="rounded-full px-10 h-14 bg-brand-950 text-white font-bold hover:bg-indigo-600 transition-colors shadow-xl group">
+              <Button asChild size="lg" className="rounded-full px-10 h-14 bg-brand-950 text-white font-bold hover:bg-cyan-500 hover:text-slate-950 transition-colors shadow-xl group">
                 <Link href="#contact">
                   Discuss This Project
                   <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />

@@ -9,16 +9,16 @@ import { cn } from "@/lib/utils"
 import IndustryShowcase from "./IndustryShowcase"
 
 const serviceTags = [
-  { name: "Real Estate", icon: Building2, color: "from-blue-500 to-blue-600" },
-  { name: "IT & Software", icon: Code2, color: "from-indigo-500 to-indigo-600" },
-  { name: "Loan", icon: Landmark, color: "from-emerald-500 to-emerald-600" },
-  { name: "Insurance", icon: ShieldCheck, color: "from-rose-500 to-rose-600" },
-  { name: "Investment", icon: PieChart, color: "from-amber-500 to-amber-600" },
-  { name: "Travel", icon: Plane, color: "from-sky-500 to-sky-600" },
-  { name: "Grocery", icon: ShoppingBag, color: "from-green-500 to-green-600" },
-  { name: "Medicine", icon: Stethoscope, color: "from-teal-500 to-teal-600" },
-  { name: "Manpower", icon: Users, color: "from-purple-500 to-purple-600" },
-  { name: "E-Commerce", icon: Store, color: "from-pink-500 to-pink-600" },
+  { name: "Real Estate", icon: Building2, color: "from-cyan-400 to-teal-500" },
+  { name: "IT & Software", icon: Code2, color: "from-cyan-400 to-teal-500" },
+  { name: "Loan", icon: Landmark, color: "from-cyan-400 to-teal-500" },
+  { name: "Insurance", icon: ShieldCheck, color: "from-cyan-400 to-teal-500" },
+  { name: "Investment", icon: PieChart, color: "from-cyan-400 to-teal-500" },
+  { name: "Travel", icon: Plane, color: "from-cyan-400 to-teal-500" },
+  { name: "Grocery", icon: ShoppingBag, color: "from-cyan-400 to-teal-500" },
+  { name: "Medicine", icon: Stethoscope, color: "from-cyan-400 to-teal-500" },
+  { name: "Manpower", icon: Users, color: "from-cyan-400 to-teal-500" },
+  { name: "E-Commerce", icon: Store, color: "from-cyan-400 to-teal-500" },
 ]
 
 const Hero = () => {
@@ -141,7 +141,7 @@ const Hero = () => {
             transition={{ duration: 0.6 }}
           >
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-xl border border-white/20 shadow-lg">
-              <Rocket className="w-4 h-4 text-indigo-300" />
+              <Rocket className="w-4 h-4 text-cyan-300" />
               <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-white/90">Growth Marketing For Multi-Industry Brands</span>
               <span className="glow-dot" />
             </div>
@@ -154,10 +154,10 @@ const Hero = () => {
             className="space-y-6"
           >
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight" style={{ textShadow: '0 4px 30px rgba(0,0,0,0.6)' }}>
-              Where Business <span className="text-indigo-400">&amp;</span>
+              Where Business <span className="text-cyan-300">&amp;</span>
               <span className="block mt-2">
                 <span className="inline-flex items-center justify-start whitespace-nowrap">
-                  <span className="inline-block pb-3 text-3xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-indigo-300 to-white">
+                  <span className="inline-block pb-3 text-3xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-teal-200 to-white">
                     {typedWord || "\u00A0"}
                   </span>
                   <span className="inline-block pb-3 text-3xl md:text-5xl lg:text-6xl font-bold ml-3 text-transparent bg-clip-text bg-gradient-to-r from-white to-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]">
@@ -218,7 +218,7 @@ const Hero = () => {
                   className="flex items-center gap-2.5 px-5 py-2.5 mx-2 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-white/90 shrink-0 hover:bg-white/20 hover:border-white/30 transition-all duration-300 cursor-default group"
                 >
                   <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${tag.color} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform`}>
-                    <tag.icon className="w-3.5 h-3.5 text-white" />
+                    <tag.icon className="w-3.5 h-3.5 text-slate-950" />
                   </div>
                   <span className="text-xs font-bold tracking-wide whitespace-nowrap">{tag.name}</span>
                 </div>

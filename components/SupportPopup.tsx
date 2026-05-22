@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Phone, X, MessageCircle } from "lucide-react"
+import { Bot, Headphones, Phone, X } from "lucide-react"
 
 const WhatsAppIcon = ({ className = "" }: { className?: string }) => (
   <svg
@@ -25,7 +25,7 @@ const SupportPopup = () => {
     <motion.div 
       drag
       dragMomentum={false}
-      className="fixed bottom-2 right-10 z-[100] flex flex-col items-end space-y-4"
+      className="fixed bottom-24 right-4 z-[100] flex flex-col items-end space-y-4 md:bottom-4 md:right-10"
     >
       <AnimatePresence>
         {isOpen && (
@@ -33,12 +33,17 @@ const SupportPopup = () => {
             initial={{ opacity: 0, y: 20, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.8 }}
-            className="mb-4 w-72 rounded-[32px] bg-white border border-brand-100 shadow-2xl overflow-hidden"
+            className="mb-3 w-72 rounded-[28px] bg-white border border-brand-100 shadow-2xl overflow-hidden"
           >
-            <div className="p-6 bg-indigo-600 text-white flex items-center justify-between">
-              <div>
-                <h4 className="font-bold">Contact Support</h4>
-                <p className="text-[10px] text-indigo-100 uppercase tracking-widest font-medium">We respond in minutes</p>
+            <div className="p-5 bg-slate-950 text-white flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-400 text-slate-950">
+                  <Bot className="h-5 w-5" />
+                </span>
+                <div>
+                  <h4 className="font-bold">Contact Agent</h4>
+                  <p className="text-[10px] text-cyan-100 uppercase tracking-widest font-medium">We respond in minutes</p>
+                </div>
               </div>
               <button onClick={() => setIsOpen(false)} className="hover:rotate-90 transition-transform">
                 <X className="w-5 h-5" />
@@ -49,9 +54,9 @@ const SupportPopup = () => {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-4 p-4 rounded-2xl bg-brand-50 hover:bg-green-500 hover:text-white transition-all group"
+                className="flex items-center space-x-4 p-4 rounded-2xl bg-brand-50 hover:bg-cyan-500 hover:text-slate-950 transition-all group"
               >
-                <div className="w-10 h-10 rounded-xl bg-green-500 text-white flex items-center justify-center group-hover:bg-white group-hover:text-green-500 transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-cyan-500 text-slate-950 flex items-center justify-center group-hover:bg-white group-hover:text-cyan-600 transition-colors">
                   <WhatsAppIcon className="w-6 h-6" />
                 </div>
                 <div>
@@ -61,9 +66,9 @@ const SupportPopup = () => {
               </a>
               <a
                 href={`tel:${phoneNumber}`}
-                className="flex items-center space-x-4 p-4 rounded-2xl bg-brand-50 hover:bg-brand-900 hover:text-white transition-all group"
+                className="flex items-center space-x-4 p-4 rounded-2xl bg-brand-50 hover:bg-cyan-500 hover:text-slate-950 transition-all group"
               >
-                <div className="w-10 h-10 rounded-xl bg-brand-900 text-white flex items-center justify-center group-hover:bg-white group-hover:text-brand-950 transition-colors">
+                <div className="w-10 h-10 rounded-xl bg-cyan-500 text-slate-950 flex items-center justify-center group-hover:bg-white group-hover:text-cyan-600 transition-colors">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
@@ -80,7 +85,7 @@ const SupportPopup = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center shadow-2xl shadow-green-500/20 relative group"
+        className="h-9 w-9 rounded-[16px] bg-cyan-400 text-slate-950 flex items-center justify-center shadow-2xl shadow-cyan-500/20 relative group md:h-11 md:w-11 md:rounded-full"
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
@@ -90,7 +95,7 @@ const SupportPopup = () => {
               animate={{ opacity: 1, rotate: 0 }}
               exit={{ opacity: 0, rotate: 90 }}
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5 md:w-6 md:h-6" />
             </motion.div>
           ) : (
             <motion.div
@@ -100,15 +105,17 @@ const SupportPopup = () => {
               exit={{ opacity: 0, rotate: -90 }}
               className="relative"
             >
-              <MessageCircle className="w-7 h-7" />
-              <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 border-2 border-green-500 rounded-full" />
+              <Headphones className="h-5 w-5 md:h-6 md:w-6" />
+              <span className="absolute -right-1 -top-1 flex h-3.5 w-3.5 items-center justify-center rounded-full border-2 border-cyan-400 bg-slate-950 md:h-4 md:w-4">
+                <Bot className="h-2 w-2 text-cyan-300" />
+              </span>
             </motion.div>
           )}
         </AnimatePresence>
 
         {/* Subtle Pulse Effect */}
         {!isOpen && (
-          <span className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-20 pointer-events-none" />
+          <span className="absolute inset-0 rounded-full bg-cyan-400 animate-ping opacity-20 pointer-events-none" />
         )}
       </motion.button>
     </motion.div>

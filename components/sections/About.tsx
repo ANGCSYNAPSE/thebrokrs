@@ -9,25 +9,29 @@ const highlights = [
     icon: Target,
     title: "Brand Strategy",
     desc: "Clear brand message, sharper offer, and the right audience path.",
-    color: "from-indigo-500 to-violet-500"
+    color: "from-cyan-400 to-teal-500",
+    image: "/assets/estate.jpeg"
   },
   {
     icon: Megaphone,
     title: "Campaign Visibility",
     desc: "Campaigns designed to increase reach, trust, and qualified enquiries.",
-    color: "from-violet-500 to-fuchsia-500"
+    color: "from-cyan-400 to-teal-500",
+    image: "/assets/project.jpeg"
   },
   {
     icon: BarChart3,
     title: "Growth Intelligence",
     desc: "Audience insights and lead quality checks that guide better decisions.",
-    color: "from-blue-500 to-cyan-500"
+    color: "from-cyan-400 to-teal-500",
+    image: "/assets/design.webp"
   },
   {
     icon: Zap,
     title: "Marketing Engine",
     desc: "Strategy, creative direction, visibility, and lead-focused communication in one system.",
-    color: "from-amber-500 to-orange-500"
+    color: "from-cyan-400 to-teal-500",
+    image: "/assets/img3.webp"
   }
 ]
 
@@ -54,7 +58,7 @@ const About = () => {
         >
           <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-8 p-6 md:p-8 lg:p-10">
             <div className="rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-7 md:p-9">
-              <div className="inline-flex items-center gap-3 rounded-full border border-indigo-100 bg-white px-4 py-2 text-indigo-600 text-[10px] font-black uppercase tracking-widest shadow-lg shadow-indigo-500/5">
+              <div className="inline-flex items-center gap-3 rounded-full border border-cyan-100 bg-white px-4 py-2 text-cyan-700 text-[10px] font-black uppercase tracking-widest shadow-lg shadow-cyan-500/5">
                 <RadioTower className="h-4 w-4" />
                 <span>About The Brokrs</span>
               </div>
@@ -62,7 +66,7 @@ const About = () => {
               <div className="mt-7 space-y-5">
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight text-brand-950">
                   Redefining Collaborative
-                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-violet-500 to-cyan-500">
+                  <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-teal-500 to-sky-500">
                     Brand Growth.
                   </span>
                 </h2>
@@ -77,7 +81,7 @@ const About = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.1 }}
               viewport={{ once: true }}
-              className="relative min-h-[360px] overflow-hidden rounded-[28px] border border-indigo-100 bg-gradient-to-br from-white via-indigo-50 to-slate-50 p-6 shadow-xl shadow-indigo-500/10"
+              className="relative min-h-[360px] overflow-hidden rounded-[28px] border border-cyan-100 bg-gradient-to-br from-white via-cyan-50 to-slate-50 p-6 shadow-xl shadow-cyan-500/10"
             >
               <div className="mb-5 flex items-start justify-between gap-4">
                 <div>
@@ -162,7 +166,7 @@ const About = () => {
                 whileHover={{ y: -5 }}
                 className="flex items-center gap-4 rounded-2xl bg-white p-5 shadow-lg shadow-brand-500/5"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700">
                   <metric.icon className="h-6 w-6" />
                 </div>
                 <div>
@@ -175,18 +179,18 @@ const About = () => {
 
           <div className="mt-8 p-6 md:mt-10 md:p-8 lg:mt-12 lg:p-10">
             <div className="mb-8 flex flex-col items-center text-center">
-              <span className="mb-3 inline-flex rounded-full bg-indigo-50 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-indigo-600">
+              <span className="mb-3 inline-flex rounded-full bg-cyan-50 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-cyan-700">
                 Growth Framework
               </span>
               <h3 className="text-3xl md:text-4xl font-display font-bold text-brand-950">
-                What We Do<span className="text-indigo-600">.</span>
+                What We Do<span className="text-cyan-600">.</span>
               </h3>
               <p className="mt-4 max-w-3xl text-sm md:text-base leading-relaxed text-brand-600">
                 End-to-end marketing systems that build visibility, generate demand, and drive predictable growth.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+            <div className="grid grid-cols-2 xl:grid-cols-4 gap-3 md:gap-5">
               {highlights.map((item, index) => (
                 <motion.div
                   key={item.title}
@@ -195,15 +199,27 @@ const About = () => {
                   transition={{ duration: 0.6, delay: index * 0.08 }}
                   viewport={{ once: true }}
                   whileHover={{ y: -8 }}
-                  className="group relative min-h-[245px] overflow-hidden rounded-[28px] border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 shadow-xl shadow-brand-500/5"
+                  className="group relative min-h-[172px] overflow-hidden rounded-[18px] border border-slate-200 bg-white shadow-xl shadow-brand-500/5 md:min-h-[245px] md:rounded-[28px]"
                 >
-                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-cyan-400 opacity-0 transition-opacity group-hover:opacity-100" />
-                  <div className={`flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${item.color} text-white shadow-lg shadow-indigo-500/20`}>
-                    <item.icon className="h-6 w-6" />
+                  <div className="relative h-20 overflow-hidden md:hidden">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="50vw"
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent" />
                   </div>
-                  <h4 className="mt-8 text-xl font-bold text-brand-950 group-hover:text-indigo-600 transition-colors">{item.title}</h4>
-                  <p className="mt-3 text-[15px] leading-6 text-brand-600">{item.desc}</p>
-                  <div className="absolute bottom-6 right-6 flex h-9 w-9 items-center justify-center rounded-full bg-indigo-50 text-indigo-500 transition-transform group-hover:translate-x-1 group-hover:bg-indigo-600 group-hover:text-white">
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-cyan-400 via-teal-400 to-sky-400 opacity-100 md:opacity-0 md:transition-opacity md:group-hover:opacity-100" />
+                  <div className={`absolute right-3 top-12 flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br ${item.color} text-slate-950 shadow-lg shadow-cyan-500/20 md:static md:m-6 md:h-14 md:w-14 md:rounded-2xl md:text-white`}>
+                    <item.icon className="h-4 w-4 md:h-6 md:w-6" />
+                  </div>
+                  <div className="p-4 pt-5 md:p-6 md:pt-0">
+                    <h4 className="text-sm font-bold text-brand-950 transition-colors group-hover:text-cyan-700 md:mt-2 md:text-xl">{item.title}</h4>
+                    <p className="mt-2 text-[11px] leading-4 text-brand-600 md:mt-3 md:text-[15px] md:leading-6">{item.desc}</p>
+                  </div>
+                  <div className="absolute bottom-4 right-4 hidden h-9 w-9 items-center justify-center rounded-full bg-cyan-50 text-cyan-600 transition-transform group-hover:translate-x-1 group-hover:bg-cyan-500 group-hover:text-white md:flex">
                     <CheckCircle2 className="h-4 w-4" />
                   </div>
                 </motion.div>
@@ -229,7 +245,7 @@ const About = () => {
 
                 <div className="mt-7 space-y-6">
                   <div className="flex gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-red-200 text-red-500">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-cyan-200 text-cyan-600">
                       <Globe2 className="h-6 w-6" />
                     </div>
                     <div>
@@ -241,7 +257,7 @@ const About = () => {
                   </div>
 
                   <div className="flex gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-red-200 text-red-500">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-cyan-200 text-cyan-600">
                       <Handshake className="h-6 w-6" />
                     </div>
                     <div>
@@ -255,7 +271,7 @@ const About = () => {
 
                 <a
                   href="#contact"
-                  className="mt-9 inline-flex h-12 items-center gap-2 rounded-lg bg-red-500 px-6 text-xs font-black uppercase tracking-wide text-white shadow-xl shadow-red-500/20 transition-all duration-300 hover:-translate-y-1 hover:bg-red-600 hover:shadow-red-500/30"
+                  className="mt-9 inline-flex h-12 items-center gap-2 rounded-lg bg-cyan-500 px-6 text-xs font-black uppercase tracking-wide text-slate-950 shadow-xl shadow-cyan-500/20 transition-all duration-300 hover:-translate-y-1 hover:bg-cyan-300 hover:shadow-cyan-500/30"
                 >
                   Learn More
                   <ArrowRight className="h-3.5 w-3.5" />
@@ -294,7 +310,7 @@ const About = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.65, delay: 0.16 }}
                 viewport={{ once: true }}
-                className="mx-auto mt-12 flex min-h-[340px] w-full max-w-[300px] flex-col justify-center rounded-[18px] bg-red-500 px-7 py-7 text-white shadow-2xl shadow-red-500/15 lg:mt-12"
+                className="mx-auto mt-12 flex min-h-[340px] w-full max-w-[300px] flex-col justify-center rounded-[18px] bg-slate-950 px-7 py-7 text-white shadow-2xl shadow-cyan-500/15 lg:mt-12"
               >
                 <div className="h-36 w-36 overflow-hidden rounded-full border-4 border-white/80 bg-white/15">
                   <Image

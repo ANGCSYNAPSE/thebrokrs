@@ -5,6 +5,7 @@ import { useMemo, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   BadgePercent,
+  Clapperboard,
   Handshake,
   Images,
   Megaphone,
@@ -40,7 +41,7 @@ const mediaItems = [
     category: "Videos",
     description: "A short video space for explaining campaign goals, partner offers, and market positioning.",
     src: "/assets/v1.mp4",
-    poster: "/assets/design.webp"
+    poster: "/assets/estate.jpeg"
   },
   {
     id: 2,
@@ -56,7 +57,7 @@ const mediaItems = [
     title: "Real Estate Benefit",
     category: "Offers",
     description: "A visual slot for property campaigns, project visibility, and verified opportunity communication.",
-    src: "/assets/estate.jpeg"
+    src: "/assets/estate 3.jpeg"
   },
   {
     id: 4,
@@ -79,12 +80,12 @@ const mediaItems = [
 const filters = ["All", "Videos", "Offers", "Partners", "Stories"]
 
 const partners = [
-  { name: "Benefitry", mark: "B", color: "bg-indigo-600" },
-  { name: "UrbanNest", mark: "UN", color: "bg-cyan-600" },
-  { name: "MediCare+", mark: "M+", color: "bg-emerald-600" },
-  { name: "TripLoop", mark: "TL", color: "bg-sky-600" },
-  { name: "Grocerio", mark: "G", color: "bg-green-600" },
-  { name: "SkillBridge", mark: "SB", color: "bg-rose-600" }
+  { name: "Benefitry", mark: "B", color: "bg-cyan-500" },
+  { name: "UrbanNest", mark: "UN", color: "bg-cyan-500" },
+  { name: "MediCare+", mark: "M+", color: "bg-cyan-500" },
+  { name: "TripLoop", mark: "TL", color: "bg-cyan-500" },
+  { name: "Grocerio", mark: "G", color: "bg-cyan-500" },
+  { name: "SkillBridge", mark: "SB", color: "bg-cyan-500" }
 ]
 
 type MediaItem = (typeof mediaItems)[number]
@@ -102,6 +103,7 @@ const Services = () => {
   }, [activeFilter])
 
   const featuredMedia = visibleMedia[0] ?? mediaItems[0]
+  const stockWindowItems = mediaItems.filter((item) => item.id !== featuredMedia.id).slice(0, 4)
 
   return (
     <section id="services" className="pt-12 pb-24 md:pt-16 md:pb-28 lg:pt-20 lg:pb-32 bg-section-alt relative overflow-hidden">
@@ -109,20 +111,20 @@ const Services = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[0.88fr_1.12fr] gap-12 lg:gap-16 items-center mb-12 lg:mb-16">
           <div className="space-y-7">
             <div className="space-y-4">
-              <h3 className="text-indigo-600 font-bold uppercase tracking-widest text-sm flex items-center">
-                <span className="w-8 h-px bg-indigo-600 mr-4" />
+              <h3 className="text-cyan-700 font-bold uppercase tracking-widest text-sm flex items-center">
+                <span className="w-8 h-px bg-cyan-600 mr-4" />
                 Our Services
               </h3>
               <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-950 leading-tight">
                 Campaign Systems <br />
-                <span className="text-indigo-600">Built For Visibility.</span>
+                <span className="text-cyan-600">Built For Visibility.</span>
               </h2>
               <p className="text-brand-600 text-lg leading-relaxed max-w-xl">
                 We connect strategy, creative assets, media, and partner communication so every offer becomes easier to understand, promote, and act on.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3">
               {serviceSteps.map((step, index) => (
                 <motion.div
                   key={step.title}
@@ -130,13 +132,13 @@ const Services = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.08 }}
                   viewport={{ once: true }}
-                  className="rounded-2xl border border-brand-100 bg-white p-4 shadow-lg shadow-brand-500/5"
+                  className="rounded-2xl border border-brand-100 bg-white p-3 shadow-lg shadow-brand-500/5 sm:p-4"
                 >
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
-                    <step.icon className="h-5 w-5" />
+                  <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-xl bg-cyan-50 text-cyan-600 sm:mb-4 sm:h-10 sm:w-10">
+                    <step.icon className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
-                  <h4 className="text-base font-bold text-brand-950">{step.title}</h4>
-                  <p className="mt-2 text-xs leading-relaxed text-brand-500">{step.description}</p>
+                  <h4 className="text-xs font-bold text-brand-950 sm:text-base">{step.title}</h4>
+                  <p className="mt-1.5 text-[10px] leading-4 text-brand-500 sm:mt-2 sm:text-xs sm:leading-relaxed">{step.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -146,15 +148,18 @@ const Services = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="rounded-[30px] border border-brand-100 bg-white p-4 shadow-2xl shadow-indigo-500/10"
+            className="rounded-[30px] border border-slate-200 bg-slate-50 p-4 shadow-2xl shadow-slate-300/40"
           >
             <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-              <div className="inline-flex items-center gap-2 rounded-full bg-indigo-50 px-4 py-2 text-indigo-600 text-xs font-bold uppercase tracking-widest">
-                <Sparkles className="h-4 w-4" />
+              <div className="inline-flex items-center gap-2 rounded-full bg-cyan-50 px-4 py-2 text-cyan-700 text-xs font-bold uppercase tracking-widest">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-cyan-700 shadow-sm">
+                  <Clapperboard className="h-3.5 w-3.5" />
+                </span>
                 Media Hub
+                <Images className="h-3.5 w-3.5 text-cyan-600" />
               </div>
 
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 rounded-full bg-white p-1 shadow-sm">
                 {filters.map((filter) => (
                   <button
                     key={filter}
@@ -162,8 +167,8 @@ const Services = () => {
                     onClick={() => setActiveFilter(filter)}
                     className={`rounded-full px-4 py-2 text-xs font-bold transition-all ${
                       activeFilter === filter
-                        ? "bg-brand-950 text-white"
-                        : "bg-slate-50 text-brand-500 hover:bg-indigo-50 hover:text-indigo-600"
+                        ? "bg-cyan-500 text-slate-950"
+                        : "bg-transparent text-brand-500 hover:bg-cyan-50 hover:text-cyan-700"
                     }`}
                   >
                     {filter}
@@ -177,25 +182,14 @@ const Services = () => {
               onClick={() => setSelectedMedia(featuredMedia)}
               className="group relative block h-[280px] w-full overflow-hidden rounded-[24px] bg-brand-950 text-left"
             >
-              {featuredMedia.type === "video" ? (
-                <video
-                  src={featuredMedia.src}
-                  poster={featuredMedia.poster}
-                  muted
-                  loop
-                  playsInline
-                  className="h-full w-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-105"
-                />
-              ) : (
-                <Image
-                  src={featuredMedia.src}
-                  alt={featuredMedia.title}
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="h-full w-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-105"
-                />
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-950 via-brand-950/20 to-transparent" />
+              <Image
+                src={featuredMedia.type === "video" ? featuredMedia.poster ?? featuredMedia.src : featuredMedia.src}
+                alt={featuredMedia.title}
+                fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="h-full w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-950 via-brand-950/25 to-transparent" />
               <div className="absolute left-5 right-5 bottom-5 flex items-end justify-between gap-4">
                 <div>
                   <span className="mb-3 inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-bold text-white backdrop-blur-md">
@@ -210,8 +204,9 @@ const Services = () => {
               </div>
             </button>
 
-            <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {visibleMedia.slice(1, 5).map((item) => {
+            <div className="mt-4 rounded-[22px] bg-white p-2 shadow-inner shadow-slate-200/70">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+              {stockWindowItems.map((item) => {
                 const thumbnailSrc = item.type === "video" ? item.poster ?? item.src : item.src
 
                 return (
@@ -219,7 +214,7 @@ const Services = () => {
                     key={item.id}
                     type="button"
                     onClick={() => setSelectedMedia(item)}
-                    className="group relative h-24 overflow-hidden rounded-2xl bg-brand-950 text-left"
+                    className="group relative h-20 overflow-hidden rounded-2xl bg-brand-950 text-left sm:h-24"
                   >
                     <Image
                       src={thumbnailSrc}
@@ -233,12 +228,13 @@ const Services = () => {
                   </button>
                 )
               })}
+              </div>
             </div>
           </motion.div>
         </div>
 
         <div className="relative left-1/2 mt-32 w-screen -translate-x-1/2 overflow-hidden border-y border-brand-100 bg-white/75 py-8 shadow-xl shadow-brand-500/5">
-          <div className="mb-7 flex items-center justify-center gap-3 text-indigo-600 text-xs font-black uppercase tracking-widest">
+          <div className="mb-7 flex items-center justify-center gap-3 text-cyan-700 text-xs font-black uppercase tracking-widest">
             <Handshake className="h-4 w-4" />
             <span>Association With</span>
           </div>
@@ -313,7 +309,7 @@ const Services = () => {
                 </div>
 
                 <div className="p-8">
-                  <span className="inline-flex rounded-full bg-indigo-50 px-3 py-1 text-xs font-bold uppercase tracking-widest text-indigo-600">
+                  <span className="inline-flex rounded-full bg-cyan-50 px-3 py-1 text-xs font-bold uppercase tracking-widest text-cyan-700">
                     {selectedMedia.category}
                   </span>
                   <h4 className="mt-5 text-3xl font-display font-bold text-brand-950">{selectedMedia.title}</h4>
