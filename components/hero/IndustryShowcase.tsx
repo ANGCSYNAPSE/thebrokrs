@@ -106,21 +106,18 @@ type IndustryShowcaseProps = {
 }
 
 const IndustryShowcase: React.FC<IndustryShowcaseProps> = ({ currentScene }) => {
-  const nextScene = (currentScene + 1) % industries.length;
-  const stagedScenes = [currentScene, nextScene];
-
   return (
     <div className="showcase-container">
-      {stagedScenes.map((sceneIndex) => {
-        const industry = industries[sceneIndex];
+      {industries.map((industry, sceneIndex) => {
         const isActive = currentScene === sceneIndex;
 
         return (
         <motion.div
           key={industry.id}
           animate={{ opacity: isActive ? 1 : 0 }}
-          transition={{ duration: 1.1, ease: 'easeInOut' }}
-          className="scene active"
+          transition={{ duration: 1.45, ease: [0.4, 0, 0.2, 1] }}
+          className={`scene ${isActive ? 'active' : ''}`}
+          style={{ zIndex: isActive ? 2 : 1 }}
           aria-hidden={!isActive}
         >
           <MotionImage
@@ -128,12 +125,12 @@ const IndustryShowcase: React.FC<IndustryShowcaseProps> = ({ currentScene }) => 
             alt={industry.title}
             fill
             priority={sceneIndex === 0}
-            loading={sceneIndex === 0 ? undefined : 'lazy'}
+            loading={sceneIndex === 0 ? undefined : 'eager'}
             sizes="100vw"
             className="scene-image"
-            quality={78}
-            animate={{ scale: isActive ? 1.12 : 1.04 }}
-            transition={{ scale: { duration: 6, ease: 'linear' } }}
+            quality={82}
+            animate={{ scale: isActive ? 1.1 : 1.03 }}
+            transition={{ scale: { duration: 6.2, ease: 'linear' } }}
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = 'none';
             }}

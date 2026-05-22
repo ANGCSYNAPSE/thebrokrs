@@ -325,6 +325,7 @@
   align-items: center;
   overflow: hidden;
   z-index: 0;
+  background: #020817;
 }
 
 .scene {
@@ -337,6 +338,10 @@
   justify-content: flex-end;
   align-items: center;
   padding-right: 4rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateZ(0);
+  will-change: opacity;
 }
 
 .scene.active {
@@ -351,6 +356,8 @@
   height: 100%;
   object-fit: cover;
   filter: brightness(0.6) contrast(1.1);
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .content-overlay {

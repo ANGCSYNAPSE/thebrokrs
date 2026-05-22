@@ -42,35 +42,34 @@ const metrics = [
 ]
 
 const chartMonths = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
-
 const About = () => {
   return (
-    <section id="about" className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-white pt-24 pb-14 md:pt-28 md:pb-16 lg:pt-32 lg:pb-20">
+    <section id="about" className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-white pt-16 pb-10 md:pt-28 md:pb-16 lg:pt-32 lg:pb-20">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-indigo-200 to-transparent" />
 
-      <div className="container relative z-10 max-w-7xl mx-auto px-6">
+      <div className="container relative z-10 max-w-7xl mx-auto px-3 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="overflow-hidden rounded-[36px] border border-slate-200 bg-white shadow-2xl shadow-indigo-500/10"
+          className="overflow-hidden rounded-[24px] border border-slate-200 bg-white shadow-2xl shadow-indigo-500/10 md:rounded-[36px]"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-8 p-6 md:p-8 lg:p-10">
-            <div className="rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-7 md:p-9">
+          <div className="grid grid-cols-1 gap-4 p-4 md:gap-8 md:p-8 lg:grid-cols-[0.95fr_1.05fr] lg:p-10">
+            <div className="rounded-[22px] border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-5 md:rounded-[28px] md:p-9">
               <div className="inline-flex items-center gap-3 rounded-full border border-cyan-100 bg-white px-4 py-2 text-cyan-700 text-[10px] font-black uppercase tracking-widest shadow-lg shadow-cyan-500/5">
                 <RadioTower className="h-4 w-4" />
                 <span>About The Brokrs</span>
               </div>
 
-              <div className="mt-7 space-y-5">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight text-brand-950">
+              <div className="mt-5 space-y-3 md:mt-7 md:space-y-5">
+                <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold leading-tight text-brand-950">
                   Redefining Collaborative
                   <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-teal-500 to-sky-500">
                     Brand Growth.
                   </span>
                 </h2>
-                <p className="max-w-xl text-base md:text-lg leading-relaxed text-brand-600">
+                <p className="max-w-xl text-sm leading-6 text-brand-600 md:text-lg md:leading-relaxed">
                   The Brokrs is a marketing-first growth company built for brands that need sharper positioning, stronger visibility, and campaign systems that turn attention into qualified business.
                 </p>
               </div>
@@ -81,7 +80,7 @@ const About = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.1 }}
               viewport={{ once: true }}
-              className="relative min-h-[360px] overflow-hidden rounded-[28px] border border-cyan-100 bg-gradient-to-br from-white via-cyan-50 to-slate-50 p-6 shadow-xl shadow-cyan-500/10"
+              className="relative hidden min-h-[360px] overflow-hidden rounded-[28px] border border-cyan-100 bg-gradient-to-br from-white via-cyan-50 to-slate-50 p-6 shadow-xl shadow-cyan-500/10 md:block"
             >
               <div className="mb-5 flex items-start justify-between gap-4">
                 <div>
@@ -155,7 +154,7 @@ const About = () => {
             </motion.div>
           </div>
 
-          <div className="mx-6 md:mx-8 lg:mx-10 grid grid-cols-1 gap-4 rounded-[26px] border border-slate-200 bg-slate-50/80 p-4 md:grid-cols-3">
+          <div className="mx-4 grid grid-cols-3 gap-2 rounded-[20px] border border-slate-200 bg-slate-50/80 p-2 md:mx-8 md:grid-cols-3 md:gap-4 md:rounded-[26px] md:p-4 lg:mx-10">
             {metrics.map((metric, index) => (
               <motion.div
                 key={metric.label}
@@ -164,28 +163,28 @@ const About = () => {
                 transition={{ duration: 0.55, delay: index * 0.08 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -5 }}
-                className="flex items-center gap-4 rounded-2xl bg-white p-5 shadow-lg shadow-brand-500/5"
+                className="flex flex-col items-center gap-2 rounded-2xl bg-white p-3 text-center shadow-lg shadow-brand-500/5 md:flex-row md:gap-4 md:p-5 md:text-left"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700">
-                  <metric.icon className="h-6 w-6" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-cyan-50 text-cyan-700 md:h-12 md:w-12 md:rounded-2xl">
+                  <metric.icon className="h-4 w-4 md:h-6 md:w-6" />
                 </div>
                 <div>
-                  <div className="text-2xl font-black text-brand-950">{metric.value}</div>
-                  <div className="text-[10px] font-bold uppercase tracking-widest text-brand-500">{metric.label}</div>
+                  <div className="text-lg font-black text-brand-950 md:text-2xl">{metric.value}</div>
+                  <div className="text-[8px] font-bold uppercase leading-3 tracking-wider text-brand-500 md:text-[10px] md:tracking-widest">{metric.label}</div>
                 </div>
               </motion.div>
             ))}
           </div>
 
-          <div className="mt-8 p-6 md:mt-10 md:p-8 lg:mt-12 lg:p-10">
+          <div className="mt-5 p-4 md:mt-10 md:p-8 lg:mt-12 lg:p-10">
             <div className="mb-8 flex flex-col items-center text-center">
               <span className="mb-3 inline-flex rounded-full bg-cyan-50 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-cyan-700">
                 Growth Framework
               </span>
-              <h3 className="text-3xl md:text-4xl font-display font-bold text-brand-950">
+              <h3 className="text-2xl md:text-4xl font-display font-bold text-brand-950">
                 What We Do<span className="text-cyan-600">.</span>
               </h3>
-              <p className="mt-4 max-w-3xl text-sm md:text-base leading-relaxed text-brand-600">
+              <p className="mt-3 max-w-3xl text-xs leading-5 text-brand-600 md:mt-4 md:text-base md:leading-relaxed">
                 End-to-end marketing systems that build visibility, generate demand, and drive predictable growth.
               </p>
             </div>
@@ -227,7 +226,44 @@ const About = () => {
             </div>
           </div>
 
-          <div className="mx-2 mb-6 rounded-[30px] border border-slate-200 bg-white px-6 py-10 shadow-xl shadow-brand-500/5 md:mx-4 md:px-8 lg:mx-6 lg:px-8 xl:mx-8 xl:px-10">
+          <div className="mx-4 mb-5 rounded-[22px] border border-cyan-100 bg-gradient-to-br from-cyan-50 via-white to-slate-50 p-4 shadow-xl shadow-cyan-500/10 md:hidden">
+            <h3 className="text-2xl font-semibold leading-tight text-[#073b3a]">
+              Sharper brands. Stronger growth engines.
+            </h3>
+            <p className="mt-3 text-sm leading-6 text-brand-600">
+              Strategy, creative direction, visibility, and enquiry systems in one practical framework.
+            </p>
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <div className="rounded-2xl bg-white p-3 shadow-lg shadow-cyan-950/5">
+                <Globe2 className="h-5 w-5 text-cyan-600" />
+                <h4 className="mt-2 text-sm font-bold text-brand-950">Presence</h4>
+                <p className="mt-1 text-[11px] leading-4 text-brand-500">Be noticed, trusted, and remembered.</p>
+              </div>
+              <div className="rounded-2xl bg-white p-3 shadow-lg shadow-cyan-950/5">
+                <Handshake className="h-5 w-5 text-cyan-600" />
+                <h4 className="mt-2 text-sm font-bold text-brand-950">Partnership</h4>
+                <p className="mt-1 text-[11px] leading-4 text-brand-500">Support around visibility and lead quality.</p>
+              </div>
+            </div>
+            <div className="mt-4 flex items-center gap-3 rounded-2xl bg-slate-950 p-3 text-white">
+              <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full border-2 border-white/80">
+                <Image
+                  src="/assets/1.webp"
+                  alt="DR Puneet Aggarwaal"
+                  width={112}
+                  height={112}
+                  sizes="56px"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold">Dr. Puneet Aggarwaal</h4>
+                <p className="text-xs text-white/70">Founder & CEO</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mx-2 mb-6 hidden rounded-[30px] border border-slate-200 bg-white px-6 py-10 shadow-xl shadow-brand-500/5 md:mx-4 md:block md:px-8 lg:mx-6 lg:px-8 xl:mx-8 xl:px-10">
             <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[1.16fr_0.98fr_0.78fr] lg:gap-7 xl:gap-8">
               <motion.div
                 initial={{ opacity: 0, x: -24 }}
@@ -296,12 +332,14 @@ const About = () => {
                   />
                 </div>
                 <div className="absolute -bottom-11 left-1/2 flex h-36 w-36 -translate-x-1/2 items-center justify-center rounded-full bg-teal-950 text-white shadow-2xl shadow-teal-950/20">
-                  <div className="absolute inset-3 rounded-full border border-white/25" />
-                  <div className="absolute inset-0 animate-spin rounded-full [animation-duration:18s]">
-                    <span className="absolute left-1/2 top-2 -translate-x-1/2 text-[9px] font-black uppercase tracking-[0.18em]">The Brokrs</span>
-                    <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[9px] font-black uppercase tracking-[0.18em]">Growth Engine</span>
+                  <div className="absolute inset-4 rounded-full border border-white/15" />
+                  <div className="absolute top-4 text-center text-[8px] font-black uppercase tracking-[0.16em] text-white/85">
+                    The Brokrs
                   </div>
                   <Warehouse className="relative z-10 h-16 w-16" />
+                  <div className="absolute bottom-4 text-center text-[8px] font-black uppercase tracking-[0.14em] text-cyan-100">
+                    Growth Engine
+                  </div>
                 </div>
               </motion.div>
 

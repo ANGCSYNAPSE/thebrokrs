@@ -24,13 +24,13 @@ const Projects = () => {
       title: "Real Estate",
       icon: Building,
       desc: "Commercial & Residential layouts.",
-      image: "/assets/estate 4.jpg"
+      image: "/assets/industry/real_estate.webp"
     },
     {
       title: "Ecommerce Hubs",
       icon: ShoppingCart,
       desc: "Logistics & warehouse sectors.",
-      image: "/assets/property.webp"
+      image: "/assets/industry/e-Commerce.webp"
     },
     {
       title: "IT & Software",
@@ -43,22 +43,6 @@ const Projects = () => {
   return (
     <section id="projects" className="pt-10 pb-24 md:pt-12 md:pb-28 lg:pt-14 lg:pb-32 bg-brand-50/30">
       <div className="container max-w-7xl mx-auto px-6">
-        {/* Centered Layout Header */}
-        <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-16 lg:mb-20 space-y-4">
-          <h3 className="text-cyan-700 font-bold uppercase tracking-widest text-sm flex items-center justify-center">
-            <span className="w-8 h-px bg-cyan-600 mr-4" />
-            Strategic Portfolios
-            <span className="w-8 h-px bg-cyan-600 ml-4" />
-          </h3>
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-950 leading-tight">
-            Marketing Built For <br />
-            <span className="text-cyan-600">Every Business Vertical.</span>
-          </h2>
-          <p className="text-brand-600 text-lg leading-relaxed pt-2">
-            We build focused marketing systems for each vertical, from audience positioning to campaign visibility and lead flow.
-          </p>
-        </div>
-        
         {/* Business Vertical Cards */}
         <div>
           <div className="text-center mb-14 space-y-3">

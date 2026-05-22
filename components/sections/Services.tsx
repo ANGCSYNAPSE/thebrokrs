@@ -1,83 +1,45 @@
 "use client"
 
 import Image from "next/image"
-import { useMemo, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import Link from "next/link"
+import { motion } from "framer-motion"
 import {
-  BadgePercent,
-  Clapperboard,
+  ArrowRight,
+  Camera,
   Handshake,
-  Images,
-  Megaphone,
-  Play,
-  Sparkles,
-  UsersRound,
-  X
+  Play
 } from "lucide-react"
 
-const serviceSteps = [
+const galleryCards = [
   {
-    icon: Megaphone,
-    title: "Campaign",
-    description: "Turn business offers into clear, benefit-led campaigns."
+    title: "Partner stories",
+    label: "Photos",
+    image: "/assets/project.jpeg",
+    rotate: "md:-rotate-6",
+    offset: "md:mt-10 lg:mt-24"
   },
   {
-    icon: UsersRound,
-    title: "Community",
-    description: "Build reach through digital channels, referrals, and local touchpoints."
+    title: "Campaign moments",
+    label: "Videos",
+    image: "/assets/estate.jpeg",
+    rotate: "md:rotate-3",
+    offset: "lg:mt-4"
   },
   {
-    icon: BadgePercent,
-    title: "Benefits",
-    description: "Convert attention into enquiries, leads, and measurable business actions."
+    title: "Member wins",
+    label: "Updates",
+    image: "/assets/register.webp",
+    rotate: "md:-rotate-2",
+    offset: "md:mt-16 lg:mt-36"
+  },
+  {
+    title: "Field proof",
+    label: "Reels",
+    image: "/assets/media1.webp",
+    rotate: "md:rotate-6",
+    offset: "md:mt-8 lg:mt-14"
   }
 ]
-
-const mediaItems = [
-  {
-    id: 1,
-    type: "video",
-    title: "Campaign Overview",
-    category: "Videos",
-    description: "A short video space for explaining campaign goals, partner offers, and market positioning.",
-    src: "/assets/v1.mp4",
-    poster: "/assets/estate.jpeg"
-  },
-  {
-    id: 2,
-    type: "image",
-    title: "Partner Launch Moment",
-    category: "Partners",
-    description: "Use this gallery card for partner launches, brand announcements, and association highlights.",
-    src: "/assets/project.jpeg"
-  },
-  {
-    id: 3,
-    type: "image",
-    title: "Real Estate Benefit",
-    category: "Offers",
-    description: "A visual slot for property campaigns, project visibility, and verified opportunity communication.",
-    src: "/assets/estate 3.jpeg"
-  },
-  {
-    id: 4,
-    type: "image",
-    title: "Member Registration",
-    category: "Stories",
-    description: "A story card for lead capture, onboarding drives, and audience activation.",
-    src: "/assets/register.webp"
-  },
-  {
-    id: 5,
-    type: "image",
-    title: "Trust & Verification",
-    category: "Stories",
-    description: "A support-focused gallery item for trust building, verification, and customer assistance.",
-    src: "/assets/kyc.jpg"
-  }
-]
-
-const filters = ["All", "Videos", "Offers", "Partners", "Stories"]
 
 const partners = [
   { name: "Benefitry", mark: "B", color: "bg-cyan-500" },
@@ -88,152 +50,78 @@ const partners = [
   { name: "SkillBridge", mark: "SB", color: "bg-cyan-500" }
 ]
 
-type MediaItem = (typeof mediaItems)[number]
-
 const Services = () => {
-  const [activeFilter, setActiveFilter] = useState("All")
-  const [selectedMedia, setSelectedMedia] = useState<MediaItem | null>(null)
-
-  const visibleMedia = useMemo(() => {
-    if (activeFilter === "All") {
-      return mediaItems
-    }
-
-    return mediaItems.filter((item) => item.category === activeFilter)
-  }, [activeFilter])
-
-  const featuredMedia = visibleMedia[0] ?? mediaItems[0]
-  const stockWindowItems = mediaItems.filter((item) => item.id !== featuredMedia.id).slice(0, 4)
-
   return (
-    <section id="services" className="pt-12 pb-24 md:pt-16 md:pb-28 lg:pt-20 lg:pb-32 bg-section-alt relative overflow-hidden">
-      <div className="container max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-[0.88fr_1.12fr] gap-12 lg:gap-16 items-center mb-12 lg:mb-16">
-          <div className="space-y-7">
-            <div className="space-y-4">
+    <section id="services" className="relative overflow-hidden bg-[#eefbff] pt-12 pb-24 text-brand-950 md:pt-16 md:pb-28 lg:pt-20 lg:pb-32">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_18%,rgba(34,211,238,0.26),transparent_32%),radial-gradient(circle_at_80%_52%,rgba(14,165,233,0.14),transparent_30%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,47,73,0.05)_1px,transparent_1px),linear-gradient(0deg,rgba(8,47,73,0.04)_1px,transparent_1px)] bg-[size:120px_120px] opacity-30 md:opacity-45" />
+
+      <div className="container relative z-10 max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[0.72fr_1.28fr] gap-12 lg:gap-16 items-center mb-14 lg:mb-20">
+          <div className="space-y-8">
+            <div className="space-y-5">
               <h3 className="text-cyan-700 font-bold uppercase tracking-widest text-sm flex items-center">
                 <span className="w-8 h-px bg-cyan-600 mr-4" />
-                Our Services
+                Brokrs Experience Gallery
               </h3>
-              <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-950 leading-tight">
-                Campaign Systems <br />
-                <span className="text-cyan-600">Built For Visibility.</span>
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-light leading-[1.02] tracking-tight text-brand-950 md:leading-[0.96]">
+                Share Your <br />
+                <span className="brush-poster-text mt-2 inline-block font-black uppercase">Growth Moments.</span>
               </h2>
-              <p className="text-brand-600 text-lg leading-relaxed max-w-xl">
-                We connect strategy, creative assets, media, and partner communication so every offer becomes easier to understand, promote, and act on.
+              <p className="text-brand-700 text-lg leading-relaxed max-w-xl">
+                A community gallery for Brokrs partners and members to share their real experiences through photos, short videos, campaign moments, testimonials, and field updates.
               </p>
             </div>
 
-            <div className="grid grid-cols-3 gap-2 sm:gap-3">
-              {serviceSteps.map((step, index) => (
-                <motion.div
-                  key={step.title}
-                  initial={{ opacity: 0, y: 18 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.08 }}
-                  viewport={{ once: true }}
-                  className="rounded-2xl border border-brand-100 bg-white p-3 shadow-lg shadow-brand-500/5 sm:p-4"
-                >
-                  <div className="mb-3 flex h-8 w-8 items-center justify-center rounded-xl bg-cyan-50 text-cyan-600 sm:mb-4 sm:h-10 sm:w-10">
-                    <step.icon className="h-4 w-4 sm:h-5 sm:w-5" />
-                  </div>
-                  <h4 className="text-xs font-bold text-brand-950 sm:text-base">{step.title}</h4>
-                  <p className="mt-1.5 text-[10px] leading-4 text-brand-500 sm:mt-2 sm:text-xs sm:leading-relaxed">{step.description}</p>
-                </motion.div>
-              ))}
-            </div>
+            <Link
+              href="/gallery"
+              className="group inline-flex h-14 items-center gap-3 rounded-full border border-cyan-200 bg-white/90 px-6 text-xs font-black uppercase tracking-widest text-cyan-800 shadow-xl shadow-cyan-500/12 transition-all hover:-translate-y-1 hover:bg-cyan-200 hover:text-slate-950"
+            >
+              Our Gallery
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
           </div>
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="rounded-[30px] border border-slate-200 bg-slate-50 p-4 shadow-2xl shadow-slate-300/40"
+            className="relative min-h-[430px] overflow-hidden rounded-[28px] border border-cyan-100 bg-white/72 p-4 shadow-2xl shadow-cyan-950/10 backdrop-blur-sm md:min-h-[560px] md:rounded-[36px] md:p-5 lg:min-h-[620px]"
           >
-            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-              <div className="inline-flex items-center gap-2 rounded-full bg-cyan-50 px-4 py-2 text-cyan-700 text-xs font-bold uppercase tracking-widest">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-cyan-700 shadow-sm">
-                  <Clapperboard className="h-3.5 w-3.5" />
-                </span>
-                Media Hub
-                <Images className="h-3.5 w-3.5 text-cyan-600" />
-              </div>
-
-              <div className="flex flex-wrap gap-2 rounded-full bg-white p-1 shadow-sm">
-                {filters.map((filter) => (
-                  <button
-                    key={filter}
-                    type="button"
-                    onClick={() => setActiveFilter(filter)}
-                    className={`rounded-full px-4 py-2 text-xs font-bold transition-all ${
-                      activeFilter === filter
-                        ? "bg-cyan-500 text-slate-950"
-                        : "bg-transparent text-brand-500 hover:bg-cyan-50 hover:text-cyan-700"
-                    }`}
-                  >
-                    {filter}
-                  </button>
-                ))}
-              </div>
+            <div className="absolute bottom-10 right-12 z-0 text-[72px] font-black leading-none text-cyan-950/5 md:text-[120px]">
+              BROKRS
             </div>
 
-            <button
-              type="button"
-              onClick={() => setSelectedMedia(featuredMedia)}
-              className="group relative block h-[280px] w-full overflow-hidden rounded-[24px] bg-brand-950 text-left"
-            >
-              <Image
-                src={featuredMedia.type === "video" ? featuredMedia.poster ?? featuredMedia.src : featuredMedia.src}
-                alt={featuredMedia.title}
-                fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="h-full w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-950 via-brand-950/25 to-transparent" />
-              <div className="absolute left-5 right-5 bottom-5 flex items-end justify-between gap-4">
-                <div>
-                  <span className="mb-3 inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-bold text-white backdrop-blur-md">
-                    {featuredMedia.category}
-                  </span>
-                  <h4 className="text-2xl font-display font-bold text-white">{featuredMedia.title}</h4>
-                  <p className="mt-2 max-w-lg text-sm leading-relaxed text-white/75">{featuredMedia.description}</p>
-                </div>
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-brand-950 shadow-xl">
-                  {featuredMedia.type === "video" ? <Play className="h-5 w-5 fill-current" /> : <Images className="h-5 w-5" />}
-                </span>
-              </div>
-            </button>
-
-            <div className="mt-4 rounded-[22px] bg-white p-2 shadow-inner shadow-slate-200/70">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
-              {stockWindowItems.map((item) => {
-                const thumbnailSrc = item.type === "video" ? item.poster ?? item.src : item.src
-
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => setSelectedMedia(item)}
-                    className="group relative h-20 overflow-hidden rounded-2xl bg-brand-950 text-left sm:h-24"
-                  >
-                    <Image
-                      src={thumbnailSrc}
-                      alt={item.title}
-                      fill
-                      sizes="(min-width: 640px) 25vw, 50vw"
-                      className="h-full w-full object-cover opacity-75 transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-950/85 to-transparent" />
-                    <span className="absolute bottom-3 left-3 right-3 text-xs font-bold text-white">{item.title}</span>
-                  </button>
-                )
-              })}
-              </div>
+              <div className="relative z-10 grid h-full grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+              {galleryCards.map((card, index) => (
+                <Link
+                  key={card.title}
+                  href="/gallery"
+                  className={`group relative h-44 overflow-hidden rounded-[10px] bg-white/10 shadow-2xl shadow-black/25 transition-all duration-500 hover:z-20 hover:-translate-y-2 hover:rotate-0 hover:scale-[1.03] md:h-80 md:shadow-black/35 md:hover:-translate-y-3 md:hover:scale-105 ${card.rotate} ${card.offset}`}
+                >
+                  <Image
+                    src={card.image}
+                    alt={card.title}
+                    fill
+                    sizes="(min-width: 1024px) 18vw, 45vw"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/15 to-transparent" />
+                  <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
+                    <span className="rounded-full bg-black/35 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-white backdrop-blur-md">{card.label}</span>
+                    {card.label === "Videos" ? <Play className="h-4 w-4 fill-white text-white" /> : <Camera className="h-4 w-4 text-white" />}
+                  </div>
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <p className="text-lg font-black leading-tight text-white">{card.title}</p>
+                    <p className="mt-1 text-[11px] font-semibold uppercase tracking-widest text-cyan-200">Tap to open</p>
+                  </div>
+                </Link>
+              ))}
             </div>
           </motion.div>
         </div>
 
-        <div className="relative left-1/2 mt-32 w-screen -translate-x-1/2 overflow-hidden border-y border-brand-100 bg-white/75 py-8 shadow-xl shadow-brand-500/5">
+        <div className="relative left-1/2 mt-24 w-screen -translate-x-1/2 overflow-hidden border-y border-brand-100 bg-white/75 py-8 shadow-xl shadow-brand-500/5">
           <div className="mb-7 flex items-center justify-center gap-3 text-cyan-700 text-xs font-black uppercase tracking-widest">
             <Handshake className="h-4 w-4" />
             <span>Association With</span>
@@ -261,66 +149,6 @@ const Services = () => {
         </div>
       </div>
 
-      <AnimatePresence>
-        {selectedMedia && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-brand-950/80 p-4 backdrop-blur-md"
-            onClick={() => setSelectedMedia(null)}
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 24, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 24, scale: 0.98 }}
-              className="relative w-full max-w-5xl overflow-hidden rounded-[28px] bg-white shadow-2xl"
-              onClick={(event) => event.stopPropagation()}
-            >
-              <button
-                type="button"
-                onClick={() => setSelectedMedia(null)}
-                className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-brand-950 shadow-xl transition-transform hover:scale-105"
-                aria-label="Close media"
-              >
-                <X className="h-5 w-5" />
-              </button>
-
-              <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_0.6fr]">
-                <div className="min-h-[320px] bg-brand-950">
-                  {selectedMedia.type === "video" ? (
-                    <video
-                      src={selectedMedia.src}
-                      poster={selectedMedia.poster}
-                      controls
-                      autoPlay
-                      className="h-full max-h-[72vh] w-full object-contain"
-                    />
-                  ) : (
-                    <Image
-                      src={selectedMedia.src}
-                      alt={selectedMedia.title}
-                      width={1200}
-                      height={800}
-                      sizes="(min-width: 1024px) 60vw, 100vw"
-                      className="h-full max-h-[72vh] w-full object-contain"
-                    />
-                  )}
-                </div>
-
-                <div className="p-8">
-                  <span className="inline-flex rounded-full bg-cyan-50 px-3 py-1 text-xs font-bold uppercase tracking-widest text-cyan-700">
-                    {selectedMedia.category}
-                  </span>
-                  <h4 className="mt-5 text-3xl font-display font-bold text-brand-950">{selectedMedia.title}</h4>
-                  <p className="mt-4 text-sm leading-relaxed text-brand-600">{selectedMedia.description}</p>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       <style jsx global>{`
         @keyframes logo-marquee {
           from {
@@ -337,6 +165,69 @@ const Services = () => {
 
         .animate-logo-marquee:hover {
           animation-play-state: paused;
+        }
+
+        .brush-poster-text {
+          position: relative;
+          z-index: 0;
+          padding: 0.08em 0.18em 0.13em;
+          color: #ffffff;
+          font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
+          letter-spacing: 0.035em;
+          line-height: 0.9;
+          transform: rotate(-1deg);
+          text-shadow:
+            2px 2px 0 #0f172a,
+            -1px 1px 0 #0f172a,
+            0 5px 16px rgba(8, 47, 73, 0.22);
+          -webkit-text-stroke: 1px rgba(15, 23, 42, 0.55);
+        }
+
+        .brush-poster-text::before {
+          content: "";
+          position: absolute;
+          inset: 0.04em -0.04em 0.02em -0.04em;
+          z-index: -1;
+          background: #111315;
+          transform: skewX(-8deg) rotate(0.5deg);
+          border-radius: 0.04em;
+        }
+
+        .brush-poster-text::after {
+          content: "";
+          position: absolute;
+          left: 0.12em;
+          right: 0.08em;
+          bottom: 0.08em;
+          z-index: -1;
+          height: 0.14em;
+          background: #ff4f1f;
+          transform: rotate(-2deg);
+          border-radius: 999px;
+        }
+
+        .brush-gallery-text,
+        .brush-gallery-button {
+          color: #ffffff;
+          font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
+          letter-spacing: 0.03em;
+          text-shadow:
+            2px 2px 0 #062f3b,
+            -1px 1px 0 #062f3b,
+            0 5px 16px rgba(8, 47, 73, 0.25);
+          -webkit-text-stroke: 1px rgba(8, 47, 73, 0.42);
+        }
+
+        .brush-gallery-text {
+          transform: rotate(-1deg);
+        }
+
+        .brush-gallery-button {
+          text-shadow:
+            1px 1px 0 #062f3b,
+            -1px 1px 0 #062f3b,
+            0 4px 12px rgba(8, 47, 73, 0.2);
+          -webkit-text-stroke: 0.7px rgba(8, 47, 73, 0.5);
         }
       `}</style>
     </section>

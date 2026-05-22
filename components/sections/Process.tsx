@@ -1,187 +1,121 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { UserPlus, ShieldCheck, Gift, ArrowRight, FileCheck2, Share2, WalletCards } from "lucide-react"
+import { CheckCircle2, MousePointerClick, Rocket, Sparkles, Target } from "lucide-react"
 
 const steps = [
   {
     step: "01",
-    icon: UserPlus,
-    title: "Share Your Goal",
-    description: "Tell us your business vertical, audience, and growth target so we can understand the right campaign direction.",
-    highlight: "Discovery",
-    visual: "register"
+    label: "Ask",
+    title: "Tell Us The Goal",
+    description: "Share what you want to promote, who should see it, and what result you want.",
+    example: "Example: launch a property offer, collect leads, promote a partner plan.",
+    icon: MousePointerClick,
+    color: "from-cyan-300 to-sky-400",
+    bg: "bg-cyan-50",
+    accent: "text-cyan-700",
+    bullets: ["Business type", "Target audience", "Growth target"]
   },
   {
     step: "02",
-    icon: ShieldCheck,
-    title: "Shape The Campaign",
-    description: "We refine positioning, campaign messaging, and the trust points your audience needs before taking action.",
-    highlight: "Strategy",
-    visual: "kyc"
+    label: "Build",
+    title: "We Shape The Campaign",
+    description: "We turn your idea into a clear message, creative angle, and follow-up path.",
+    example: "You get positioning, content direction, and the right visibility plan.",
+    icon: Target,
+    color: "from-violet-300 to-cyan-300",
+    bg: "bg-violet-50",
+    accent: "text-violet-700",
+    bullets: ["Message", "Media assets", "Lead path"]
   },
   {
     step: "03",
-    icon: Gift,
-    title: "Launch & Grow",
-    description: "Your campaign moves into visibility, lead capture, and follow-up so attention becomes measurable business growth.",
-    highlight: "Execution",
-    visual: "refer"
+    label: "Launch",
+    title: "Go Live & Grow",
+    description: "Your campaign moves into market with tracking, responses, and next-step support.",
+    example: "Attention becomes enquiries, conversations, and measurable business actions.",
+    icon: Rocket,
+    color: "from-lime-300 to-cyan-300",
+    bg: "bg-lime-50",
+    accent: "text-emerald-700",
+    bullets: ["Visibility", "Lead capture", "Follow-up"]
   }
 ]
 
-const ProcessVisual = ({ type }: { type: string }) => {
-  if (type === "kyc") {
-    return (
-      <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-cyan-100 via-white to-teal-100">
-        <div className="absolute inset-x-5 top-5 rounded-2xl bg-white/80 p-4 shadow-2xl shadow-cyan-900/10 border border-white md:inset-x-8 md:top-8 md:rounded-3xl md:p-5">
-          <div className="flex items-center justify-between border-b border-cyan-100 pb-3">
-            <div className="space-y-2">
-              <span className="block h-2 w-20 rounded-full bg-cyan-200" />
-              <span className="block h-2 w-28 rounded-full bg-slate-200" />
-            </div>
-            <FileCheck2 className="h-7 w-7 text-cyan-600 md:h-8 md:w-8" />
-          </div>
-          <div className="mt-5 grid grid-cols-[56px_1fr] gap-4">
-            <div className="h-14 w-14 rounded-2xl bg-cyan-50 border border-cyan-100" />
-            <div className="space-y-3">
-              <span className="block h-2 rounded-full bg-slate-200" />
-              <span className="block h-2 w-4/5 rounded-full bg-slate-200" />
-              <span className="block h-2 w-2/3 rounded-full bg-cyan-200" />
-            </div>
-          </div>
-        </div>
-        <div className="absolute top-5 right-5 rounded-2xl bg-cyan-500 px-3 py-2 text-slate-950 shadow-xl md:top-6 md:right-8 md:px-4 md:py-3">
-          <ShieldCheck className="h-5 w-5 md:h-6 md:w-6" />
-        </div>
-      </div>
-    )
-  }
-
-  if (type === "refer") {
-    return (
-      <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-cyan-100 via-white to-sky-100">
-        <div className="absolute left-1/2 top-12 h-20 w-20 -translate-x-1/2 rounded-full bg-white shadow-2xl shadow-rose-900/10 border border-rose-100 flex items-center justify-center">
-          <Gift className="h-10 w-10 text-cyan-600" />
-        </div>
-        <div className="absolute left-10 bottom-8 h-14 w-14 rounded-2xl bg-white border border-rose-100 shadow-lg flex items-center justify-center">
-          <Share2 className="h-7 w-7 text-cyan-500" />
-        </div>
-        <div className="absolute right-10 bottom-8 h-14 w-14 rounded-2xl bg-white border border-amber-100 shadow-lg flex items-center justify-center">
-          <WalletCards className="h-7 w-7 text-cyan-500" />
-        </div>
-        <div className="absolute left-[27%] top-[57%] h-1 w-24 -rotate-12 rounded-full bg-cyan-200" />
-        <div className="absolute right-[27%] top-[57%] h-1 w-24 rotate-12 rounded-full bg-sky-200" />
-      </div>
-    )
-  }
-
-  return (
-    <div className="relative h-full w-full overflow-hidden bg-gradient-to-br from-cyan-100 via-white to-sky-100">
-      <div className="absolute left-5 top-5 rounded-2xl bg-white/85 p-4 shadow-2xl shadow-cyan-900/10 border border-white md:left-8 md:top-8 md:rounded-[28px] md:p-5">
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-2xl bg-cyan-50 flex items-center justify-center md:h-12 md:w-12">
-            <UserPlus className="h-5 w-5 text-cyan-600 md:h-7 md:w-7" />
-          </div>
-          <div className="space-y-2">
-            <span className="block h-2 w-24 rounded-full bg-cyan-200" />
-            <span className="block h-2 w-32 rounded-full bg-slate-200" />
-          </div>
-        </div>
-        <div className="mt-5 grid grid-cols-3 gap-2">
-          <span className="h-12 rounded-xl bg-cyan-50" />
-          <span className="h-12 rounded-xl bg-sky-50" />
-          <span className="h-12 rounded-xl bg-cyan-50" />
-        </div>
-      </div>
-      <div className="absolute -bottom-8 right-8 h-28 w-28 rounded-full bg-cyan-500/15" />
-      <div className="absolute top-5 right-5 rounded-2xl bg-cyan-500 px-3 py-2 text-slate-950 shadow-xl md:top-6 md:right-10 md:px-4 md:py-3">
-        <ArrowRight className="h-5 w-5 md:h-6 md:w-6" />
-      </div>
-    </div>
-  )
-}
-
 const Process = () => {
   return (
-    <section id="process" className="pt-12 pb-24 md:pt-16 md:pb-28 lg:pt-20 lg:pb-32 bg-white relative overflow-hidden">
-      <div className="container max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-14 lg:mb-16 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-brand-950">How It Works</h2>
-          <p className="text-brand-600 text-lg max-w-2xl mx-auto leading-relaxed">
-            A simple three-step marketing path that moves from business clarity to campaign launch and measurable growth.
+    <section id="process" className="relative overflow-hidden bg-[#eefbff] pt-12 pb-24 md:pt-16 md:pb-28 lg:pt-20 lg:pb-32">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(34,211,238,0.22),transparent_30%),radial-gradient(circle_at_84%_35%,rgba(167,243,208,0.28),transparent_28%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(8,47,73,0.05)_1px,transparent_1px),linear-gradient(0deg,rgba(8,47,73,0.04)_1px,transparent_1px)] bg-[size:110px_110px] opacity-35" />
+
+      <div className="container relative z-10 max-w-7xl mx-auto px-6">
+        <div className="mx-auto mb-12 max-w-3xl text-center lg:mb-16">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-100 bg-white/80 px-4 py-2 text-[11px] font-black uppercase tracking-widest text-cyan-700 shadow-lg shadow-cyan-950/5">
+            <Sparkles className="h-4 w-4" />
+            Simple Growth Flow
+          </div>
+          <h2 className="text-4xl md:text-5xl font-display font-black text-brand-950">How It Works</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-brand-700 md:text-lg">
+            Three easy steps: tell us the goal, we build the campaign, then we launch it and help turn attention into real conversations.
           </p>
         </div>
 
         <div className="relative">
-          {/* Main Path Line (Visible & Clean) */}
-          <div className="hidden lg:block absolute top-[180px] left-[15%] right-[15%] h-1 bg-slate-100 rounded-full z-0 overflow-hidden">
-             <motion.div 
-               initial={{ width: 0 }}
-               whileInView={{ width: '100%' }}
-               transition={{ duration: 1.5, ease: "easeInOut" }}
-               className="h-full bg-gradient-to-r from-cyan-400 via-teal-400 to-sky-400" 
-             />
-          </div>
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 lg:gap-7">
+            {steps.map((item, index) => {
+              const Icon = item.icon
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-12 relative z-10">
-            {steps.map((item, i) => {
               return (
-                <div key={i} className="relative group">
-                  {/* Step Card */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: i * 0.2 }}
-                    viewport={{ once: true }}
-                    className="flex flex-col bg-white rounded-[24px] lg:rounded-[40px] border border-brand-100 shadow-xl shadow-brand-500/5 h-full group-hover:shadow-2xl group-hover:-translate-y-2 transition-all duration-500 relative"
-                  >
-                    {/* Image Area (Overflow hidden here) */}
-                    <div className="relative h-36 overflow-hidden rounded-t-[24px] lg:h-48 lg:rounded-t-[40px]">
-                      <ProcessVisual type={item.visual} />
-                      <div className="absolute inset-0 bg-brand-950/20 group-hover:bg-transparent transition-colors duration-500" />
-                      
-                      {/* Floating Step Badge */}
-                      <div className="absolute top-4 left-4 px-3 py-1.5 bg-white/90 backdrop-blur-md rounded-xl text-brand-950 font-black text-xs shadow-xl lg:top-6 lg:left-6 lg:px-4 lg:py-2 lg:rounded-2xl lg:text-sm">
-                        STEP {item.step}
+                <motion.article
+                  key={item.title}
+                  initial={{ opacity: 0, y: 28, scale: 0.98 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.55, delay: index * 0.12 }}
+                  viewport={{ once: true }}
+                  className="group relative overflow-hidden rounded-[30px] border border-white bg-white/86 p-5 shadow-2xl shadow-cyan-950/8 transition-all duration-500 hover:-translate-y-2 hover:shadow-cyan-500/15 md:p-6"
+                >
+                  <div className={`absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gradient-to-br ${item.color} opacity-30 blur-2xl transition-transform duration-700 group-hover:scale-125`} />
+
+                  <div className="relative z-10">
+                    <div className="mb-6 flex items-center justify-between">
+                      <div className={`flex h-16 w-16 items-center justify-center rounded-[24px] bg-gradient-to-br ${item.color} text-slate-950 shadow-xl shadow-cyan-950/10 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-105`}>
+                        <Icon className="h-8 w-8" />
                       </div>
+                      <span className="rounded-full border border-cyan-100 bg-cyan-50 px-4 py-2 text-[11px] font-black uppercase tracking-widest text-cyan-800">
+                        Step {item.step}
+                      </span>
                     </div>
 
-                    {/* Content */}
-                    <div className="p-5 pt-8 space-y-4 flex-1 flex flex-col relative z-10 lg:p-10 lg:pt-12 lg:space-y-6">
-                      <div className="space-y-2 lg:space-y-3">
-                        <h3 className="text-xl lg:text-2xl font-bold text-brand-950 group-hover:text-cyan-700 transition-colors">
-                          {item.title}
-                        </h3>
-                        <p className="text-brand-600 leading-relaxed text-xs lg:text-sm">
-                          {item.description}
-                        </p>
-                      </div>
+                    <div className="mb-5">
+                      <p className={`text-xs font-black uppercase tracking-[0.25em] ${item.accent}`}>{item.label}</p>
+                      <h3 className="mt-2 text-2xl font-black leading-tight text-brand-950 md:text-3xl">{item.title}</h3>
+                      <p className="mt-3 text-sm font-semibold leading-6 text-brand-650">{item.description}</p>
+                    </div>
 
-                      <div className="mt-auto pt-3 lg:pt-6">
-                        <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-slate-50 border border-brand-100 text-brand-400 text-[9px] font-bold uppercase tracking-widest group-hover:bg-cyan-50 group-hover:text-cyan-700 group-hover:border-cyan-100 transition-all lg:px-4 lg:text-[10px]">
-                          <span>{item.highlight}</span>
+                    <div className={`relative mb-5 overflow-hidden rounded-[24px] ${item.bg} p-4`}>
+                      <div className="mb-4 flex items-center gap-2">
+                        <span className="h-2.5 w-2.5 rounded-full bg-cyan-400" />
+                        <span className="h-2.5 w-2.5 rounded-full bg-violet-300" />
+                        <span className="h-2.5 w-2.5 rounded-full bg-lime-300" />
+                      </div>
+                      <p className="text-xs font-bold leading-5 text-brand-700">{item.example}</p>
+                    </div>
+
+                    <div className="space-y-2">
+                      {item.bullets.map((bullet) => (
+                        <div key={bullet} className="flex items-center gap-2 rounded-2xl bg-slate-50 px-3 py-2">
+                          <CheckCircle2 className="h-4 w-4 shrink-0 text-cyan-600" />
+                          <span className="text-xs font-black text-brand-700">{bullet}</span>
                         </div>
-                      </div>
+                      ))}
                     </div>
-                  </motion.div>
-
-                </div>
+                  </div>
+                </motion.article>
               )
             })}
           </div>
         </div>
       </div>
-
-      <style jsx global>{`
-        @keyframes bounce-x {
-          0%, 100% { transform: translateX(0); }
-          50% { transform: translateX(5px); }
-        }
-        .animate-bounce-x {
-          animation: bounce-x 2s infinite ease-in-out;
-        }
-      `}</style>
     </section>
   )
 }

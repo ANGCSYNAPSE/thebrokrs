@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { motion } from "framer-motion"
 import { ArrowRight, BriefcaseBusiness, Grid3X3, Home, Info, MessageCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -19,6 +20,9 @@ const navLinks = [
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState("")
+  const pathname = usePathname()
+  const isInnerPage = pathname !== "/"
+  const useLightHeader = isScrolled || isInnerPage
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,7 +59,7 @@ const Navbar = () => {
       <nav
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-in-out",
-          isScrolled
+          useLightHeader
             ? "py-2 md:py-3 bg-white/95 dark:bg-black/90 backdrop-blur-2xl border-b border-brand-100/50 shadow-[0_4px_30px_rgba(0,0,0,0.04)]"
             : "py-4 md:py-6 bg-transparent"
         )}
@@ -69,7 +73,7 @@ const Navbar = () => {
               transition={{ duration: 0.5 }}
             >
               <Image
-                src={isScrolled ? "/assets/logo blue.png" : "/assets/logo2-clear.png"}
+                src={useLightHeader ? "/assets/logo blue.png" : "/assets/logo2-clear.png"}
                 alt="The Brokrs"
                 width={280}
                 height={100}
@@ -77,7 +81,7 @@ const Navbar = () => {
                 sizes="(min-width: 768px) 220px, 160px"
                 className={cn(
                   "w-auto object-contain transition-all duration-300",
-                  isScrolled ? "h-9 md:h-9" : "h-16 md:h-20"
+                  useLightHeader ? "h-9 md:h-9" : "h-16 md:h-20"
                 )}
               />
             </motion.div>
@@ -96,7 +100,7 @@ const Navbar = () => {
                   variant="ghost"
                   className={cn(
                     "px-5 py-2 text-sm font-bold uppercase tracking-widest transition-all duration-300 hover:bg-transparent",
-                    isScrolled
+                    useLightHeader
                       ? activeSection === link.href.substring(1) 
                         ? "text-cyan-700" 
                         : "text-brand-950 hover:text-cyan-700"
@@ -122,7 +126,7 @@ const Navbar = () => {
               <Button
                 className={cn(
                   "rounded-full px-8 py-6 text-sm font-bold uppercase tracking-[0.1em] transition-all duration-500",
-                  isScrolled
+                  useLightHeader
                     ? "bg-brand-950 text-white hover:bg-cyan-500 hover:text-slate-950 shadow-xl hover:shadow-cyan-500/20 border border-transparent"
                     : "bg-white/10 backdrop-blur-md text-white border border-white/30 hover:bg-white hover:text-brand-950 shadow-none hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
                 )}
@@ -139,7 +143,7 @@ const Navbar = () => {
           <Button
             className={cn(
               "lg:hidden relative z-50 h-10 rounded-full px-4 text-xs font-bold shadow-lg transition-all",
-              isScrolled ? "bg-cyan-500 text-slate-950" : "bg-white/15 text-white backdrop-blur-md border border-white/25"
+              useLightHeader ? "bg-cyan-500 text-slate-950" : "bg-white/15 text-white backdrop-blur-md border border-white/25"
             )}
             asChild
           >
@@ -149,7 +153,7 @@ const Navbar = () => {
       </nav>
 
       <div className="fixed inset-x-0 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-[90] px-4 lg:hidden">
-        <div className="mx-auto flex h-14 max-w-[340px] items-center justify-between rounded-full border border-cyan-100 bg-white/92 px-2 shadow-2xl shadow-cyan-950/10 backdrop-blur-2xl">
+        <div className="mx-auto flex h-14 max-w-[340px] items-center justify-between rounded-full border border-cyan-100 bg-cyan-50/98 px-2 shadow-2xl shadow-cyan-950/12 backdrop-blur-md">
           {navLinks.map((link) => {
             const Icon = link.icon
             const isActive = activeSection === link.href.substring(1)
@@ -159,13 +163,15 @@ const Navbar = () => {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-50/75 text-slate-500 transition-all",
-                  isActive ? "bg-cyan-400 text-slate-950 shadow-lg shadow-cyan-500/25" : "hover:bg-cyan-100 hover:text-cyan-700"
+                  "flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-slate-400 transition-all",
+                  isActive
+                    ? "bg-orange-50 text-orange-500 shadow-lg shadow-orange-300/35 ring-1 ring-orange-100"
+                    : "bg-white/85 hover:bg-white hover:text-cyan-700"
                 )}
                 aria-label={link.name}
                 title={link.name}
               >
-                <Icon className="h-4 w-4" />
+                <Icon className="h-[17px] w-[17px] stroke-[1.9]" />
               </Link>
             )
           })}
