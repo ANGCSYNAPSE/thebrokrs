@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { Phone, Send, CheckCircle2 } from "lucide-react"
+import { Phone, Send, CheckCircle2, Sparkles, TrendingUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -142,26 +142,46 @@ const Contact = () => {
                 className="object-cover opacity-[0.08]"
                 aria-hidden="true"
               />
-              <div className="absolute inset-0 bg-gradient-to-br from-white/95 via-white/90 to-cyan-50/85" />
+              <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.98)_0%,rgba(240,253,255,0.92)_52%,rgba(207,250,254,0.72)_100%)]" />
               <div className="absolute -bottom-20 -right-20 h-52 w-52 rounded-full bg-cyan-300/35 blur-[70px]" />
-              <div className="relative z-10 flex items-center justify-between">
-                <Image
-                  src="/assets/logo blue.png"
-                  alt="The Brokrs"
-                  width={150}
-                  height={54}
-                  sizes="150px"
-                  className="h-8 w-auto object-contain"
-                />
-                <span className="rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-cyan-700">
+              <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-cyan-400 via-sky-300 to-transparent" />
+              <div className="relative z-10 flex items-start justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-cyan-200 bg-white shadow-lg shadow-cyan-500/10">
+                    <div className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-cyan-400 text-slate-950 ring-4 ring-white">
+                      <Sparkles className="h-2.5 w-2.5" />
+                    </div>
+                    <TrendingUp className="h-5 w-5 text-cyan-700" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-black uppercase tracking-[0.22em] text-cyan-700">Growth Signal</p>
+                    <h3 className="mt-1 text-lg font-black leading-none text-brand-950">The Brokrs</h3>
+                  </div>
+                </div>
+                <span className="shrink-0 rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-cyan-700">
                   Brokrs Desk
                 </span>
               </div>
-              <div className="relative z-10 mt-20 max-w-md">
+              <div className="relative z-10 mt-14 max-w-md">
+                <div className="mb-5 h-px w-24 bg-gradient-to-r from-cyan-400 to-transparent" />
                 <p className="text-base sm:text-lg leading-7 text-brand-800">
                   "We help brands move from scattered attention to structured campaigns, sharper positioning, and qualified business conversations."
                 </p>
-                <p className="mt-5 text-sm font-bold text-cyan-700">The Brokrs Growth Team</p>
+                <div className="mt-6 flex items-center gap-3">
+                  <div className="relative h-9 w-9 overflow-hidden rounded-full border border-cyan-200 bg-white shadow-sm ring-4 ring-cyan-50">
+                    <Image
+                      src="/assets/manager-avatar.svg"
+                      alt="Manager avatar"
+                      fill
+                      sizes="36px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-cyan-700">The Brokrs Growth Team</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-widest text-brand-400">Campaign Strategy</p>
+                  </div>
+                </div>
               </div>
             </div>
 
