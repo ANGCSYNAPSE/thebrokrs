@@ -58,19 +58,20 @@ const Navbar = () => {
     <>
       <nav
         className={cn(
-          "fixed inset-x-0 top-0 z-50 min-h-[calc(env(safe-area-inset-top)+2.75rem)] pt-[env(safe-area-inset-top)] transition-colors duration-500 ease-in-out md:min-h-0 md:pt-0 md:transition-all",
+          "fixed inset-x-0 top-0 z-50 h-[calc(env(safe-area-inset-top)+3rem)] overflow-visible pt-[calc(env(safe-area-inset-top)+0.25rem)] transition-colors duration-500 ease-in-out md:h-auto md:overflow-hidden md:pt-0 md:transition-all",
           useLightHeader
             ? "bg-white/95 dark:bg-black/90 backdrop-blur-2xl border-b border-brand-100/50 shadow-[0_4px_30px_rgba(0,0,0,0.04)] md:py-3"
             : "bg-transparent md:py-6"
         )}
       >
-        <div className="container max-w-7xl mx-auto flex h-11 items-center justify-between px-4 sm:px-6 md:h-auto">
+        <div className="container max-w-7xl mx-auto flex h-10 items-center justify-between px-4 sm:px-6 md:h-auto">
           {/* Logo */}
-          <Link href="/" className="relative z-50 group flex items-center">
+          <Link href="/" className="relative z-50 group flex h-full items-center overflow-visible">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
+              className="flex items-center overflow-visible"
             >
               <Image
                 src={useLightHeader ? "/assets/logo blue.png" : "/assets/logo2-clear.png"}
@@ -80,8 +81,8 @@ const Navbar = () => {
                 priority
                 sizes="(min-width: 768px) 220px, 160px"
                 className={cn(
-                  "w-auto object-contain transition-all duration-300",
-                  useLightHeader ? "h-7 md:h-9" : "h-7 md:h-20"
+                  "block w-auto translate-y-[1px] object-contain transition-all duration-300 md:translate-y-0",
+                  useLightHeader ? "h-8 md:h-9" : "h-8 md:h-20"
                 )}
               />
             </motion.div>
