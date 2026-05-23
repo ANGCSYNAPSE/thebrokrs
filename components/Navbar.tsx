@@ -58,13 +58,13 @@ const Navbar = () => {
     <>
       <nav
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-in-out",
+          "fixed inset-x-0 top-0 z-50 min-h-[calc(env(safe-area-inset-top)+2.75rem)] pt-[env(safe-area-inset-top)] transition-colors duration-500 ease-in-out md:min-h-0 md:pt-0 md:transition-all",
           useLightHeader
-            ? "py-2 md:py-3 bg-white/95 dark:bg-black/90 backdrop-blur-2xl border-b border-brand-100/50 shadow-[0_4px_30px_rgba(0,0,0,0.04)]"
-            : "py-4 md:py-6 bg-transparent"
+            ? "bg-white/95 dark:bg-black/90 backdrop-blur-2xl border-b border-brand-100/50 shadow-[0_4px_30px_rgba(0,0,0,0.04)] md:py-3"
+            : "bg-transparent md:py-6"
         )}
       >
-        <div className="container max-w-7xl mx-auto flex items-center justify-between px-6">
+        <div className="container max-w-7xl mx-auto flex h-11 items-center justify-between px-4 sm:px-6 md:h-auto">
           {/* Logo */}
           <Link href="/" className="relative z-50 group flex items-center">
             <motion.div
@@ -81,7 +81,7 @@ const Navbar = () => {
                 sizes="(min-width: 768px) 220px, 160px"
                 className={cn(
                   "w-auto object-contain transition-all duration-300",
-                  useLightHeader ? "h-9 md:h-9" : "h-16 md:h-20"
+                  useLightHeader ? "h-7 md:h-9" : "h-7 md:h-20"
                 )}
               />
             </motion.div>
@@ -142,12 +142,14 @@ const Navbar = () => {
 
           <Button
             className={cn(
-              "lg:hidden relative z-50 h-10 rounded-full px-4 text-xs font-bold shadow-lg transition-all",
-              useLightHeader ? "bg-cyan-500 text-slate-950" : "bg-white/15 text-white backdrop-blur-md border border-white/25"
+              "lg:hidden relative z-50 h-7 rounded-full px-3.5 text-[9px] font-black uppercase tracking-[0.1em] shadow-sm transition-all duration-300",
+              useLightHeader
+                ? "border border-cyan-400/70 bg-cyan-500 text-slate-950 shadow-cyan-500/20 hover:bg-cyan-400"
+                : "border border-white/30 bg-white/10 text-white shadow-white/10 backdrop-blur-md hover:bg-white hover:text-brand-950"
             )}
             asChild
           >
-            <Link href="#contact">Join</Link>
+            <Link href="#contact">Join Us</Link>
           </Button>
         </div>
       </nav>
