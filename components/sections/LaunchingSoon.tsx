@@ -607,12 +607,23 @@ const PhoneScreen = ({ item, index }: { item: Category; index: number }) => {
 const LaunchingSoon = () => {
   const [isDragging, setIsDragging] = useState(false)
   const marqueeRef = useRef<HTMLDivElement | null>(null)
+  const trackRef = useRef<HTMLDivElement | null>(null)
   const pausedRef = useRef(false)
   const draggingRef = useRef(false)
+  const inViewRef = useRef(false)
+  const reducedMotionRef = useRef(false)
   const activePointerId = useRef<number | null>(null)
   const dragStartX = useRef(0)
   const dragStartScroll = useRef(0)
   const marqueeItems = [...categories, ...categories, ...categories]
+
+  const updateAnimationPlayback = () => {
+    const track = trackRef.current
+    if (!track) return
+
+    const shouldPause = pausedRef.current || draggingRef.current || !inViewRef.current || reducedMotionRef.current
+    track.style.animationPlayState = shouldPause ? "paused" : "running"
+  }
 
   const keepScrollInLoop = () => {
     const marquee = marqueeRef.current
@@ -630,39 +641,61 @@ const LaunchingSoon = () => {
 
   useEffect(() => {
     const marquee = marqueeRef.current
-    if (!marquee) return
+    const track = trackRef.current
+    if (!marquee || !track) return
 
-    let animationFrame = 0
-    let lastTimestamp = 0
-    const positionInMiddleSet = () => {
-      marquee.scrollLeft = marquee.scrollWidth / 3
+    const configureAnimation = () => {
+      const firstCard = track.children[0] as HTMLElement | undefined
+      const repeatedCard = track.children[categories.length] as HTMLElement | undefined
+      const cycleWidth = firstCard && repeatedCard ? repeatedCard.offsetLeft - firstCard.offsetLeft : 0
+      if (!cycleWidth) return
+
+      const pixelsPerSecond = window.innerWidth < 768 ? 185 : 155
+      marquee.scrollLeft = cycleWidth
+      track.style.setProperty("--launching-distance", `${-cycleWidth}px`)
+      track.style.setProperty("--launching-duration", `${Math.max(cycleWidth / pixelsPerSecond, 12)}s`)
+      updateAnimationPlayback()
     }
 
-    const startFrame = window.requestAnimationFrame(positionInMiddleSet)
-    const handleResize = () => positionInMiddleSet()
-    window.addEventListener("resize", handleResize)
-
-    const animate = (timestamp: number) => {
-      if (!lastTimestamp) lastTimestamp = timestamp
-      const elapsed = timestamp - lastTimestamp
-      lastTimestamp = timestamp
-
-      if (!pausedRef.current && !draggingRef.current) {
-        marquee.scrollLeft += elapsed * 0.14
-        keepScrollInLoop()
-      }
-
-      animationFrame = window.requestAnimationFrame(animate)
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
+    const handleReducedMotion = () => {
+      reducedMotionRef.current = reducedMotion.matches
+      updateAnimationPlayback()
     }
+    handleReducedMotion()
 
-    animationFrame = window.requestAnimationFrame(animate)
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        inViewRef.current = entry.isIntersecting
+        updateAnimationPlayback()
+      },
+      { rootMargin: "160px 0px" }
+    )
+    intersectionObserver.observe(marquee)
+
+    const startFrame = window.requestAnimationFrame(configureAnimation)
+    window.addEventListener("resize", configureAnimation)
+    reducedMotion.addEventListener("change", handleReducedMotion)
 
     return () => {
       window.cancelAnimationFrame(startFrame)
-      window.cancelAnimationFrame(animationFrame)
-      window.removeEventListener("resize", handleResize)
+      intersectionObserver.disconnect()
+      window.removeEventListener("resize", configureAnimation)
+      reducedMotion.removeEventListener("change", handleReducedMotion)
     }
   }, [])
+
+  const pauseAnimation = () => {
+    pausedRef.current = true
+    updateAnimationPlayback()
+  }
+
+  const resumeAnimation = () => {
+    if (!draggingRef.current) {
+      pausedRef.current = false
+      updateAnimationPlayback()
+    }
+  }
 
   const handleDragStart = (event: PointerEvent<HTMLDivElement>) => {
     const marquee = marqueeRef.current
@@ -671,6 +704,7 @@ const LaunchingSoon = () => {
     marquee.setPointerCapture(event.pointerId)
     draggingRef.current = true
     pausedRef.current = true
+    updateAnimationPlayback()
     setIsDragging(true)
     dragStartX.current = event.clientX
     dragStartScroll.current = marquee.scrollLeft
@@ -696,6 +730,7 @@ const LaunchingSoon = () => {
     keepScrollInLoop()
     if (event.pointerType !== "mouse") {
       pausedRef.current = false
+      updateAnimationPlayback()
     }
   }
 
@@ -723,27 +758,18 @@ const LaunchingSoon = () => {
         <div
           ref={marqueeRef}
           className={`hide-scrollbar relative left-1/2 w-screen -translate-x-1/2 touch-pan-y overflow-x-auto overflow-y-hidden py-3 ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
-          onMouseEnter={() => {
-            pausedRef.current = true
-          }}
-          onMouseLeave={() => {
-            if (!isDragging) {
-              pausedRef.current = false
-            }
-          }}
+          onMouseEnter={pauseAnimation}
+          onMouseLeave={resumeAnimation}
           onPointerDown={handleDragStart}
           onPointerMove={handleDragMove}
           onPointerUp={handleDragEnd}
           onPointerCancel={handleDragEnd}
         >
           <div
+            ref={trackRef}
             className="launching-marquee flex w-max select-none gap-4 px-6 md:gap-5 lg:gap-6"
-            onFocus={() => {
-              pausedRef.current = true
-            }}
-            onBlur={() => {
-              pausedRef.current = false
-            }}
+            onFocus={pauseAnimation}
+            onBlur={resumeAnimation}
           >
             {marqueeItems.map((item, i) => (
               <motion.button
@@ -767,7 +793,23 @@ const LaunchingSoon = () => {
 
       <style jsx global>{`
         .launching-marquee {
-          animation: none;
+          animation: launching-auto-scroll var(--launching-duration, 24s) linear infinite;
+          animation-play-state: paused;
+          transform: translate3d(0, 0, 0);
+          will-change: transform;
+        }
+
+        @keyframes launching-auto-scroll {
+          to {
+            transform: translate3d(var(--launching-distance, -33.333%), 0, 0);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .launching-marquee {
+            animation: none;
+            transform: none;
+          }
         }
 
         .launching-marquee::-webkit-scrollbar {
