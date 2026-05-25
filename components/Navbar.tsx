@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useRef, useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -13,20 +13,35 @@ const navLinks = [
   { name: "Home", href: "#home", icon: Home },
   { name: "About", href: "#about", icon: Info },
   { name: "Project", href: "#upcoming", icon: BriefcaseBusiness },
-  { name: "Services", href: "#services", icon: Grid3X3 },
+  { name: "Services", href: "#launching-soon", icon: Grid3X3 },
   { name: "Contact", href: "#contact", icon: MessageCircle },
 ]
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobileHeaderVisible, setIsMobileHeaderVisible] = useState(true)
   const [activeSection, setActiveSection] = useState("")
+  const mobileScrollAnchor = useRef(0)
   const pathname = usePathname()
   const isInnerPage = pathname !== "/"
   const useLightHeader = isScrolled || isInnerPage
+  const sectionHref = (href: string) => isInnerPage ? `/${href}` : href
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
+      const scrollY = Math.max(window.scrollY, 0)
+      setIsScrolled(scrollY > 20)
+
+      if (scrollY <= 12) {
+        setIsMobileHeaderVisible(true)
+        mobileScrollAnchor.current = scrollY
+      } else if (scrollY > 72 && scrollY - mobileScrollAnchor.current > 8) {
+        setIsMobileHeaderVisible(false)
+        mobileScrollAnchor.current = scrollY
+      } else if (mobileScrollAnchor.current - scrollY > 8) {
+        setIsMobileHeaderVisible(true)
+        mobileScrollAnchor.current = scrollY
+      }
 
       const sections = navLinks.map(link => document.getElementById(link.href.substring(1))).filter(Boolean)
       let current = ""
@@ -58,20 +73,51 @@ const Navbar = () => {
     <>
       <nav
         className={cn(
-          "fixed inset-x-0 top-0 z-50 h-[calc(env(safe-area-inset-top)+3rem)] overflow-visible pt-[calc(env(safe-area-inset-top)+0.25rem)] transition-colors duration-500 ease-in-out md:h-auto md:overflow-hidden md:pt-0 md:transition-all",
-          useLightHeader
-            ? "bg-white/95 dark:bg-black/90 backdrop-blur-2xl border-b border-brand-100/50 shadow-[0_4px_30px_rgba(0,0,0,0.04)] md:py-3"
-            : "bg-transparent md:py-6"
+          "fixed inset-x-0 top-0 z-[80] transform-gpu border-b border-cyan-100/70 bg-white/90 pt-[env(safe-area-inset-top)] shadow-[0_10px_30px_rgba(8,145,178,0.08)] backdrop-blur-xl transition-[transform,opacity] duration-300 ease-out lg:hidden",
+          isMobileHeaderVisible ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-full opacity-0"
         )}
       >
-        <div className="container max-w-7xl mx-auto flex h-10 items-center justify-between px-4 sm:px-6 md:h-auto">
+        <div className="mx-auto flex h-[3.25rem] max-w-lg items-center justify-between px-3.5">
+          <Link href="/" className="flex items-center" aria-label="The Brokrs home">
+            <Image
+              src="/assets/logo blue.png"
+              alt="The Brokrs"
+              width={280}
+              height={100}
+              priority
+              sizes="126px"
+              className="h-[1.85rem] w-auto object-contain"
+            />
+          </Link>
+
+          <Button
+            className="h-8 rounded-full border border-cyan-400/70 bg-cyan-500 px-4 text-[9px] font-black uppercase tracking-[0.14em] text-slate-950 shadow-md shadow-cyan-500/20 hover:bg-cyan-400"
+            asChild
+          >
+            <Link href={sectionHref("#contact")}>
+              Join Us
+              <ArrowRight className="ml-1.5 h-3 w-3" />
+            </Link>
+          </Button>
+        </div>
+      </nav>
+
+      <nav
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 hidden overflow-hidden transition-all duration-500 ease-in-out lg:block",
+          useLightHeader
+            ? "border-b border-brand-100/50 bg-white/95 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.04)] backdrop-blur-2xl dark:bg-black/90"
+            : "bg-transparent py-6"
+        )}
+      >
+        <div className="container max-w-7xl mx-auto flex items-center justify-between px-6">
           {/* Logo */}
-          <Link href="/" className="relative z-50 group flex h-full items-center overflow-visible">
+          <Link href="/" className="relative z-50 group flex items-center overflow-hidden">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              className="flex items-center overflow-visible"
+              className="flex items-center overflow-hidden"
             >
               <Image
                 src={useLightHeader ? "/assets/logo blue.png" : "/assets/logo2-clear.png"}
@@ -79,10 +125,10 @@ const Navbar = () => {
                 width={280}
                 height={100}
                 priority
-                sizes="(min-width: 768px) 220px, 160px"
+                sizes="220px"
                 className={cn(
-                  "block w-auto translate-y-[1px] object-contain transition-all duration-300 md:translate-y-0",
-                  useLightHeader ? "h-8 md:h-9" : "h-8 md:h-20"
+                  "block w-auto object-contain transition-all duration-300",
+                  useLightHeader ? "h-9" : "h-20"
                 )}
               />
             </motion.div>
@@ -111,7 +157,7 @@ const Navbar = () => {
                   )}
                   asChild
                 >
-                  <Link href={link.href}>
+                  <Link href={sectionHref(link.href)}>
                     {link.name}
                   </Link>
                 </Button>
@@ -133,7 +179,7 @@ const Navbar = () => {
                 )}
                 asChild
               >
-                <Link href="#contact" className="group">
+                <Link href={sectionHref("#contact")} className="group">
                   Join Us
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
@@ -141,21 +187,10 @@ const Navbar = () => {
             </motion.div>
           </div>
 
-          <Button
-            className={cn(
-              "lg:hidden relative z-50 h-7 rounded-full px-3.5 text-[9px] font-black uppercase tracking-[0.1em] shadow-sm transition-all duration-300",
-              useLightHeader
-                ? "border border-cyan-400/70 bg-cyan-500 text-slate-950 shadow-cyan-500/20 hover:bg-cyan-400"
-                : "border border-white/30 bg-white/10 text-white shadow-white/10 backdrop-blur-md hover:bg-white hover:text-brand-950"
-            )}
-            asChild
-          >
-            <Link href="#contact">Join Us</Link>
-          </Button>
         </div>
       </nav>
 
-      <div className="fixed inset-x-0 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-[90] px-4 lg:hidden">
+      <div className="fixed inset-x-0 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-[90] transform-gpu px-4 lg:hidden">
         <div className="mx-auto flex h-14 max-w-[340px] items-center justify-between rounded-full border border-cyan-100 bg-cyan-50/98 px-2 shadow-2xl shadow-cyan-950/12 backdrop-blur-md">
           {navLinks.map((link) => {
             const Icon = link.icon
@@ -164,7 +199,7 @@ const Navbar = () => {
             return (
               <Link
                 key={link.href}
-                href={link.href}
+                href={sectionHref(link.href)}
                 className={cn(
                   "flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-slate-400 transition-all",
                   isActive

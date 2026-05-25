@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useState } from "react"
+import { type PointerEvent, useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import {
   BarChart3,
@@ -213,6 +213,14 @@ const ImageTile = ({ src, title, detail, rounded = "rounded-sm" }: { src: string
   </div>
 )
 
+const PhoneAction = ({ label, className }: { label: string; className: string }) => (
+  <div className="relative z-10 mt-auto shrink-0 pt-3 md:pt-4">
+    <span className={`flex h-10 items-center justify-center rounded-2xl px-4 text-center text-[11px] font-black text-white shadow-lg md:h-11 md:text-xs ${className}`}>
+      {label}
+    </span>
+  </div>
+)
+
 const PhoneScreen = ({ item, index }: { item: Category; index: number }) => {
   const Icon = item.icon
   const images = getSupportImages(item, index)
@@ -263,45 +271,36 @@ const PhoneScreen = ({ item, index }: { item: Category; index: number }) => {
     return (
       <div className="relative flex h-full flex-col overflow-hidden rounded-[34px] bg-[#ffefe2] px-5 pb-5 pt-5 text-slate-950">
         <StatusBar dark={false} />
-        <div className="relative z-10 mt-8 flex items-start justify-between">
+        <div className="relative z-10 mt-4 flex items-start justify-between md:mt-5">
           <div>
             <p className="text-[10px] font-black uppercase tracking-widest text-orange-600">Package discovery</p>
-            <h3 className="mt-2 text-3xl font-black leading-tight">Try Travel</h3>
-            <p className="mt-2 max-w-[205px] text-xs font-semibold leading-5 text-slate-700">{item.description}</p>
+            <h3 className="mt-1.5 text-2xl font-black leading-tight md:mt-2 md:text-3xl">Try Travel</h3>
+            <p className="mt-1.5 line-clamp-2 max-w-[170px] text-[11px] font-semibold leading-4 text-slate-700 md:max-w-[205px] md:text-xs">{item.description}</p>
           </div>
-          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-orange-600 shadow-lg">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-orange-600 shadow-lg md:h-11 md:w-11">
             <Icon className="h-5 w-5" />
           </span>
         </div>
-        <div className="relative z-10 mt-7 h-36 overflow-hidden rounded-[30px] bg-orange-400">
+        <div className="relative z-10 mt-3 h-20 shrink-0 overflow-hidden rounded-[22px] bg-orange-400 md:mt-4 md:h-28 md:rounded-[28px]">
           <Image src={item.image} alt="" fill sizes="260px" className="object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-orange-500/55 to-transparent" />
-          <div className="absolute bottom-4 left-4 right-4">
-            <p className="text-lg font-black text-white">Travel offers</p>
-            <p className="text-xs text-white/80">Stories, packages, and partner experiences.</p>
+          <div className="absolute bottom-3 left-3 right-3 md:bottom-4 md:left-4 md:right-4">
+            <p className="text-base font-black text-white md:text-lg">Travel offers</p>
+            <p className="text-[10px] text-white/80 md:text-xs">Stories, packages, and partner experiences.</p>
           </div>
         </div>
-        <div className="relative z-10 mt-6 flex justify-center gap-1.5">
+        <div className="relative z-10 mt-2.5 flex justify-center gap-1.5 md:mt-3">
           <span className="h-1.5 w-7 rounded-full bg-orange-500" />
           <span className="h-1.5 w-1.5 rounded-full bg-orange-300" />
           <span className="h-1.5 w-1.5 rounded-full bg-orange-300" />
         </div>
-        <div className="relative z-10 mt-6 space-y-3">
-          <div className="rounded-2xl bg-orange-500 p-4 text-white">
-            <p className="text-sm font-black">{item.stat}</p>
-            <p className="mt-1 text-xs text-white/80">First rollout window</p>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            {images.slice(0, 2).map((image, imageIndex) => (
-              <div key={image} className="relative h-20 overflow-hidden rounded-2xl bg-white">
-                <Image src={image} alt="" fill sizes="120px" className="object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/65 to-transparent" />
-                <p className="absolute bottom-2 left-2 right-2 text-[10px] font-black text-white">{imageIndex === 0 ? "Destination" : "Partner"}</p>
-              </div>
-            ))}
+        <div className="relative z-10 mt-2.5 md:mt-3">
+          <div className="rounded-2xl bg-orange-500 px-3.5 py-2.5 text-white md:px-4 md:py-3">
+            <p className="text-xs font-black md:text-sm">{item.stat}</p>
+            <p className="mt-1 text-[10px] text-white/80 md:text-xs">First rollout window</p>
           </div>
         </div>
-        <span className="relative z-10 mt-auto rounded-2xl bg-slate-950 px-4 py-3 text-center text-xs font-black text-white">Build package</span>
+        <PhoneAction label="Build package" className="bg-slate-950 shadow-slate-950/15" />
       </div>
     )
   }
@@ -310,38 +309,38 @@ const PhoneScreen = ({ item, index }: { item: Category; index: number }) => {
     return (
       <div className="relative flex h-full flex-col overflow-hidden rounded-[34px] bg-[#eaf4ff] px-5 pb-5 pt-5 text-slate-950">
         <StatusBar dark={false} />
-        <div className="relative z-10 mt-8 flex items-start justify-between">
+        <div className="relative z-10 mt-5 flex items-start justify-between md:mt-7">
           <div>
             <p className="text-[10px] font-black uppercase tracking-widest text-blue-700">Protection offers</p>
-            <h3 className="mt-2 text-3xl font-black leading-tight">Try Insurance</h3>
-            <p className="mt-2 max-w-[215px] text-xs font-semibold leading-5 text-slate-700">{item.description}</p>
+            <h3 className="mt-1.5 text-2xl font-black leading-tight md:mt-2 md:text-3xl">Try Insurance</h3>
+            <p className="mt-1.5 line-clamp-2 max-w-[175px] text-[11px] font-semibold leading-4 text-slate-700 md:mt-2 md:max-w-[215px] md:text-xs md:leading-5">{item.description}</p>
           </div>
-          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-blue-700 shadow-lg">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-blue-700 shadow-lg md:h-11 md:w-11">
             <Icon className="h-5 w-5" />
           </span>
         </div>
-        <div className="relative z-10 mt-7 h-40 overflow-hidden rounded-[30px] bg-blue-500 shadow-xl shadow-blue-900/10">
+        <div className="relative z-10 mt-4 h-24 shrink-0 overflow-hidden rounded-[24px] bg-blue-500 shadow-xl shadow-blue-900/10 md:mt-5 md:h-32 md:rounded-[30px]">
           <Image src={item.image} alt="" fill sizes="260px" className="object-cover opacity-80" />
           <div className="absolute inset-0 bg-gradient-to-r from-blue-950/70 via-blue-700/15 to-transparent" />
-          <div className="absolute bottom-4 left-4 right-4">
-            <p className="text-xl font-black text-white">Trust-first campaign</p>
-            <p className="mt-1 text-xs text-white/76">Clear policy messaging and proof-led follow-up.</p>
+          <div className="absolute bottom-3 left-3 right-3 md:bottom-4 md:left-4 md:right-4">
+            <p className="text-base font-black text-white md:text-lg">Trust-first campaign</p>
+            <p className="mt-1 text-[10px] text-white/76 md:text-xs">Clear policy messaging and proof-led follow-up.</p>
           </div>
         </div>
-        <div className="relative z-10 mt-6 grid grid-cols-2 gap-3">
-          <div className="rounded-2xl bg-white p-4 shadow-lg shadow-blue-900/8">
+        <div className="relative z-10 mt-3 grid grid-cols-2 gap-2.5 md:mt-4 md:gap-3">
+          <div className="rounded-2xl bg-white p-3 shadow-lg shadow-blue-900/8 md:p-3.5">
             <p className="text-[10px] font-black uppercase tracking-widest text-blue-700">Clarity</p>
-            <p className="mt-2 text-lg font-black">Policy</p>
+            <p className="mt-1 text-base font-black md:text-lg">Policy</p>
           </div>
-          <div className="rounded-2xl bg-blue-600 p-4 text-white shadow-lg shadow-blue-900/12">
+          <div className="rounded-2xl bg-blue-600 p-3 text-white shadow-lg shadow-blue-900/12 md:p-3.5">
             <p className="text-[10px] font-black uppercase tracking-widest text-blue-100">Action</p>
-            <p className="mt-2 text-lg font-black">Leads</p>
+            <p className="mt-1 text-base font-black md:text-lg">Leads</p>
           </div>
         </div>
-        <div className="relative z-10 mt-5 space-y-3">
+        <div className="relative z-10 mt-3 space-y-2 md:mt-4 md:space-y-2.5">
           {["Verified benefits", "Customer support"].map((label, labelIndex) => (
-            <div key={label} className="flex items-center gap-3 rounded-2xl bg-white/80 p-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-100 text-blue-700">
+            <div key={label} className={`items-center gap-3 rounded-2xl bg-white/80 p-2.5 md:flex md:p-3 ${labelIndex === 1 ? "hidden" : "flex"}`}>
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-700 md:h-9 md:w-9">
                 {labelIndex === 0 ? <ShieldCheck className="h-4 w-4" /> : <Check className="h-4 w-4" />}
               </span>
               <div>
@@ -351,7 +350,7 @@ const PhoneScreen = ({ item, index }: { item: Category; index: number }) => {
             </div>
           ))}
         </div>
-        <span className="relative z-10 mt-auto rounded-2xl bg-blue-700 px-4 py-3 text-center text-xs font-black text-white">Prepare protection flow</span>
+        <PhoneAction label="Prepare protection flow" className="bg-blue-700 shadow-blue-900/15" />
       </div>
     )
   }
@@ -360,32 +359,32 @@ const PhoneScreen = ({ item, index }: { item: Category; index: number }) => {
     return (
       <div className="relative flex h-full flex-col overflow-hidden rounded-[34px] bg-[#f0ecff] px-5 pb-5 pt-5 text-slate-950">
         <StatusBar dark={false} />
-        <div className="relative z-10 mt-8 flex items-start justify-between">
+        <div className="relative z-10 mt-5 flex items-start justify-between md:mt-7">
           <div>
             <p className="text-[10px] font-black uppercase tracking-widest text-violet-700">Talent outreach</p>
-            <h3 className="mt-2 text-3xl font-black leading-tight">Try Manpower</h3>
-            <p className="mt-2 max-w-[220px] text-xs font-semibold leading-5 text-slate-700">{item.description}</p>
+            <h3 className="mt-1.5 text-2xl font-black leading-tight md:mt-2 md:text-3xl">Try Manpower</h3>
+            <p className="mt-1.5 line-clamp-2 max-w-[175px] text-[11px] font-semibold leading-4 text-slate-700 md:mt-2 md:max-w-[220px] md:text-xs md:leading-5">{item.description}</p>
           </div>
-          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-violet-700 shadow-lg">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-violet-700 shadow-lg md:h-11 md:w-11">
             <Icon className="h-5 w-5" />
           </span>
         </div>
-        <div className="relative z-10 mt-7 h-36 overflow-hidden rounded-[30px] bg-violet-700">
+        <div className="relative z-10 mt-4 h-24 shrink-0 overflow-hidden rounded-[24px] bg-violet-700 md:mt-5 md:h-32 md:rounded-[30px]">
           <Image src={item.image} alt="" fill sizes="260px" className="object-cover opacity-75" />
           <div className="absolute inset-0 bg-gradient-to-r from-violet-950/70 to-violet-500/10" />
-          <div className="absolute bottom-4 left-4 right-4">
-            <p className="text-xl font-black text-white">Hiring pipeline</p>
-            <p className="mt-1 text-xs text-white/76">Employer briefs, role creatives, and candidate reach.</p>
+          <div className="absolute bottom-3 left-3 right-3 md:bottom-4 md:left-4 md:right-4">
+            <p className="text-base font-black text-white md:text-xl">Hiring pipeline</p>
+            <p className="mt-1 text-[10px] font-semibold text-white md:text-xs">Employer briefs, role creatives, and candidate reach.</p>
           </div>
         </div>
-        <div className="relative z-10 mt-6 space-y-3">
+        <div className="relative z-10 mt-3 space-y-2 md:mt-4 md:space-y-2.5">
           {["Role brief", "Candidate pool", "Employer lead"].map((label, labelIndex) => (
-            <div key={label} className="flex items-center gap-3 rounded-2xl bg-white/85 p-3 shadow-lg shadow-violet-900/6">
-              <div className="relative h-11 w-11 overflow-hidden rounded-full bg-violet-100">
+            <div key={label} className={`items-center gap-3 rounded-2xl bg-white/85 p-2.5 shadow-lg shadow-violet-900/6 md:flex md:p-3 ${labelIndex === 2 ? "hidden" : "flex"}`}>
+              <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full bg-violet-100 md:h-11 md:w-11">
                 <Image src={images[labelIndex]} alt="" fill sizes="44px" className="object-cover" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-black">{label}</p>
+                <p className="text-xs font-black md:text-sm">{label}</p>
                 <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-violet-100">
                   <span className={`block h-full rounded-full bg-violet-600 ${labelIndex === 0 ? "w-4/5" : labelIndex === 1 ? "w-2/3" : "w-1/2"}`} />
                 </div>
@@ -393,10 +392,7 @@ const PhoneScreen = ({ item, index }: { item: Category; index: number }) => {
             </div>
           ))}
         </div>
-        <div className="relative z-10 mt-auto rounded-[24px] bg-violet-700 p-4 text-white">
-          <p className="text-[10px] font-black uppercase tracking-widest text-violet-100">Campaign focus</p>
-          <p className="mt-1 text-sm font-black">{item.stat}</p>
-        </div>
+        <PhoneAction label={`Campaign focus - ${item.stat}`} className="bg-violet-700 shadow-violet-900/15" />
       </div>
     )
   }
@@ -538,36 +534,36 @@ const PhoneScreen = ({ item, index }: { item: Category; index: number }) => {
     return (
       <div className="relative flex h-full flex-col overflow-hidden rounded-[34px] bg-[#ffe867] px-5 pb-5 pt-5 text-slate-950">
         <StatusBar dark={false} />
-        <div className="relative z-10 mt-8 flex items-start justify-between">
+        <div className="relative z-10 mt-5 flex items-start justify-between md:mt-7">
           <div>
-            <h3 className="text-3xl font-black leading-tight">Try {item.title}</h3>
-            <p className="mt-2 max-w-[210px] text-xs font-semibold leading-5 text-slate-700">{item.description}</p>
+            <h3 className="text-2xl font-black leading-tight md:text-3xl">Try {item.title}</h3>
+            <p className="mt-1.5 line-clamp-2 max-w-[175px] text-[11px] font-semibold leading-4 text-slate-700 md:mt-2 md:max-w-[210px] md:text-xs md:leading-5">{item.description}</p>
           </div>
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/80">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/80 md:h-10 md:w-10">
             <Icon className="h-5 w-5 text-cyan-700" />
           </span>
         </div>
-        <div className="relative z-10 mt-8 h-32 overflow-hidden rounded-[28px] bg-orange-400">
+        <div className="relative z-10 mt-4 h-24 shrink-0 overflow-hidden rounded-[24px] bg-orange-400 md:mt-6 md:h-28 md:rounded-[28px]">
           <Image src={item.image} alt="" fill sizes="260px" className="object-cover opacity-70 mix-blend-multiply" />
           <div className="absolute inset-0 bg-orange-300/35" />
-          <div className="absolute bottom-5 left-1/2 h-16 w-32 -translate-x-1/2 rounded-t-full bg-orange-500" />
+          <div className="absolute bottom-4 left-1/2 h-12 w-28 -translate-x-1/2 rounded-t-full bg-orange-500 md:bottom-5 md:h-16 md:w-32" />
         </div>
-        <div className="relative z-10 mt-10 flex justify-center gap-1.5">
+        <div className="relative z-10 mt-4 flex justify-center gap-1.5 md:mt-6">
           <span className="h-1.5 w-5 rounded-full bg-slate-950" />
           <span className="h-1.5 w-1.5 rounded-full bg-slate-950/25" />
           <span className="h-1.5 w-1.5 rounded-full bg-slate-950/25" />
         </div>
-        <div className="relative z-10 mt-8 space-y-3">
-          <div className="rounded-2xl bg-orange-500 p-4 text-white">
-            <p className="text-sm font-black">{item.stat}</p>
-            <p className="mt-1 text-xs text-white/80">First campaign window</p>
+        <div className="relative z-10 mt-4 space-y-2.5 md:mt-5 md:space-y-3">
+          <div className="rounded-2xl bg-orange-500 px-3.5 py-3 text-white md:p-4">
+            <p className="text-xs font-black md:text-sm">{item.stat}</p>
+            <p className="mt-1 text-[10px] text-white/80 md:text-xs">First campaign window</p>
           </div>
-          <div className="rounded-2xl bg-white/70 p-4">
-            <p className="text-sm font-black">Partner visibility</p>
-            <p className="mt-1 text-xs text-slate-600">Media, leads, and positioning</p>
+          <div className="rounded-2xl bg-white/70 px-3.5 py-3 md:p-4">
+            <p className="text-xs font-black md:text-sm">Partner visibility</p>
+            <p className="mt-1 text-[10px] text-slate-600 md:text-xs">Media, leads, and positioning</p>
           </div>
         </div>
-        <span className="relative z-10 mt-auto rounded-2xl bg-blue-600 px-4 py-3 text-center text-xs font-black text-white">Start rollout</span>
+        <PhoneAction label="Start rollout" className="bg-blue-600 shadow-blue-900/15" />
       </div>
     )
   }
@@ -609,11 +605,102 @@ const PhoneScreen = ({ item, index }: { item: Category; index: number }) => {
 }
 
 const LaunchingSoon = () => {
-  const [isPaused, setIsPaused] = useState(false)
-  const marqueeItems = [...categories, ...categories]
+  const [isDragging, setIsDragging] = useState(false)
+  const marqueeRef = useRef<HTMLDivElement | null>(null)
+  const pausedRef = useRef(false)
+  const draggingRef = useRef(false)
+  const activePointerId = useRef<number | null>(null)
+  const dragStartX = useRef(0)
+  const dragStartScroll = useRef(0)
+  const marqueeItems = [...categories, ...categories, ...categories]
+
+  const keepScrollInLoop = () => {
+    const marquee = marqueeRef.current
+    if (!marquee) return
+
+    const cycleWidth = marquee.scrollWidth / 3
+    if (!cycleWidth) return
+
+    if (marquee.scrollLeft < cycleWidth * 0.5) {
+      marquee.scrollLeft += cycleWidth
+    } else if (marquee.scrollLeft > cycleWidth * 1.5) {
+      marquee.scrollLeft -= cycleWidth
+    }
+  }
+
+  useEffect(() => {
+    const marquee = marqueeRef.current
+    if (!marquee) return
+
+    let animationFrame = 0
+    let lastTimestamp = 0
+    const positionInMiddleSet = () => {
+      marquee.scrollLeft = marquee.scrollWidth / 3
+    }
+
+    const startFrame = window.requestAnimationFrame(positionInMiddleSet)
+    const handleResize = () => positionInMiddleSet()
+    window.addEventListener("resize", handleResize)
+
+    const animate = (timestamp: number) => {
+      if (!lastTimestamp) lastTimestamp = timestamp
+      const elapsed = timestamp - lastTimestamp
+      lastTimestamp = timestamp
+
+      if (!pausedRef.current && !draggingRef.current) {
+        marquee.scrollLeft += elapsed * 0.14
+        keepScrollInLoop()
+      }
+
+      animationFrame = window.requestAnimationFrame(animate)
+    }
+
+    animationFrame = window.requestAnimationFrame(animate)
+
+    return () => {
+      window.cancelAnimationFrame(startFrame)
+      window.cancelAnimationFrame(animationFrame)
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [])
+
+  const handleDragStart = (event: PointerEvent<HTMLDivElement>) => {
+    const marquee = marqueeRef.current
+    if (!marquee) return
+    activePointerId.current = event.pointerId
+    marquee.setPointerCapture(event.pointerId)
+    draggingRef.current = true
+    pausedRef.current = true
+    setIsDragging(true)
+    dragStartX.current = event.clientX
+    dragStartScroll.current = marquee.scrollLeft
+  }
+
+  const handleDragMove = (event: PointerEvent<HTMLDivElement>) => {
+    const marquee = marqueeRef.current
+    if (!marquee || activePointerId.current !== event.pointerId) return
+    event.preventDefault()
+    marquee.scrollLeft = dragStartScroll.current - (event.clientX - dragStartX.current)
+    keepScrollInLoop()
+  }
+
+  const handleDragEnd = (event: PointerEvent<HTMLDivElement>) => {
+    const marquee = marqueeRef.current
+    if (activePointerId.current !== event.pointerId) return
+    if (marquee?.hasPointerCapture(event.pointerId)) {
+      marquee.releasePointerCapture(event.pointerId)
+    }
+    activePointerId.current = null
+    draggingRef.current = false
+    setIsDragging(false)
+    keepScrollInLoop()
+    if (event.pointerType !== "mouse") {
+      pausedRef.current = false
+    }
+  }
 
   return (
-    <section className="pt-14 pb-20 md:pt-16 md:pb-24 lg:pt-20 lg:pb-28 bg-white relative overflow-hidden">
+    <section id="launching-soon" className="scroll-mt-16 pt-14 pb-20 md:scroll-mt-24 md:pt-16 md:pb-24 lg:pt-20 lg:pb-28 bg-white relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-50/40 rounded-full blur-[100px] -mr-64 -mt-64" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-50/30 rounded-full blur-[100px] -ml-64 -mb-64" />
 
@@ -634,18 +721,29 @@ const LaunchingSoon = () => {
         </div>
 
         <div
-          className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden py-3"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
+          ref={marqueeRef}
+          className={`hide-scrollbar relative left-1/2 w-screen -translate-x-1/2 touch-pan-y overflow-x-auto overflow-y-hidden py-3 ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+          onMouseEnter={() => {
+            pausedRef.current = true
+          }}
+          onMouseLeave={() => {
+            if (!isDragging) {
+              pausedRef.current = false
+            }
+          }}
+          onPointerDown={handleDragStart}
+          onPointerMove={handleDragMove}
+          onPointerUp={handleDragEnd}
+          onPointerCancel={handleDragEnd}
         >
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-white to-transparent md:w-32" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-white to-transparent md:w-32" />
-
           <div
-            className={`launching-marquee flex w-max gap-4 px-6 md:gap-5 lg:gap-6 ${isPaused ? "is-paused" : ""}`}
-            onClick={() => setIsPaused((paused) => !paused)}
-            onFocus={() => setIsPaused(true)}
-            onBlur={() => setIsPaused(false)}
+            className="launching-marquee flex w-max select-none gap-4 px-6 md:gap-5 lg:gap-6"
+            onFocus={() => {
+              pausedRef.current = true
+            }}
+            onBlur={() => {
+              pausedRef.current = false
+            }}
           >
             {marqueeItems.map((item, i) => (
               <motion.button
@@ -655,9 +753,9 @@ const LaunchingSoon = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: (i % categories.length) * 0.04 }}
                 viewport={{ once: true }}
-                className="group relative h-[500px] w-[270px] shrink-0 overflow-hidden rounded-[36px] border border-cyan-100/80 bg-white/80 p-1.5 text-left shadow-xl shadow-cyan-950/8 transition-all duration-500 hover:-translate-y-1 hover:shadow-cyan-500/20 focus:outline-none focus:ring-2 focus:ring-cyan-300 md:h-[560px] md:w-[306px] md:rounded-[40px] md:shadow-2xl md:shadow-cyan-950/10"
+                className="group relative h-[460px] w-[248px] shrink-0 overflow-hidden rounded-[32px] border border-cyan-100/80 bg-white/80 p-1.5 text-left shadow-xl shadow-cyan-950/8 transition-all duration-500 hover:-translate-y-1 hover:shadow-cyan-500/20 focus:outline-none focus:ring-2 focus:ring-cyan-300 md:h-[560px] md:w-[306px] md:rounded-[40px] md:shadow-2xl md:shadow-cyan-950/10"
               >
-                <div className="relative h-full overflow-hidden rounded-[30px] bg-[#0b080d] md:rounded-[34px]">
+                <div className="relative h-full overflow-hidden rounded-[28px] bg-[#0b080d] md:rounded-[34px]">
                   <div className="absolute left-1/2 top-2.5 z-30 h-1.5 w-20 -translate-x-1/2 rounded-full bg-white/85" />
                   <PhoneScreen item={item} index={i} />
                 </div>
@@ -668,29 +766,12 @@ const LaunchingSoon = () => {
       </div>
 
       <style jsx global>{`
-        @keyframes launching-scroll {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-50%);
-          }
-        }
-
         .launching-marquee {
-          animation: launching-scroll 38s linear infinite;
+          animation: none;
         }
 
-        .launching-marquee:hover,
-        .launching-marquee:focus-within,
-        .launching-marquee.is-paused {
-          animation-play-state: paused;
-        }
-
-        @media (max-width: 640px) {
-          .launching-marquee {
-            animation-duration: 36s;
-          }
+        .launching-marquee::-webkit-scrollbar {
+          display: none;
         }
       `}</style>
     </section>

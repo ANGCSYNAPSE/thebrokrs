@@ -9,16 +9,16 @@ import { cn } from "@/lib/utils"
 import IndustryShowcase from "./IndustryShowcase"
 
 const serviceTags = [
-  { name: "Real Estate", icon: Building2, color: "from-cyan-400 to-teal-500" },
-  { name: "IT & Software", icon: Code2, color: "from-cyan-400 to-teal-500" },
-  { name: "Loan", icon: Landmark, color: "from-cyan-400 to-teal-500" },
-  { name: "Insurance", icon: ShieldCheck, color: "from-cyan-400 to-teal-500" },
-  { name: "Investment", icon: PieChart, color: "from-cyan-400 to-teal-500" },
-  { name: "Travel", icon: Plane, color: "from-cyan-400 to-teal-500" },
-  { name: "Grocery", icon: ShoppingBag, color: "from-cyan-400 to-teal-500" },
-  { name: "Medicine", icon: Stethoscope, color: "from-cyan-400 to-teal-500" },
-  { name: "Manpower", icon: Users, color: "from-cyan-400 to-teal-500" },
-  { name: "E-Commerce", icon: Store, color: "from-cyan-400 to-teal-500" },
+  { name: "Real Estate", word: "Real Estate", icon: Building2, color: "from-cyan-400 to-teal-500" },
+  { name: "IT & Software", word: "Software", icon: Code2, color: "from-cyan-400 to-teal-500" },
+  { name: "Loan", word: "Loan", icon: Landmark, color: "from-cyan-400 to-teal-500" },
+  { name: "Insurance", word: "Insurance", icon: ShieldCheck, color: "from-cyan-400 to-teal-500" },
+  { name: "Investment", word: "Investment", icon: PieChart, color: "from-cyan-400 to-teal-500" },
+  { name: "Travel", word: "Travel", icon: Plane, color: "from-cyan-400 to-teal-500" },
+  { name: "Grocery", word: "Grocery", icon: ShoppingBag, color: "from-cyan-400 to-teal-500" },
+  { name: "Medicine", word: "Medicine", icon: Stethoscope, color: "from-cyan-400 to-teal-500" },
+  { name: "Manpower", word: "Manpower", icon: Users, color: "from-cyan-400 to-teal-500" },
+  { name: "E-Commerce", word: "E-Commerce", icon: Store, color: "from-cyan-400 to-teal-500" },
 ]
 
 const Hero = () => {
@@ -81,6 +81,13 @@ const Hero = () => {
   const [wordIndex, setWordIndex] = useState(0)
   const [typedWord, setTypedWord] = useState("")
   const [typedSynonym, setTypedSynonym] = useState("")
+
+  const selectIndustry = (industryName: string) => {
+    const nextIndex = rotatingWords.findIndex((word) => word === industryName)
+    if (nextIndex >= 0) {
+      setWordIndex(nextIndex)
+    }
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -155,15 +162,24 @@ const Hero = () => {
           >
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight" style={{ textShadow: '0 4px 30px rgba(0,0,0,0.6)' }}>
               Where Business <span className="text-cyan-300">&amp;</span>
-              <span className="block mt-2">
-                <span className="inline-flex items-center justify-start whitespace-nowrap">
-                  <span className="inline-block pb-3 text-3xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-teal-200 to-white">
-                    {typedWord || "\u00A0"}
-                  </span>
-                  <span className="inline-block pb-3 text-3xl md:text-5xl lg:text-6xl font-bold ml-3 text-transparent bg-clip-text bg-gradient-to-r from-white to-white drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]">
-                    {typedSynonym}
-                  </span>
-                </span>
+              <span className="relative mt-2 block h-[2.9rem] md:h-[4.25rem] lg:h-[5.1rem]">
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={wordIndex}
+                    initial={{ opacity: 0, y: 18, scale: 0.7, filter: "blur(10px)" }}
+                    animate={{ opacity: 1, y: [18, -5, 0], scale: [0.7, 1.12, 1], filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: -12, scale: 0.88, filter: "blur(8px)" }}
+                    transition={{ duration: 0.52, ease: "easeOut" }}
+                    className="absolute inset-0 inline-flex items-center justify-start whitespace-nowrap"
+                  >
+                    <span className="hero-popup-word inline-block pb-3 text-3xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-teal-200 to-white">
+                      {typedWord || "\u00A0"}
+                    </span>
+                    <span className="hero-popup-word hero-popup-word-accent inline-block pb-3 text-3xl md:text-5xl lg:text-6xl font-bold ml-3 text-transparent bg-clip-text bg-gradient-to-r from-white to-cyan-100 drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]">
+                      {typedSynonym}
+                    </span>
+                  </motion.span>
+                </AnimatePresence>
               </span>
             </h1>
 
@@ -213,15 +229,20 @@ const Hero = () => {
           <div className="overflow-hidden py-3">
             <div className="service-tags-strip">
               {[...serviceTags, ...serviceTags, ...serviceTags, ...serviceTags].map((tag, i) => (
-                <div
+                <button
+                  type="button"
                   key={i}
-                  className="flex items-center gap-2.5 px-5 py-2.5 mx-2 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-white/90 shrink-0 hover:bg-white/20 hover:border-white/30 transition-all duration-300 cursor-default group"
+                  onClick={() => selectIndustry(tag.word)}
+                  className={cn(
+                    "flex items-center gap-2.5 px-5 py-2.5 mx-2 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-white/90 shrink-0 hover:bg-white/20 hover:border-white/30 transition-all duration-300 group",
+                    rotatingWords[wordIndex] === tag.word && "bg-white/25 border-cyan-300/70 shadow-[0_0_22px_rgba(34,211,238,0.28)]"
+                  )}
                 >
                   <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${tag.color} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform`}>
                     <tag.icon className="w-3.5 h-3.5 text-slate-950" />
                   </div>
                   <span className="text-xs font-bold tracking-wide whitespace-nowrap">{tag.name}</span>
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -322,6 +343,39 @@ const Hero = () => {
         <div className="w-px h-8 bg-gradient-to-b from-white/0 to-white" />
         <span className="text-[10px] text-white uppercase tracking-[0.2em] font-bold">Scroll</span>
       </motion.div>
+
+      <style jsx global>{`
+        .hero-popup-word {
+          transform-origin: center;
+          filter: drop-shadow(0 0 14px rgba(34, 211, 238, 0.42));
+          animation: hero-word-flash 1.05s ease-in-out 0.5s 2;
+        }
+
+        .hero-popup-word-accent {
+          animation-delay: 0.64s;
+        }
+
+        @keyframes hero-word-flash {
+          0%, 100% {
+            opacity: 1;
+            filter: drop-shadow(0 0 14px rgba(34, 211, 238, 0.42));
+          }
+          45% {
+            opacity: 0.62;
+            filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.18));
+          }
+          58% {
+            opacity: 1;
+            filter: drop-shadow(0 0 27px rgba(103, 232, 249, 0.9));
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .hero-popup-word {
+            animation: none;
+          }
+        }
+      `}</style>
     </section>
   )
 }

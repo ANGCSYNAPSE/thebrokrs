@@ -6,17 +6,17 @@ import { motion } from "framer-motion"
 import { Facebook, Instagram, Linkedin, ArrowUp, Mail, MapPin, Phone } from "lucide-react"
 
 const footerLinks = [
-  { name: "About Company", href: "#about" },
-  { name: "Active Project", href: "#upcoming" },
-  { name: "Our Services", href: "#services" },
-  { name: "Latest Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
+  { name: "About Company", href: "/#about" },
+  { name: "Active Project", href: "/#upcoming" },
+  { name: "Our Services", href: "/#launching-soon" },
+  { name: "Latest Projects", href: "/#projects" },
+  { name: "Contact", href: "/#contact" },
 ]
 
 const contactItems = [
   { icon: Phone, label: "+91 78001 78002", href: "tel:+917800178002" },
   { icon: Mail, label: "hello@thebrokrs.co.in", href: "mailto:hello@thebrokrs.co.in" },
-  { icon: MapPin, label: "India based growth support", href: "#contact" },
+  { icon: MapPin, label: "India based growth support", href: "/#contact" },
 ]
 
 const Footer = () => {
@@ -48,8 +48,8 @@ const Footer = () => {
                 className="h-10 w-auto"
               />
             </Link>
-            <p className="text-brand-600 text-sm leading-relaxed max-w-xs">
-              The Brokrs is a marketing-first growth company helping brands build sharper positioning, stronger visibility, and campaign-ready demand.
+            <p className="text-brand-600 text-base font-semibold tracking-wide max-w-xs">
+              Envision. Connect. Grow.
             </p>
             <div className="grid grid-cols-2 gap-3 max-w-sm">
               {["Brand Strategy", "Lead Systems", "Campaign Media", "Partner Growth"].map((item) => (

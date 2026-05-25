@@ -153,47 +153,23 @@ export default function GalleryPage() {
               <div className="absolute -left-10 top-8 h-44 w-44 rounded-full bg-cyan-200/65 blur-2xl" />
               <div className="absolute -right-12 bottom-2 h-52 w-52 rounded-full bg-orange-200/70 blur-2xl" />
 
-              <div className="pointer-events-none absolute right-4 top-5 z-10 grid grid-cols-2 gap-2 md:hidden">
+              <div className="pointer-events-none absolute right-4 top-5 z-10 grid grid-cols-2 gap-2 md:right-8 md:top-8 md:w-[260px] md:gap-4">
                 {[
-                  { label: "Photos", icon: Camera, tone: "bg-cyan-400" },
-                  { label: "Stories", icon: Sparkles, tone: "bg-orange-300" },
-                  { label: "Videos", icon: Play, tone: "bg-slate-950 text-white" }
-                ].map((item, index) => {
+                  { label: "Photos", icon: Camera, tone: "bg-cyan-400 text-slate-950", position: "md:translate-y-12" },
+                  { label: "Stories", icon: Sparkles, tone: "bg-orange-300 text-slate-950", position: "" },
+                  { label: "Videos", icon: Film, tone: "bg-slate-950 text-cyan-200", position: "col-span-2 ml-auto md:mr-16" }
+                ].map((item) => {
                   const Icon = item.icon
                   return (
                     <div
                       key={item.label}
-                      className={`flex h-14 w-14 flex-col items-center justify-center rounded-2xl ${item.tone} text-[8px] font-black uppercase tracking-wider text-slate-950 shadow-xl shadow-cyan-950/10 ${index === 2 ? "col-span-2 ml-auto" : ""}`}
+                      className={`flex h-14 w-14 flex-col items-center justify-center rounded-2xl ${item.tone} ${item.position} text-[8px] font-black uppercase tracking-wider shadow-xl shadow-cyan-950/10 md:h-24 md:w-24 md:rounded-[26px] md:text-[10px]`}
                     >
-                      <Icon className="mb-1 h-4 w-4" />
+                      <Icon className="mb-1 h-4 w-4 md:mb-2 md:h-8 md:w-8" />
                       {item.label}
                     </div>
                   )
                 })}
-              </div>
-
-              <div className="gallery-people pointer-events-none absolute right-5 top-2 z-10 hidden h-60 w-[50%] origin-top-right md:block md:scale-100">
-                {[
-                  { hair: "bg-orange-400", accent: "bg-sky-300", delay: "0s", label: "Photos", position: "left-[0%] top-[72px] rotate-[-8deg]" },
-                  { hair: "bg-rose-400", accent: "bg-orange-300", delay: "0.28s", label: "Stories", position: "left-[56%] top-0 rotate-[7deg]" },
-                  { hair: "bg-sky-400", accent: "bg-yellow-300", delay: "0.56s", label: "Videos", position: "left-[-22%] top-[154px] rotate-[5deg]" }
-                ].map((person) => (
-                  <div key={person.label} className={`gallery-person absolute h-40 w-20 md:h-44 md:w-24 ${person.position}`} style={{ animationDelay: person.delay }}>
-                    <div className={`absolute left-8 top-0 h-9 w-10 rounded-t-full ${person.hair}`} />
-                    <div className="absolute left-9 top-7 h-9 w-9 rounded-full bg-slate-950 ring-4 ring-white" />
-                    <div className="absolute left-11 top-12 h-1.5 w-1.5 rounded-full bg-white" />
-                    <div className="absolute left-[54px] top-12 h-1.5 w-1.5 rounded-full bg-white" />
-                    <div className="absolute left-[49px] top-[58px] h-1 w-3 rounded-full bg-white" />
-                    <div className="absolute left-8 top-[70px] h-20 w-12 rounded-[24px] bg-slate-950 ring-4 ring-white" />
-                    <div className={`absolute left-3 top-[76px] h-12 w-8 -rotate-[30deg] rounded-full ${person.accent}`} />
-                    <div className={`absolute right-3 top-[74px] h-12 w-8 rotate-[35deg] rounded-full ${person.accent}`} />
-                    <div className="absolute left-8 top-[140px] h-12 w-4 -rotate-[20deg] rounded-full bg-slate-950 ring-2 ring-white" />
-                    <div className="absolute right-8 top-[140px] h-12 w-4 rotate-[20deg] rounded-full bg-slate-950 ring-2 ring-white" />
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 rounded-full bg-white px-2.5 py-1 text-[9px] font-black uppercase tracking-widest text-cyan-800 shadow-lg">
-                      {person.label}
-                    </span>
-                  </div>
-                ))}
               </div>
 
               <div className="absolute bottom-6 left-5 right-5 z-20 rounded-[26px] bg-[#fff7db]/88 p-3 shadow-[0_18px_45px_rgba(15,23,42,0.08)] backdrop-blur-sm sm:bottom-7 sm:left-6 sm:right-[50%] sm:bg-transparent sm:p-0 sm:shadow-none sm:backdrop-blur-0 md:left-7">
@@ -321,19 +297,6 @@ export default function GalleryPage() {
         .gallery-reel::-webkit-scrollbar-thumb {
           background: rgba(34, 211, 238, 0.7);
           border-radius: 999px;
-        }
-
-        @keyframes gallery-person-float {
-          0%, 100% {
-            transform: translateY(0) rotate(-1deg);
-          }
-          50% {
-            transform: translateY(-14px) rotate(2deg);
-          }
-        }
-
-        .gallery-person {
-          animation: gallery-person-float 3.4s ease-in-out infinite;
         }
 
         .gallery-poster-title {
