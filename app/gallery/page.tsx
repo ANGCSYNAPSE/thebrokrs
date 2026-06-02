@@ -5,111 +5,17 @@ import Link from "next/link"
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { ArrowLeft, Camera, Film, MoreVertical, Play, Sparkles } from "lucide-react"
-
-const galleryItems = [
-  {
-    title: "Launch day walk-through",
-    uploader: "Aarav Mehta",
-    role: "Partner",
-    date: "18 Oct 2026",
-    type: "video",
-    image: "/assets/estate.jpeg",
-    src: "/assets/v1.mp4",
-    tall: false
-  },
-  {
-    title: "Client visit moment",
-    uploader: "Riya Sharma",
-    role: "Member",
-    date: "18 Oct 2026",
-    type: "photo",
-    image: "/assets/project.jpeg",
-    tall: true
-  },
-  {
-    title: "Registration proof",
-    uploader: "Kabir Sethi",
-    role: "Field Team",
-    date: "17 Oct 2026",
-    type: "photo",
-    image: "/assets/register.webp",
-    tall: false
-  },
-  {
-    title: "Verified handover",
-    uploader: "Nisha Rao",
-    role: "Support",
-    date: "17 Oct 2026",
-    type: "photo",
-    image: "/assets/kyc.jpg",
-    tall: true
-  },
-  {
-    title: "Campaign desk",
-    uploader: "Dev Malhotra",
-    role: "Brokrs Team",
-    date: "16 Oct 2026",
-    type: "photo",
-    image: "/assets/design.webp",
-    tall: false
-  },
-  {
-    title: "Property story",
-    uploader: "Ananya Jain",
-    role: "Partner",
-    date: "16 Oct 2026",
-    type: "photo",
-    image: "/assets/estate 3.jpeg",
-    tall: false
-  },
-  {
-    title: "Media highlight",
-    uploader: "The Brokrs",
-    role: "Admin",
-    date: "15 Oct 2026",
-    type: "video",
-    image: "/assets/media1.webp",
-    src: "/assets/WhatsApp-Video-2025-06-23-at-1.57.47-PM.mp4",
-    tall: true
-  },
-  {
-    title: "Plan discussion",
-    uploader: "Ishan Verma",
-    role: "Advisor",
-    date: "15 Oct 2026",
-    type: "photo",
-    image: "/assets/plans.jpg",
-    tall: false
-  },
-  {
-    title: "Growth room",
-    uploader: "Priya Nair",
-    role: "Campaign Lead",
-    date: "14 Oct 2026",
-    type: "photo",
-    image: "/assets/img3.webp",
-    tall: true
-  },
-  {
-    title: "Offer showcase",
-    uploader: "Rohan Kapoor",
-    role: "Partner",
-    date: "14 Oct 2026",
-    type: "photo",
-    image: "/assets/property.webp",
-    tall: false
-  }
-]
+import { galleryCounts, galleryItems, getGalleryVideoHref } from "@/lib/gallery-data"
 
 const avatarColors = ["bg-cyan-300", "bg-sky-300", "bg-teal-300", "bg-emerald-300", "bg-blue-300"]
 
 export default function GalleryPage() {
   const [activeTab, setActiveTab] = useState<"photo" | "video">("photo")
-  const videos = galleryItems.filter((item) => item.type === "video").length
-  const photos = galleryItems.filter((item) => item.type === "photo").length
+  const videos = galleryCounts.videos
+  const photos = galleryCounts.photos
   const activeItems = galleryItems.filter((item) => item.type === activeTab)
-  const reelItems = activeItems.concat(activeItems.slice(0, Math.min(6, activeItems.length)))
   const isVideoTab = activeTab === "video"
+  const reelItems = isVideoTab ? activeItems : activeItems.concat(activeItems.slice(0, Math.min(6, activeItems.length)))
 
   return (
     <main className="min-h-screen bg-[#eefbff] text-brand-950">
@@ -255,6 +161,15 @@ export default function GalleryPage() {
                       : `mb-3 bg-cyan-50 shadow-xl shadow-cyan-950/10 md:mb-4 ${item.tall ? "h-[248px] md:h-[360px]" : "h-[170px] md:h-[250px]"}`
                   }`}
                 >
+                  {item.type === "video" && (
+                    <Link
+                      href={getGalleryVideoHref(item)}
+                      aria-label={`Play ${item.title}`}
+                      className="absolute inset-0 z-30"
+                    >
+                      <span className="sr-only">Play {item.title}</span>
+                    </Link>
+                  )}
                   {item.type === "video" && item.src ? (
                     <video src={item.src} poster={item.image} muted loop playsInline className="h-full w-full object-cover opacity-85 transition-transform duration-700 group-hover:scale-105" />
                   ) : (
