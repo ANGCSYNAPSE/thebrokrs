@@ -360,7 +360,7 @@ const About = () => {
                     className="h-full w-full object-cover"
                   />
                 </div>
-                <h4 className="mt-6 text-lg font-sans font-semibold">Dr. Puneet Aggarwaal</h4>
+                <h4 className="mt-6 text-lg font-sans font-semibold">Dr. Puneet Aggarwal</h4>
                 <p className="mt-1 text-sm font-semibold text-white/90">Founder & CEO</p>
                 <p className="mt-6 text-base font-semibold leading-7">
                   We give every brand a sharper voice, a stronger market presence, and a growth engine built to keep performing.
