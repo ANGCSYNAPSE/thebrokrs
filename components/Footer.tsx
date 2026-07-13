@@ -15,7 +15,7 @@ const footerLinks = [
 
 const contactItems = [
   { icon: Phone, label: "+91 78001 78002", href: "tel:+917800178002" },
-  { icon: Mail, label: "hello@thebrokrs.co.in", href: "mailto:hello@thebrokrs.co.in" },
+  { icon: Mail, label: "info@grandsapphire.in", href: "mailto:info@grandsapphire.in" },
   { icon: MapPin, label: "India based growth support", href: "/#contact" },
 ]
 
