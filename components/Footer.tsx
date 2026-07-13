@@ -125,7 +125,7 @@ const Footer = () => {
         {/* Bottom Banner */}
         <div className="mt-20 pt-8 border-t border-brand-100 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-brand-400 text-xs">
-            &copy; {currentYear} The Brokrs. All rights reserved.
+            &copy; {currentYear} The Brokrs. All rights reserved with Grand Sapphire Infratech Pvt. Ltd.
           </p>
           <div className="flex items-center space-x-6 text-xs text-brand-400">
             <Link href="#" className="hover:text-brand-900 transition-colors">Privacy Policy</Link>
