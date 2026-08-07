@@ -5,9 +5,10 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { motion } from "framer-motion"
-import { ArrowRight, BriefcaseBusiness, Grid3X3, Home, Info, MessageCircle } from "lucide-react"
+import { ArrowRight, BriefcaseBusiness, Grid3X3, Home, Info, MessageCircle, User } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import AuthModal from "@/components/AuthModal"
 
 const navLinks = [
   { name: "Home", href: "#home", icon: Home },
@@ -21,6 +22,14 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileHeaderVisible, setIsMobileHeaderVisible] = useState(true)
   const [activeSection, setActiveSection] = useState("")
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+  const [authMode, setAuthMode] = useState<"login" | "signup">("login")
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  const openAuth = (mode: "login" | "signup") => {
+    setAuthMode(mode)
+    setIsAuthModalOpen(true)
+  }
   const mobileScrollAnchor = useRef(0)
   const pathname = usePathname()
   const isInnerPage = pathname !== "/"
@@ -90,15 +99,29 @@ const Navbar = () => {
             />
           </Link>
 
-          <Button
-            className="h-8 rounded-full border border-cyan-400/70 bg-cyan-500 px-4 text-[9px] font-black uppercase tracking-[0.14em] text-slate-950 shadow-md shadow-cyan-500/20 hover:bg-cyan-400"
-            asChild
-          >
-            <Link href={sectionHref("#contact")}>
-              Join Us
-              <ArrowRight className="ml-1.5 h-3 w-3" />
-            </Link>
-          </Button>
+          <div className="flex items-center gap-2">
+            {isLoggedIn ? (
+              <Link href="/profile" className="flex h-9 w-9 items-center justify-center rounded-full border border-cyan-200 bg-cyan-50 text-cyan-700 shadow-sm transition-all hover:bg-cyan-100">
+                <User className="h-4 w-4" />
+              </Link>
+            ) : (
+              <>
+                <Button
+                  className="h-8 rounded-full border border-cyan-200 bg-white px-3 text-[9px] font-black uppercase tracking-[0.14em] text-cyan-700 shadow-sm hover:bg-cyan-50"
+                  onClick={() => openAuth('login')}
+                >
+                  Login
+                </Button>
+                <Button
+                  className="h-8 rounded-full border border-cyan-400/70 bg-cyan-500 px-4 text-[9px] font-black uppercase tracking-[0.14em] text-slate-950 shadow-md shadow-cyan-500/20 hover:bg-cyan-400 group"
+                  onClick={() => openAuth('signup')}
+                >
+                  Join Us
+                  <ArrowRight className="ml-1.5 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </>
+            )}
+          </div>
         </div>
       </nav>
 
@@ -168,22 +191,48 @@ const Navbar = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="ml-4"
+              className="ml-4 flex items-center gap-3"
             >
-              <Button
-                className={cn(
-                  "rounded-full px-8 py-6 text-sm font-bold uppercase tracking-[0.1em] transition-all duration-500",
-                  useLightHeader
-                    ? "bg-brand-950 text-white hover:bg-cyan-500 hover:text-slate-950 shadow-xl hover:shadow-cyan-500/20 border border-transparent"
-                    : "bg-white/10 backdrop-blur-md text-white border border-white/30 hover:bg-white hover:text-brand-950 shadow-none hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
-                )}
-                asChild
-              >
-                <Link href={sectionHref("#contact")} className="group">
-                  Join Us
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              {isLoggedIn ? (
+                <Link 
+                  href="/profile"
+                  className={cn(
+                    "flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-bold uppercase tracking-[0.1em] transition-all duration-500 border",
+                    useLightHeader
+                      ? "border-cyan-200 bg-cyan-50 text-cyan-700 hover:bg-cyan-100"
+                      : "border-white/30 bg-white/10 text-white backdrop-blur-md hover:bg-white hover:text-brand-950"
+                  )}
+                >
+                  <User className="h-4 w-4" />
+                  My Profile
                 </Link>
-              </Button>
+              ) : (
+                <>
+                  <Button
+                    className={cn(
+                      "rounded-full px-6 py-6 text-sm font-bold uppercase tracking-[0.1em] transition-all duration-500",
+                      useLightHeader
+                        ? "bg-transparent text-brand-950 border border-brand-200 hover:border-brand-950 hover:bg-brand-50"
+                        : "bg-transparent text-white border border-white/30 hover:bg-white/10 hover:border-white"
+                    )}
+                    onClick={() => openAuth('login')}
+                  >
+                    Login
+                  </Button>
+                  <Button
+                    className={cn(
+                      "rounded-full px-8 py-6 text-sm font-bold uppercase tracking-[0.1em] transition-all duration-500 group",
+                      useLightHeader
+                        ? "bg-brand-950 text-white hover:bg-cyan-500 hover:text-slate-950 shadow-xl hover:shadow-cyan-500/20 border border-transparent"
+                        : "bg-white/10 backdrop-blur-md text-white border border-white/30 hover:bg-white hover:text-brand-950 shadow-none hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]"
+                    )}
+                    onClick={() => openAuth('signup')}
+                  >
+                    Join Us
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </>
+              )}
             </motion.div>
           </div>
 
@@ -215,6 +264,12 @@ const Navbar = () => {
           })}
         </div>
       </div>
+      <AuthModal 
+        isOpen={isAuthModalOpen} 
+        onClose={() => setIsAuthModalOpen(false)} 
+        initialMode={authMode}
+        onSuccess={() => setIsLoggedIn(true)}
+      />
     </>
   )
 }
