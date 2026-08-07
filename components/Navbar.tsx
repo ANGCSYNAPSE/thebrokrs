@@ -9,6 +9,7 @@ import { ArrowRight, BriefcaseBusiness, Grid3X3, Home, Info, MessageCircle, User
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import AuthModal from "@/components/AuthModal"
+import { useAppSelector } from "@/store/hooks"
 
 const navLinks = [
   { name: "Home", href: "#home", icon: Home },
@@ -24,7 +25,9 @@ const Navbar = () => {
   const [activeSection, setActiveSection] = useState("")
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const [authMode, setAuthMode] = useState<"login" | "signup">("login")
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  // Replace local isLoggedIn with Redux-derived state
+  const { isAuthenticated } = useAppSelector((state) => state.auth)
 
   const openAuth = (mode: "login" | "signup") => {
     setAuthMode(mode)
@@ -100,7 +103,7 @@ const Navbar = () => {
           </Link>
 
           <div className="flex items-center gap-2">
-            {isLoggedIn ? (
+            {isAuthenticated ? (
               <Link href="/profile" className="flex h-9 w-9 items-center justify-center rounded-full border border-cyan-200 bg-cyan-50 text-cyan-700 shadow-sm transition-all hover:bg-cyan-100">
                 <User className="h-4 w-4" />
               </Link>
@@ -193,7 +196,7 @@ const Navbar = () => {
               transition={{ duration: 0.5, delay: 0.6 }}
               className="ml-4 flex items-center gap-3"
             >
-              {isLoggedIn ? (
+              {isAuthenticated ? (
                 <Link 
                   href="/profile"
                   className={cn(
@@ -268,7 +271,7 @@ const Navbar = () => {
         isOpen={isAuthModalOpen} 
         onClose={() => setIsAuthModalOpen(false)} 
         initialMode={authMode}
-        onSuccess={() => setIsLoggedIn(true)}
+        onSuccess={() => setIsAuthModalOpen(false)}
       />
     </>
   )

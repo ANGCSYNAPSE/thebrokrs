@@ -4,6 +4,7 @@ import "./globals.css"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
 import SupportPopup from "@/components/SupportPopup"
+import Providers from "@/app/providers"
 import { cn } from "@/lib/utils"
 
 const inter = Inter({ 
@@ -57,10 +58,12 @@ export default function RootLayout({
         outfit.variable,
         "antialiased"
       )}>
-        <Navbar />
-        {children}
-        <Footer />
-        <SupportPopup />
+        <Providers>
+          <Navbar />
+          {children}
+          <Footer />
+          <SupportPopup />
+        </Providers>
       </body>
     </html>
   )
