@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRight, Lock, Mail, Sparkles, User, X, Phone } from "lucide-react"
@@ -19,7 +18,6 @@ interface AuthModalProps {
 }
 
 export default function AuthModal({ isOpen, onClose, initialMode = "login", onSuccess }: AuthModalProps) {
-  const router = useRouter()
   const dispatch = useAppDispatch()
   const { loading, error, step, pendingEmail } = useAppSelector((state) => state.auth)
 
@@ -66,7 +64,6 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login", onSu
       if (loginUser.fulfilled.match(result)) {
         if (onSuccess) onSuccess()
         onClose()
-        router.push("/profile")
       }
     } else {
       const result = await dispatch(
@@ -91,7 +88,6 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login", onSu
     if (verifyOtp.fulfilled.match(result)) {
       if (onSuccess) onSuccess()
       onClose()
-      router.push("/profile")
     }
   }
 
@@ -191,7 +187,7 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login", onSu
                             <Input
                               type="text"
                               name="otp"
-                              placeholder="123456"
+                              placeholder="1234"
                               value={formData.otp}
                               onChange={handleInputChange}
                               className="pl-12 h-14 rounded-2xl border-cyan-200 bg-white text-brand-950 placeholder:text-brand-400 focus-visible:ring-cyan-300 shadow-sm transition-all duration-300 hover:border-cyan-300 text-center text-lg tracking-widest font-bold"

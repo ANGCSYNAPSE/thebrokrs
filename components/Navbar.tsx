@@ -199,15 +199,16 @@ const Navbar = () => {
               {isAuthenticated ? (
                 <Link 
                   href="/profile"
+                  title="My Profile"
+                  aria-label="My Profile"
                   className={cn(
-                    "flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-bold uppercase tracking-[0.1em] transition-all duration-500 border",
+                    "flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 border shadow-sm",
                     useLightHeader
-                      ? "border-cyan-200 bg-cyan-50 text-cyan-700 hover:bg-cyan-100"
-                      : "border-white/30 bg-white/10 text-white backdrop-blur-md hover:bg-white hover:text-brand-950"
+                      ? "border-cyan-200 bg-cyan-50 text-cyan-700 hover:bg-cyan-100 hover:scale-105"
+                      : "border-white/30 bg-white/10 text-white backdrop-blur-md hover:bg-white hover:text-brand-950 hover:scale-105"
                   )}
                 >
-                  <User className="h-4 w-4" />
-                  My Profile
+                  <User className="h-5 w-5" />
                 </Link>
               ) : (
                 <>
