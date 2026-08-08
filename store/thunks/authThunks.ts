@@ -196,3 +196,71 @@ export const logoutUser = createAsyncThunk(
     return true
   }
 )
+
+// ─── Forgot Password ────────────────────────────────────────────────────────
+
+/**
+ * POST /users/forgot-password/request-otp
+ * Sends an OTP to the given email to start the password-reset flow.
+ */
+export const requestPasswordResetOtp = createAsyncThunk(
+  "auth/requestPasswordResetOtp",
+  async (payload: { email: string }, { rejectWithValue }) => {
+    try {
+      await api.post("/users/forgot-password/request-otp", payload)
+      return { email: payload.email }
+    } catch (error) {
+      return rejectWithValue(extractErrorMessage(error, "Could not send OTP. Please try again."))
+    }
+  }
+)
+
+/**
+ * POST /users/forgot-password/verify-otp
+ * Verifies the reset OTP and returns a short-lived resetToken used by the reset step.
+ */
+export const verifyPasswordResetOtp = createAsyncThunk(
+  "auth/verifyPasswordResetOtp",
+  async (payload: { email: string; otp: string }, { rejectWithValue }) => {
+    try {
+      const { data } = await api.post("/users/forgot-password/verify-otp", payload)
+      const result = data?.data || data
+      const resetToken: string = result?.resetToken
+      return { resetToken }
+    } catch (error) {
+      return rejectWithValue(extractErrorMessage(error, "Invalid or expired OTP. Please try again."))
+    }
+  }
+)
+
+/**
+ * POST /users/forgot-password/reset
+ * Sets a new password using the resetToken obtained from verify-otp.
+ */
+export const resetPassword = createAsyncThunk(
+  "auth/resetPassword",
+  async (payload: { resetToken: string; newPassword: string }, { rejectWithValue }) => {
+    try {
+      await api.post("/users/forgot-password/reset", payload)
+      return true
+    } catch (error) {
+      return rejectWithValue(extractErrorMessage(error, "Could not reset password. Please try again."))
+    }
+  }
+)
+
+/**
+ * POST /users/change-password
+ * Authenticated — the access token is attached automatically by the request interceptor.
+ */
+export const changePassword = createAsyncThunk(
+  "auth/changePassword",
+  async (payload: { currentPassword: string; newPassword: string }, { rejectWithValue }) => {
+    try {
+      await api.post("/users/change-password", payload)
+      return true
+    } catch (error) {
+      return rejectWithValue(extractErrorMessage(error, "Could not change password. Please try again."))
+    }
+  }
+)

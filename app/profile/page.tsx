@@ -16,11 +16,13 @@ import {
   Phone,
   Mail,
   Loader2,
+  Lock,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
-import { logoutUser } from "@/store/thunks/authThunks"
+import { logoutUser, changePassword } from "@/store/thunks/authThunks"
+import { clearPasswordActionError, resetForgotPasswordFlow } from "@/store/slices/authSlice"
 
 const tabs = [
   { id: "overview", label: "Overview", icon: User },
@@ -33,7 +35,12 @@ export default function ProfilePage() {
   const router = useRouter()
   const dispatch = useAppDispatch()
   const { user, isAuthenticated, loading } = useAppSelector((state) => state.auth)
+  const { passwordActionLoading, passwordActionError, passwordActionSuccess } = useAppSelector(
+    (state) => state.auth
+  )
   const [activeTab, setActiveTab] = useState("overview")
+  const [passwordForm, setPasswordForm] = useState({ currentPassword: "", newPassword: "", confirmPassword: "" })
+  const [passwordFormError, setPasswordFormError] = useState("")
 
   // Auth guard — redirect to home if not authenticated and not loading
   useEffect(() => {
@@ -46,6 +53,39 @@ export default function ProfilePage() {
     await dispatch(logoutUser())
     router.push("/")
   }
+
+  const handlePasswordFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPasswordForm({ ...passwordForm, [e.target.name]: e.target.value })
+  }
+
+  const handleChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault()
+    dispatch(clearPasswordActionError())
+    setPasswordFormError("")
+
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      setPasswordFormError("New passwords do not match")
+      return
+    }
+
+    const result = await dispatch(
+      changePassword({
+        currentPassword: passwordForm.currentPassword,
+        newPassword: passwordForm.newPassword,
+      })
+    )
+    if (changePassword.fulfilled.match(result)) {
+      setPasswordForm({ currentPassword: "", newPassword: "", confirmPassword: "" })
+    }
+  }
+
+  // Clear stale success/error state when leaving the Security tab
+  useEffect(() => {
+    if (activeTab !== "security") {
+      dispatch(resetForgotPasswordFlow())
+      setPasswordFormError("")
+    }
+  }, [activeTab, dispatch])
 
   // Show a loading spinner while we rehydrate from the access token
   if (loading || !isAuthenticated || !user) {
@@ -285,9 +325,9 @@ export default function ProfilePage() {
                 </motion.div>
               )}
 
-              {(activeTab === "investments" || activeTab === "security") && (
+              {activeTab === "investments" && (
                 <motion.div
-                  key="other"
+                  key="investments"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
@@ -301,6 +341,99 @@ export default function ProfilePage() {
                   <p className="text-brand-500 max-w-sm">
                     This section is currently under development. Check back later for updates.
                   </p>
+                </motion.div>
+              )}
+
+              {activeTab === "security" && (
+                <motion.div
+                  key="security"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                  className="rounded-[24px] border border-cyan-100 bg-white/80 p-6 md:p-8 shadow-sm backdrop-blur-xl space-y-8"
+                >
+                  <div>
+                    <h3 className="text-xl font-bold text-brand-950 mb-1">Change Password</h3>
+                    <p className="text-sm text-brand-500">Update your password to keep your account secure.</p>
+                  </div>
+
+                  {passwordActionSuccess ? (
+                    <div className="rounded-xl bg-green-50 border border-green-200 p-4 text-sm text-green-700 font-medium">
+                      Password changed successfully.
+                    </div>
+                  ) : (
+                    <form onSubmit={handleChangePassword} className="space-y-6 max-w-md">
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-brand-950 uppercase tracking-wider ml-1">
+                          Current Password
+                        </label>
+                        <div className="relative">
+                          <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-brand-400" />
+                          <Input
+                            type="password"
+                            name="currentPassword"
+                            value={passwordForm.currentPassword}
+                            onChange={handlePasswordFormChange}
+                            className="pl-12 h-12 rounded-xl border-slate-200"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-brand-950 uppercase tracking-wider ml-1">
+                          New Password
+                        </label>
+                        <div className="relative">
+                          <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-brand-400" />
+                          <Input
+                            type="password"
+                            name="newPassword"
+                            value={passwordForm.newPassword}
+                            onChange={handlePasswordFormChange}
+                            className="pl-12 h-12 rounded-xl border-slate-200"
+                            required
+                            minLength={6}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold text-brand-950 uppercase tracking-wider ml-1">
+                          Confirm New Password
+                        </label>
+                        <div className="relative">
+                          <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-brand-400" />
+                          <Input
+                            type="password"
+                            name="confirmPassword"
+                            value={passwordForm.confirmPassword}
+                            onChange={handlePasswordFormChange}
+                            className="pl-12 h-12 rounded-xl border-slate-200"
+                            required
+                            minLength={6}
+                          />
+                        </div>
+                      </div>
+
+                      {(passwordActionError || passwordFormError) && (
+                        <div className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-700">
+                          {passwordActionError || passwordFormError}
+                        </div>
+                      )}
+
+                      <div className="flex justify-end pt-2">
+                        <Button
+                          type="submit"
+                          disabled={passwordActionLoading}
+                          className="rounded-xl h-12 px-8 bg-brand-950 text-white hover:bg-cyan-500 hover:text-slate-950"
+                        >
+                          {passwordActionLoading ? "Updating..." : "Update Password"}
+                        </Button>
+                      </div>
+                    </form>
+                  )}
                 </motion.div>
               )}
 

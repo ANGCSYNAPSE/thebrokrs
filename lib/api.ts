@@ -48,7 +48,8 @@ api.interceptors.response.use(
     const isAuthEndpoint =
       requestUrl.includes("/auth/login") ||
       requestUrl.includes("/auth/register") ||
-      requestUrl.includes("/auth/verify-otp")
+      requestUrl.includes("/auth/verify-otp") ||
+      requestUrl.includes("/forgot-password")
 
     if (error.response?.status === 401 && !originalRequest._retry && !isAuthEndpoint) {
       originalRequest._retry = true

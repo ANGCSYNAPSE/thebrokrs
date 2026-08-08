@@ -7,6 +7,10 @@ import {
   refreshToken,
   fetchUserProfile,
   logoutUser,
+  requestPasswordResetOtp,
+  verifyPasswordResetOtp,
+  resetPassword,
+  changePassword,
 } from "@/store/thunks/authThunks"
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -24,6 +28,9 @@ export interface User {
 
 export type AuthStep = "idle" | "otp-pending"
 
+// Drives the Forgot Password screens inside AuthModal
+export type ForgotPasswordStep = "idle" | "otp-sent" | "otp-verified"
+
 export interface AuthState {
   user: User | null
   accessToken: string | null
@@ -33,6 +40,15 @@ export interface AuthState {
   pendingEmail: string    // email waiting for OTP verification
   loading: boolean
   error: string | null
+
+  // Forgot password / change password — kept separate from `loading`/`error`
+  // above so they don't fight with the login/signup/profile-guard states.
+  forgotPasswordStep: ForgotPasswordStep
+  resetEmail: string
+  resetToken: string | null
+  passwordActionLoading: boolean
+  passwordActionError: string | null
+  passwordActionSuccess: boolean
 }
 
 // ─── Initial State ───────────────────────────────────────────────────────────
@@ -46,6 +62,13 @@ const initialState: AuthState = {
   pendingEmail: "",
   loading: false,
   error: null,
+
+  forgotPasswordStep: "idle",
+  resetEmail: "",
+  resetToken: null,
+  passwordActionLoading: false,
+  passwordActionError: null,
+  passwordActionSuccess: false,
 }
 
 // ─── Slice ───────────────────────────────────────────────────────────────────
@@ -77,6 +100,17 @@ const authSlice = createSlice({
       state.step = "idle"
       state.pendingEmail = ""
       state.error = null
+    },
+    // Resets the Forgot Password flow — called when the modal closes or switches mode
+    resetForgotPasswordFlow(state) {
+      state.forgotPasswordStep = "idle"
+      state.resetEmail = ""
+      state.resetToken = null
+      state.passwordActionError = null
+      state.passwordActionSuccess = false
+    },
+    clearPasswordActionError(state) {
+      state.passwordActionError = null
     },
   },
 
@@ -192,8 +226,79 @@ const authSlice = createSlice({
       state.pendingEmail = ""
       state.error = null
     })
+
+    // ── Forgot Password: Request OTP ────────────────────────────────────────────
+    builder
+      .addCase(requestPasswordResetOtp.pending, (state) => {
+        state.passwordActionLoading = true
+        state.passwordActionError = null
+      })
+      .addCase(requestPasswordResetOtp.fulfilled, (state, action) => {
+        state.passwordActionLoading = false
+        state.forgotPasswordStep = "otp-sent"
+        state.resetEmail = action.payload.email
+      })
+      .addCase(requestPasswordResetOtp.rejected, (state, action) => {
+        state.passwordActionLoading = false
+        state.passwordActionError = action.payload as string
+      })
+
+    // ── Forgot Password: Verify OTP ──────────────────────────────────────────────
+    builder
+      .addCase(verifyPasswordResetOtp.pending, (state) => {
+        state.passwordActionLoading = true
+        state.passwordActionError = null
+      })
+      .addCase(verifyPasswordResetOtp.fulfilled, (state, action) => {
+        state.passwordActionLoading = false
+        state.forgotPasswordStep = "otp-verified"
+        state.resetToken = action.payload.resetToken
+      })
+      .addCase(verifyPasswordResetOtp.rejected, (state, action) => {
+        state.passwordActionLoading = false
+        state.passwordActionError = action.payload as string
+      })
+
+    // ── Forgot Password: Reset ───────────────────────────────────────────────────
+    builder
+      .addCase(resetPassword.pending, (state) => {
+        state.passwordActionLoading = true
+        state.passwordActionError = null
+      })
+      .addCase(resetPassword.fulfilled, (state) => {
+        state.passwordActionLoading = false
+        state.passwordActionSuccess = true
+        state.resetToken = null
+      })
+      .addCase(resetPassword.rejected, (state, action) => {
+        state.passwordActionLoading = false
+        state.passwordActionError = action.payload as string
+      })
+
+    // ── Change Password (authenticated) ──────────────────────────────────────────
+    builder
+      .addCase(changePassword.pending, (state) => {
+        state.passwordActionLoading = true
+        state.passwordActionError = null
+        state.passwordActionSuccess = false
+      })
+      .addCase(changePassword.fulfilled, (state) => {
+        state.passwordActionLoading = false
+        state.passwordActionSuccess = true
+      })
+      .addCase(changePassword.rejected, (state, action) => {
+        state.passwordActionLoading = false
+        state.passwordActionError = action.payload as string
+      })
   },
 })
 
-export const { clearError, resetStep, hydrateAuth, clearAuth } = authSlice.actions
+export const {
+  clearError,
+  resetStep,
+  hydrateAuth,
+  clearAuth,
+  resetForgotPasswordFlow,
+  clearPasswordActionError,
+} = authSlice.actions
 export default authSlice.reducer

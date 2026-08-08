@@ -7,8 +7,16 @@ import { ArrowRight, Lock, Mail, Sparkles, User, X, Phone } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
-import { loginUser, registerUser, verifyOtp, resendOtp } from "@/store/thunks/authThunks"
-import { clearError, resetStep } from "@/store/slices/authSlice"
+import {
+  loginUser,
+  registerUser,
+  verifyOtp,
+  resendOtp,
+  requestPasswordResetOtp,
+  verifyPasswordResetOtp,
+  resetPassword,
+} from "@/store/thunks/authThunks"
+import { clearError, resetStep, resetForgotPasswordFlow } from "@/store/slices/authSlice"
 
 interface AuthModalProps {
   isOpen: boolean
@@ -20,10 +28,17 @@ interface AuthModalProps {
 export default function AuthModal({ isOpen, onClose, initialMode = "login", onSuccess }: AuthModalProps) {
   const dispatch = useAppDispatch()
   const { loading, error, step, pendingEmail } = useAppSelector((state) => state.auth)
+  const {
+    forgotPasswordStep,
+    resetEmail,
+    resetToken,
+    passwordActionLoading,
+    passwordActionError,
+    passwordActionSuccess,
+  } = useAppSelector((state) => state.auth)
 
   const [isLogin, setIsLogin] = useState(initialMode === "login")
   const [isForgotPassword, setIsForgotPassword] = useState(false)
-  const [forgotPasswordSuccess, setForgotPasswordSuccess] = useState(false)
   const [passwordError, setPasswordError] = useState("")
   const [formData, setFormData] = useState({
     name: "",
@@ -39,10 +54,10 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login", onSu
     if (isOpen) {
       setIsLogin(initialMode === "login")
       setIsForgotPassword(false)
-      setForgotPasswordSuccess(false)
       setPasswordError("")
       setFormData({ name: "", email: "", phone: "", password: "", confirmPassword: "", otp: "" })
       dispatch(clearError())
+      dispatch(resetForgotPasswordFlow())
     }
   }, [isOpen, initialMode, dispatch])
 
@@ -113,27 +128,54 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login", onSu
     e.preventDefault()
     setIsLogin(!isLogin)
     setIsForgotPassword(false)
-    setForgotPasswordSuccess(false)
     setPasswordError("")
     dispatch(clearError())
     dispatch(resetStep())
+    dispatch(resetForgotPasswordFlow())
     setFormData({ name: "", email: "", phone: "", password: "", confirmPassword: "", otp: "" })
   }
 
   const handleClose = () => {
     onClose()
     setIsForgotPassword(false)
-    setForgotPasswordSuccess(false)
     setPasswordError("")
     dispatch(resetStep())
+    dispatch(resetForgotPasswordFlow())
     setFormData({ name: "", email: "", phone: "", password: "", confirmPassword: "", otp: "" })
   }
 
-  const handleForgotPasswordSubmit = (e: React.FormEvent) => {
+  const handleForgotPasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Simulate API call to send reset link
-    dispatch(clearError())
-    setForgotPasswordSuccess(true)
+    await dispatch(requestPasswordResetOtp({ email: formData.email }))
+  }
+
+  const handleForgotOtpSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    await dispatch(verifyPasswordResetOtp({ email: resetEmail || formData.email, otp: formData.otp }))
+  }
+
+  const handleResendForgotOtp = async () => {
+    await dispatch(requestPasswordResetOtp({ email: resetEmail || formData.email }))
+  }
+
+  const handleResetPasswordSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setPasswordError("")
+
+    if (formData.password !== formData.confirmPassword) {
+      setPasswordError("Passwords do not match")
+      return
+    }
+    if (!resetToken) return
+
+    await dispatch(resetPassword({ resetToken, newPassword: formData.password }))
+  }
+
+  const backToLogin = () => {
+    setIsForgotPassword(false)
+    setPasswordError("")
+    dispatch(resetForgotPasswordFlow())
+    setFormData({ name: "", email: "", phone: "", password: "", confirmPassword: "", otp: "" })
   }
 
   return (
@@ -195,68 +237,207 @@ export default function AuthModal({ isOpen, onClose, initialMode = "login", onSu
                       exit={{ opacity: 0, x: 20 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <div className="text-center mb-10">
-                        <h2 className="text-3xl font-display font-bold text-brand-950 mb-3">Forgot Password</h2>
-                        <p className="text-brand-600 text-sm">
-                          Enter your email address and we'll send you a link to reset your password.
-                        </p>
-                      </div>
-
-                      {forgotPasswordSuccess ? (
+                      {passwordActionSuccess ? (
+                        // ── Reset complete ──
                         <div className="text-center space-y-6">
                           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-cyan-100 mb-4">
-                            <Mail className="h-8 w-8 text-cyan-600" />
+                            <Lock className="h-8 w-8 text-cyan-600" />
                           </div>
+                          <h2 className="text-2xl font-display font-bold text-brand-950">Password Reset</h2>
                           <p className="text-brand-900 font-medium">
-                            We've sent a password reset link to <br />
-                            <span className="font-bold text-cyan-700">{formData.email}</span>
+                            Your password has been reset successfully. You can now sign in with your new password.
                           </p>
                           <Button
-                            onClick={() => setIsForgotPassword(false)}
+                            onClick={backToLogin}
                             className="w-full h-14 mt-4 rounded-2xl bg-slate-950 text-white font-bold text-base hover:bg-cyan-500 hover:text-slate-950 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25"
                           >
                             Back to Login
                           </Button>
                         </div>
-                      ) : (
-                        <form onSubmit={handleForgotPasswordSubmit} className="space-y-6">
-                          <div className="space-y-2.5">
-                            <label className="text-xs font-bold text-brand-950 ml-1 uppercase tracking-wider">
-                              Email Address
-                            </label>
-                            <div className="relative group">
-                              <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-brand-400 transition-colors group-focus-within:text-cyan-500" />
-                              <Input
-                                type="email"
-                                name="email"
-                                placeholder="rohitsharma@gmail.com"
-                                value={formData.email}
-                                onChange={handleInputChange}
-                                className="pl-12 h-14 rounded-2xl border-cyan-200 bg-white text-brand-950 placeholder:text-brand-400 focus-visible:ring-cyan-300 shadow-sm transition-all duration-300 hover:border-cyan-300"
-                                required
-                              />
+                      ) : forgotPasswordStep === "otp-verified" ? (
+                        // ── Step 3: New password ──
+                        <>
+                          <div className="text-center mb-10">
+                            <h2 className="text-3xl font-display font-bold text-brand-950 mb-3">Set New Password</h2>
+                            <p className="text-brand-600 text-sm">Choose a new password for your account.</p>
+                          </div>
+
+                          <form onSubmit={handleResetPasswordSubmit} className="space-y-6">
+                            <div className="space-y-2.5">
+                              <label className="text-xs font-bold text-brand-950 ml-1 uppercase tracking-wider">
+                                New Password
+                              </label>
+                              <div className="relative group">
+                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-brand-400 transition-colors group-focus-within:text-cyan-500" />
+                                <Input
+                                  type="password"
+                                  name="password"
+                                  placeholder="••••••••"
+                                  value={formData.password}
+                                  onChange={handleInputChange}
+                                  className="pl-12 h-14 rounded-2xl border-cyan-200 bg-white text-brand-950 placeholder:text-brand-400 focus-visible:ring-cyan-300 shadow-sm transition-all duration-300 hover:border-cyan-300"
+                                  required
+                                  minLength={6}
+                                />
+                              </div>
                             </div>
-                          </div>
 
-                          <Button
-                            type="submit"
-                            className="w-full h-14 mt-2 rounded-2xl bg-slate-950 text-white font-bold text-base hover:bg-cyan-500 hover:text-slate-950 transition-all duration-300 group shadow-lg hover:shadow-cyan-500/25"
-                          >
-                            Send Reset Link
-                            <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                          </Button>
+                            <div className="space-y-2.5">
+                              <label className="text-xs font-bold text-brand-950 ml-1 uppercase tracking-wider">
+                                Confirm New Password
+                              </label>
+                              <div className="relative group">
+                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-brand-400 transition-colors group-focus-within:text-cyan-500" />
+                                <Input
+                                  type="password"
+                                  name="confirmPassword"
+                                  placeholder="••••••••"
+                                  value={formData.confirmPassword}
+                                  onChange={handleInputChange}
+                                  className="pl-12 h-14 rounded-2xl border-cyan-200 bg-white text-brand-950 placeholder:text-brand-400 focus-visible:ring-cyan-300 shadow-sm transition-all duration-300 hover:border-cyan-300"
+                                  required
+                                  minLength={6}
+                                />
+                              </div>
+                            </div>
 
-                          <div className="text-center text-sm text-brand-600">
-                            Remember your password?{" "}
-                            <button
-                              type="button"
-                              onClick={() => setIsForgotPassword(false)}
-                              className="font-bold text-cyan-600 hover:text-cyan-700 transition-colors"
+                            {(passwordActionError || passwordError) && (
+                              <div className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-700">
+                                {passwordActionError || passwordError}
+                              </div>
+                            )}
+
+                            <Button
+                              type="submit"
+                              disabled={passwordActionLoading}
+                              className="w-full h-14 mt-2 rounded-2xl bg-slate-950 text-white font-bold text-base hover:bg-cyan-500 hover:text-slate-950 transition-all duration-300 group shadow-lg hover:shadow-cyan-500/25"
                             >
-                              Sign In
-                            </button>
+                              {passwordActionLoading ? "Resetting..." : "Reset Password"}
+                              {!passwordActionLoading && (
+                                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                              )}
+                            </Button>
+                          </form>
+                        </>
+                      ) : forgotPasswordStep === "otp-sent" ? (
+                        // ── Step 2: Verify OTP ──
+                        <>
+                          <div className="text-center mb-10">
+                            <h2 className="text-3xl font-display font-bold text-brand-950 mb-3">Verify OTP</h2>
+                            <p className="text-brand-600 text-sm">
+                              Enter the code sent to <br />
+                              <span className="font-bold text-cyan-700">{resetEmail || formData.email}</span>
+                            </p>
                           </div>
-                        </form>
+
+                          <form onSubmit={handleForgotOtpSubmit} className="space-y-6">
+                            <div className="space-y-2.5">
+                              <label className="text-xs font-bold text-brand-950 ml-1 uppercase tracking-wider">
+                                OTP Code
+                              </label>
+                              <div className="relative group">
+                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-brand-400 transition-colors group-focus-within:text-cyan-500" />
+                                <Input
+                                  type="text"
+                                  name="otp"
+                                  placeholder="1234"
+                                  value={formData.otp}
+                                  onChange={handleInputChange}
+                                  className="pl-12 h-14 rounded-2xl border-cyan-200 bg-white text-brand-950 placeholder:text-brand-400 focus-visible:ring-cyan-300 shadow-sm transition-all duration-300 hover:border-cyan-300 text-center text-lg tracking-widest font-bold"
+                                  required
+                                  maxLength={6}
+                                />
+                              </div>
+                            </div>
+
+                            {passwordActionError && (
+                              <div className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-700">
+                                {passwordActionError}
+                              </div>
+                            )}
+
+                            <Button
+                              type="submit"
+                              disabled={passwordActionLoading}
+                              className="w-full h-14 mt-2 rounded-2xl bg-slate-950 text-white font-bold text-base hover:bg-cyan-500 hover:text-slate-950 transition-all duration-300 group shadow-lg hover:shadow-cyan-500/25"
+                            >
+                              {passwordActionLoading ? "Verifying..." : "Verify OTP"}
+                              {!passwordActionLoading && (
+                                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                              )}
+                            </Button>
+
+                            <div className="text-center text-sm text-brand-600">
+                              Didn't receive the code?{" "}
+                              <button
+                                type="button"
+                                onClick={handleResendForgotOtp}
+                                disabled={passwordActionLoading}
+                                className="font-bold text-cyan-600 hover:text-cyan-700 transition-colors disabled:opacity-50"
+                              >
+                                Resend OTP
+                              </button>
+                            </div>
+                          </form>
+                        </>
+                      ) : (
+                        // ── Step 1: Request OTP ──
+                        <>
+                          <div className="text-center mb-10">
+                            <h2 className="text-3xl font-display font-bold text-brand-950 mb-3">Forgot Password</h2>
+                            <p className="text-brand-600 text-sm">
+                              Enter your email address and we'll send you an OTP to reset your password.
+                            </p>
+                          </div>
+
+                          <form onSubmit={handleForgotPasswordSubmit} className="space-y-6">
+                            <div className="space-y-2.5">
+                              <label className="text-xs font-bold text-brand-950 ml-1 uppercase tracking-wider">
+                                Email Address
+                              </label>
+                              <div className="relative group">
+                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-brand-400 transition-colors group-focus-within:text-cyan-500" />
+                                <Input
+                                  type="email"
+                                  name="email"
+                                  placeholder="rohitsharma@gmail.com"
+                                  value={formData.email}
+                                  onChange={handleInputChange}
+                                  className="pl-12 h-14 rounded-2xl border-cyan-200 bg-white text-brand-950 placeholder:text-brand-400 focus-visible:ring-cyan-300 shadow-sm transition-all duration-300 hover:border-cyan-300"
+                                  required
+                                />
+                              </div>
+                            </div>
+
+                            {passwordActionError && (
+                              <div className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-700">
+                                {passwordActionError}
+                              </div>
+                            )}
+
+                            <Button
+                              type="submit"
+                              disabled={passwordActionLoading}
+                              className="w-full h-14 mt-2 rounded-2xl bg-slate-950 text-white font-bold text-base hover:bg-cyan-500 hover:text-slate-950 transition-all duration-300 group shadow-lg hover:shadow-cyan-500/25"
+                            >
+                              {passwordActionLoading ? "Sending..." : "Send OTP"}
+                              {!passwordActionLoading && (
+                                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                              )}
+                            </Button>
+
+                            <div className="text-center text-sm text-brand-600">
+                              Remember your password?{" "}
+                              <button
+                                type="button"
+                                onClick={backToLogin}
+                                className="font-bold text-cyan-600 hover:text-cyan-700 transition-colors"
+                              >
+                                Sign In
+                              </button>
+                            </div>
+                          </form>
+                        </>
                       )}
                     </motion.div>
                   ) : step === "otp-pending" ? (
